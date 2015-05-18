@@ -26,10 +26,10 @@ SYNCTHING_CONFIG="/home/${RUN_AS}/.config/syncthing/config.xml";
 SERVICE="syncthing"
 XPATH="//services/${SERVICE}"
 XPATH_ENABLE="${XPATH}/enable"
-TEMP_FILE="/tmp/syncthing"
 
 # generate initial config, certs and then exit
-/usr/bin/syncthing -generate=/home/${SERVICE_USERNAME}/.config/syncthing/
+export HOME="/home/${RUN_AS}/.config"
+/usr/bin/syncthing -generate=/home/${RUN_AS}/.config/syncthing/
 
 address=$(omv_config_get "${XPATH}/address")
 port=$(omv_config_get "${XPATH}/port")
