@@ -105,7 +105,8 @@ Ext.define("OMV.module.admin.service.syncthing.Settings", {
                     ptype: "fieldinfo",
                     text: _("IP address to listen on. Use 0.0.0.0 for all host IPs.")
                 }]
-            }];
+            }]
+        }];
     },
 
     onOpenWebButton : function() {

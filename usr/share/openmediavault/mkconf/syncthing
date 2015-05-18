@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 #
 # Copyright (C) 2015 OpenMediaVault Plugin Developers
 #
@@ -28,14 +28,15 @@ XPATH="//services/${SERVICE}"
 XPATH_ENABLE="${XPATH}/enable"
 TEMP_FILE="/tmp/syncthing"
 
+# generate initial config, certs and then exit
+/usr/bin/syncthing -generate=/home/${SERVICE_USERNAME}/.config/syncthing/
+
 address=$(omv_config_get "${XPATH}/address")
 port=$(omv_config_get "${XPATH}/port")
 
 # Change settings
-sed "s/<address>.*/<address>${address}:${port}</address>/g" ${SYNCTHING_CONFIG} > ${TEMP_FILE}
-
-# move temp file to correct location
-mv ${TEMP_FILE} ${SYNCTHING_CONFIG}
+new="${address}:${port}"
+xmlstarlet ed -L -u "/configuration/gui/address" -v ${new} -n ${SYNCTHING_CONFIG}
 
 # fix ownership and permissions
 chown ${RUN_AS}:${RUN_GRP} ${SYNCTHING_CONFIG}
