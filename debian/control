@@ -1,0 +1,16 @@
+Source: openmediavault-syncthing
+Section: net
+XB-Plugin-Section: sharing
+Priority: optional
+Maintainer: OpenMediaVault Plugin Developers <plugins@omv-extras.org>
+Build-Depends: debhelper (>= 9.0.0)
+Standards-Version: 3.9.6
+
+Package: openmediavault-syncthing
+Architecture: all
+Depends: openmediavault (>= 1.18), syncthing
+Description: Syncthing plugin for OpenMediaVault.
+ Syncthing replaces proprietary sync and cloud services with something
+ open, trustworthy and decentralized. Your data is your data alone and
+ you deserve to choose where it is stored, if it is shared with some
+ third party and how it's transmitted over the Internet.

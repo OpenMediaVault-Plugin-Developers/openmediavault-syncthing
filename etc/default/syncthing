@@ -1,0 +1,4 @@
+# Defaults for syncthing initscript
+
+# user list
+ST_USERS="st"

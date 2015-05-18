@@ -1,0 +1,38 @@
+#!/bin/sh
+#
+# Copyright (C) 2015 OpenMediaVault Plugin Developers
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program. If not, see <http://www.gnu.org/licenses/>.
+
+set -e
+
+. /etc/default/openmediavault
+. /usr/share/openmediavault/scripts/helper-functions
+
+SYNCTHING_CONFIG="/etc/syncthing.conf";
+RUN_AS="syncthing"
+RUN_GRP="users"
+SERVICE="syncthing"
+XPATH="//services/${SERVICE}"
+XPATH_ENABLE="${XPATH}/enable"
+
+
+port=$(omv_config_get "${XPATH}/port")
+
+# Create syncthing config file
+cat <<EOF > ${SYNCTHING_CONFIG}
+PORT=${port}
+EOF
+
+exit 0
