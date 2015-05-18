@@ -22,7 +22,8 @@ set -e
 
 RUN_AS="syncthing"
 RUN_GRP="users"
-SYNCTHING_CONFIG="/home/${RUN_AS}/.config/syncthing/config.xml";
+SYNCTHING_CONFIG_DIR="/home/${RUN_AS}/.config"
+SYNCTHING_CONFIG="${SYNCTHING_CONFIG_DIR}/syncthing/config.xml";
 SERVICE="syncthing"
 XPATH="//services/${SERVICE}"
 XPATH_ENABLE="${XPATH}/enable"
@@ -39,7 +40,7 @@ new="${address}:${port}"
 xmlstarlet ed -L -u "/configuration/gui/address" -v ${new} -n ${SYNCTHING_CONFIG}
 
 # fix ownership and permissions
-chown ${RUN_AS}:${RUN_GRP} ${SYNCTHING_CONFIG}
+chown -R ${RUN_AS}:${RUN_GRP} ${SYNCTHING_CONFIG_DIR}
 chmod 0600 ${SYNCTHING_CONFIG}
 
 exit 0
