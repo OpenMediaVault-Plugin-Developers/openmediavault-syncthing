@@ -91,15 +91,17 @@ class OMVRpcServiceSyncthing extends OMVRpcServiceAbstract
         $this->validateMethodParams($params, '{
             "type"       : "object",
             "properties" : {
-                "enable"                 : { "type" : "boolean" },
-                "port"                   : { "type" : "integer", "minimum" : 1 }
+                "enable"  : { "type" : "boolean" },
+                "port"    : { "type" : "integer", "minimum" : 1 },
+                "address" : { "type": "string" }
             }
         }');
 
         // Prepare configuration data
         $object = array(
-            "enable"                 => array_boolval($params, 'enable'),
-            "port"                   => intval($params['port'])
+            "enable"  => array_boolval($params, 'enable'),
+            "port"    => intval($params['port']),
+            "address" => $params["address"]
         );
 
         // Set configuration object

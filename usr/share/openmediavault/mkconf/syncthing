@@ -20,19 +20,25 @@ set -e
 . /etc/default/openmediavault
 . /usr/share/openmediavault/scripts/helper-functions
 
-SYNCTHING_CONFIG="/etc/syncthing.conf";
 RUN_AS="syncthing"
 RUN_GRP="users"
+SYNCTHING_CONFIG="/home/${RUN_AS}/.config/syncthing/config.xml";
 SERVICE="syncthing"
 XPATH="//services/${SERVICE}"
 XPATH_ENABLE="${XPATH}/enable"
+TEMP_FILE="/tmp/syncthing"
 
-
+address=$(omv_config_get "${XPATH}/address")
 port=$(omv_config_get "${XPATH}/port")
 
-# Create syncthing config file
-cat <<EOF > ${SYNCTHING_CONFIG}
-PORT=${port}
-EOF
+# Change settings
+sed "s/<address>.*/<address>${address}:${port}</address>/g" ${SYNCTHING_CONFIG} > ${TEMP_FILE}
+
+# move temp file to correct location
+mv ${TEMP_FILE} ${SYNCTHING_CONFIG}
+
+# fix ownership and permissions
+chown ${RUN_AS}:${RUN_GRP} ${SYNCTHING_CONFIG}
+chmod 0600 ${SYNCTHING_CONFIG}
 
 exit 0

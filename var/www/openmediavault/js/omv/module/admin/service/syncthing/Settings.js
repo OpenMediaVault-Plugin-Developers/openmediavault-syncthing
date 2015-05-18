@@ -94,6 +94,17 @@ Ext.define("OMV.module.admin.service.syncthing.Settings", {
                     ptype : "fieldinfo",
                     text  : _("Port to listen on.")
                 }]
+            },{
+                xtype: "textfield",
+                name: "address",
+                fieldLabel: _("Address"),
+                vtype: "IPv4Net",
+                allowBlank: false,
+                value: "127.0.0.1",
+                plugins: [{
+                    ptype: "fieldinfo",
+                    text: _("IP address to listen on. Use 0.0.0.0 for all host IPs.")
+                }]
             }];
     },
 
