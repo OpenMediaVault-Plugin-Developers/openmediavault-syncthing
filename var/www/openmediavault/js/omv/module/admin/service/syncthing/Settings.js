@@ -105,6 +105,30 @@ Ext.define("OMV.module.admin.service.syncthing.Settings", {
                     ptype: "fieldinfo",
                     text: _("IP address to listen on. Use 0.0.0.0 for all host IPs.")
                 }]
+            },{
+                xtype: "numberfield",
+                name: "maxsend",
+                fieldLabel: _("Max Send"),
+                allowDecimals: false,
+                allowNegative: false,
+                allowBlank: false,
+                value: 0,
+                plugins: [{
+                    ptype: "fieldinfo",
+                    text: _("Limit send speed. Value is Kb/s. 0 to disable.")
+                }]
+            },{
+                xtype: "numberfield",
+                name: "maxrecv",
+                fieldLabel: _("Max Receive"),
+                allowDecimals: false,
+                allowNegative: false,
+                allowBlank: false,
+                value: 0,
+                plugins: [{
+                    ptype: "fieldinfo",
+                    text: _("Limit receive speed. Value is Kb/s. 0 to disable.")
+                }]
             }]
         }];
     },

@@ -75,6 +75,8 @@ class OMVRpcServiceSyncthing extends OMVRpcServiceAbstract
         // Modify result data
         $object['enable']  = boolval($object['enable']);
         $object['port']    = intval($object['port']);
+        $object['maxsend'] = intval($object['maxsend']);
+        $object['maxrecv'] = intval($object['maxrecv']);
 
         return $object;
     }
@@ -95,7 +97,9 @@ class OMVRpcServiceSyncthing extends OMVRpcServiceAbstract
             "properties" : {
                 "enable"  : { "type" : "boolean" },
                 "port"    : { "type" : "integer", "minimum" : 1 },
-                "address" : { "type": "string" }
+                "address" : { "type": "string" },
+                "maxsend" : { "type" : "integer", "minimum" : 0 },
+                "maxrecv" : { "type" : "integer", "minimum" : 0 }
             }
         }');
 
@@ -103,7 +107,9 @@ class OMVRpcServiceSyncthing extends OMVRpcServiceAbstract
         $object = array(
             "enable"  => array_boolval($params, 'enable'),
             "port"    => intval($params['port']),
-            "address" => $params["address"]
+            "address" => $params["address"],
+            "maxsend" => intval($params['maxsend']),
+            "maxrecv" => intval($params['maxrecv'])
         );
 
         // Set configuration object

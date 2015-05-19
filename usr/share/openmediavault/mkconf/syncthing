@@ -34,13 +34,21 @@ export HOME="/home/${RUN_AS}/.config"
 
 address=$(omv_config_get "${XPATH}/address")
 port=$(omv_config_get "${XPATH}/port")
+maxsend=$(omv_config_get "${XPATH}/maxsend")
+maxrecv=$(omv_config_get "${XPATH}/maxrecv")
 
 # Change settings
 new="${address}:${port}"
 xmlstarlet ed -L -u "/configuration/gui/address" -v ${new} -n ${SYNCTHING_CONFIG}
+xmlstarlet ed -L -u "/configuration/options/maxSendKbps" -v ${maxsend} -n ${SYNCTHING_CONFIG}
+xmlstarlet ed -L -u "/configuration/options/maxRecvKbps" -v ${maxrecv} -n ${SYNCTHING_CONFIG}
 
 # fix ownership and permissions
 chown -R ${RUN_AS}:${RUN_GRP} ${SYNCTHING_CONFIG_DIR}
 chmod 0600 ${SYNCTHING_CONFIG}
+
+if [ "$(omv_config_get "${XPATH_ENABLE}")" != "0" ]; then
+    invoke-rc.d ${SERVICE} restart
+fi
 
 exit 0
