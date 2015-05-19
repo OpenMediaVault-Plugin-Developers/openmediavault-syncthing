@@ -1,5 +1,5 @@
-openmediavault-syncthing (0.1) UNRELEASED; urgency=low
+openmediavault-syncthing (1.0) stable; urgency=low
 
   * Initial release
 
- -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Wed, 18 May 2015 10:11:52 -0500
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Tue, 19 May 2015 07:39:23 -0500
