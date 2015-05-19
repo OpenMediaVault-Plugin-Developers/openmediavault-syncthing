@@ -147,6 +147,9 @@ class OMVRpcServiceSyncthing extends OMVRpcServiceAbstract
 
         foreach ($configd->folders as $folder)
         {
+            if ($folder->id == "default")
+                continue;
+
             $result[] = array(
                 "id"   => $folder->id,
                 "path" => $folder->path
