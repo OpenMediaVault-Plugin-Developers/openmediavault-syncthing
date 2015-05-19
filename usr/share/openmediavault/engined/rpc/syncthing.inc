@@ -49,6 +49,8 @@ class OMVRpcServiceSyncthing extends OMVRpcServiceAbstract
     {
         $this->registerMethod('getSettings');
         $this->registerMethod('setSettings');
+
+        $this->registerMethod('getFolders');
     }
 
     function getSettings($params, $context)
@@ -117,6 +119,41 @@ class OMVRpcServiceSyncthing extends OMVRpcServiceAbstract
         $dispatcher->notify(OMV_NOTIFY_MODIFY, $this->getEventMessagePath(), $object);
 
         return $object;
+    }
+
+    function getFolders($params, $context)
+    {
+        global $xmlConfig;
+
+        // Validate the RPC caller context.
+        $this->validateMethodContext(
+            $context,
+            array( "role" => OMV_ROLE_ADMINISTRATOR )
+        );
+
+        // Get configuration object
+        $object = $xmlConfig->get( $this->getXPath() );
+        if (is_null($object)) {
+            throw new OMVException(
+                OMVErrorMsg::E_CONFIG_GET_OBJECT_FAILED,
+                $this->getXPath()
+            );
+        }
+
+        $port    = intval($object['port']);
+        $config  = file_get_contents(sprintf("http://localhost:%d/rest/system/config", $port));
+        $configd = json_decode($config);
+        $result  = array();
+
+        foreach ($configd->folders as $folder)
+        {
+            $result[] = array(
+                "id"   => $folder->id,
+                "path" => $folder->path
+            );
+        }
+
+        return $result;
     }
 }
 
