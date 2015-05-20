@@ -1,8 +1,8 @@
-openmediavault-syncthing (1.1) UNRELEASED; urgency=low
+openmediavault-syncthing (1.1) stable; urgency=low
 
   * Add multi-user support
 
- -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Tue, 19 May 2015 17:31:54 -0500
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Wed, 20 May 2015 08:43:58 -0500
 
 openmediavault-syncthing (1.0) stable; urgency=low
 
