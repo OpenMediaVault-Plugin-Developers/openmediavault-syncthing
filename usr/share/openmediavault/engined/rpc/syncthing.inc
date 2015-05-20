@@ -40,48 +40,35 @@ class OMVRpcServiceSyncthing extends OMVRpcServiceAbstract
         return sprintf( "//services/%s", $this->getPluginName() );
     }
 
+    private function getXPathUsers()
+    {
+        return sprintf( "%s/users", $this->getXPath() );
+    }
+
+    private function getXPathUser()
+    {
+        return sprintf( "%s/user", $this->getXPathUsers() );
+    }
+
     private function getEventMessagePath()
     {
         return sprintf( "org.openmediavault.services.%s", $this->getPluginName() );
     }
 
+    private function getEventMessagePathUser()
+    {
+        return sprintf( "%s.users.user", $this->getEventMessagePath());
+    }
+
     public function initialize()
     {
-        $this->registerMethod('getSettings');
-        $this->registerMethod('setSettings');
-
-        $this->registerMethod('getFolders');
+        $this->registerMethod('getUsers');
+        $this->registerMethod('getUser');
+        $this->registerMethod('setUser');
+        $this->registerMethod('deleteUser');
     }
 
-    function getSettings($params, $context)
-    {
-        global $xmlConfig;
-
-        // Validate the RPC caller context.
-        $this->validateMethodContext(
-            $context,
-            array( "role" => OMV_ROLE_ADMINISTRATOR )
-        );
-
-        // Get configuration object
-        $object = $xmlConfig->get( $this->getXPath() );
-        if (is_null($object)) {
-            throw new OMVException(
-                OMVErrorMsg::E_CONFIG_GET_OBJECT_FAILED,
-                $this->getXPath()
-            );
-        }
-
-        // Modify result data
-        $object['enable']  = boolval($object['enable']);
-        $object['port']    = intval($object['port']);
-        $object['maxsend'] = intval($object['maxsend']);
-        $object['maxrecv'] = intval($object['maxrecv']);
-
-        return $object;
-    }
-
-    function setSettings($params, $context)
+    public function getUsers($params, $context)
     {
         global $xmlConfig;
 
@@ -95,39 +82,67 @@ class OMVRpcServiceSyncthing extends OMVRpcServiceAbstract
         $this->validateMethodParams($params, '{
             "type"       : "object",
             "properties" : {
-                "enable"  : { "type" : "boolean" },
-                "port"    : { "type" : "integer", "minimum" : 1 },
-                "address" : { "type": "string" },
-                "maxsend" : { "type" : "integer", "minimum" : 0 },
-                "maxrecv" : { "type" : "integer", "minimum" : 0 }
+                "start"     : { "type" : "integer" },
+                "limit"     : { '.$GLOBALS['OMV_JSONSCHEMA_COUNTFIELD'].' },
+                "sortfield" : { '.$GLOBALS['OMV_JSONSCHEMA_SORTFIELD'].' },
+                "sortdir"   : { '.$GLOBALS['OMV_JSONSCHEMA_SORTDIR'].' }
             }
         }');
 
-        // Prepare configuration data
-        $object = array(
-            "enable"  => array_boolval($params, 'enable'),
-            "port"    => intval($params['port']),
-            "address" => $params["address"],
-            "maxsend" => intval($params['maxsend']),
-            "maxrecv" => intval($params['maxrecv'])
-        );
-
-        // Set configuration object
-        if (false === $xmlConfig->replace($this->getXPath(), $object)) {
+        // Get configuration data.
+        $objects = $xmlConfig->getList( $this->getXPathUser() );
+        if (is_null($objects))
+        {
             throw new OMVException(
-                OMVErrorMsg::E_CONFIG_SET_OBJECT_FAILED,
-                $this->getXPath()
+                OMVErrorMsg::E_CONFIG_GET_OBJECT_FAILED,
+                $this->getXPathUser()
             );
         }
 
-        // Notify configuration changes
-        $dispatcher = &OMVNotifyDispatcher::getInstance();
-        $dispatcher->notify(OMV_NOTIFY_MODIFY, $this->getEventMessagePath(), $object);
+        // Filter the result.
+        return $this->applyFilter($objects, $params['start'], $params['limit'],
+            $params['sortfield'], $params['sortdir']);
+    }
+
+    public function getUser($params, $context)
+    {
+        global $xmlConfig;
+
+        // Validate the RPC caller context.
+        $this->validateMethodContext(
+            $context,
+            array("role" => OMV_ROLE_ADMINISTRATOR)
+        );
+
+        // Validate the parameters of the RPC service method.
+        $this->validateMethodParams($params, '{
+            "type"       : "object",
+            "properties" : {
+                "uuid" : { '.$GLOBALS['OMV_JSONSCHEMA_UUID'].' }
+            }
+        }');
+
+          // Get the configuration object.
+        $xPath = sprintf("%s[uuid='%s']", $this->getXPathUser(), $params['uuid']);
+        $object = $xmlConfig->get($xPath);
+        if (is_null($object))
+        {
+            throw new OMVException(
+                OMVErrorMsg::E_CONFIG_GET_OBJECT_FAILED,
+                $xPath
+            );
+        }
+
+        // Modify the result object.
+        $object['enable']  = boolval($object['enable']);
+        $object['port']    = intval($object['port']);
+        $object['maxsend'] = intval($object['maxsend']);
+        $object['maxrecv'] = intval($object['maxrecv']);
 
         return $object;
     }
 
-    function getFolders($params, $context)
+    public function setUser($params, $context)
     {
         global $xmlConfig;
 
@@ -137,32 +152,130 @@ class OMVRpcServiceSyncthing extends OMVRpcServiceAbstract
             array( "role" => OMV_ROLE_ADMINISTRATOR )
         );
 
-        // Get configuration object
-        $object = $xmlConfig->get( $this->getXPath() );
-        if (is_null($object)) {
+        // Validate the parameters of the RPC service method.
+        $this->validateMethodParams($params, '{
+            "type"       : "object",
+            "properties" : {
+                "uuid"     : { '.$GLOBALS['OMV_JSONSCHEMA_UUID_UNDEFINED'].' },
+                "enable"   : { "type" : "boolean" },
+                "username" : { "type" : "string" },
+                "port"     : { "type" : "integer" },
+                "address"  : { "type" : "string" },
+                "lport"    : { "type" : "integer" },
+                "laddress" : { "type" : "string" },
+                "maxsend"  : { "type" : "integer" },
+                "maxrecv"  : { "type" : "integer" }
+            }
+        }');
+
+        // Prepare configuration data.
+        $object = array(
+            "uuid"     => ($params['uuid'] == $GLOBALS['OMV_UUID_UNDEFINED']) ? OMVUtil::uuid() : $params['uuid'],
+            "enable"   => array_boolval($params, 'enable'),
+            "username" => $params['username'],
+            "port"     => intval($params['port']),
+            "address"  => $params['address'],
+            "lport"    => intval($params['lport']),
+            "laddress" => $params['laddress'],
+            "maxsend"  => intval($params['maxsend']),
+            "maxrecv"  => intval($params['maxrecv'])
+        );
+
+        // Set the configuration data.
+        $success = FALSE;
+        if ($params['uuid'] == $GLOBALS['OMV_UUID_UNDEFINED'])
+        {
+            $xPath = sprintf("%s[username='%s']", $this->getXPathUser(), $params['username']);
+            if (TRUE === $xmlConfig->exists($xPath))
+            {
+                throw new OMVException(
+                    OMVErrorMsg::E_CONFIG_OBJECT_UNIQUENESS,
+                    gettext("This username is already in use.")
+                );
+            }
+
+            $xPath = sprintf("%s[port='%s']", $this->getXPathUser(), $params['port']);
+            if (TRUE === $xmlConfig->exists($xPath))
+            {
+                throw new OMVException(
+                    OMVErrorMsg::E_CONFIG_OBJECT_UNIQUENESS,
+                    gettext("This GUI port is already in use.")
+                );
+            }
+
+            $xPath = sprintf("%s[lport='%s']", $this->getXPathUser(), $params['lport']);
+            if (TRUE === $xmlConfig->exists($xPath))
+            {
+                throw new OMVException(
+                    OMVErrorMsg::E_CONFIG_OBJECT_UNIQUENESS,
+                    gettext("This listen port is already in use.")
+                );
+            }
+
+            // Append object to configuration.
+            $success = $xmlConfig->set($this->getXPathUsers(), array("user" => $object));
+        }
+        else
+        {
+            // Update existing configuration object.
+            $xPath = sprintf("%s[uuid='%s']", $this->getXPathUser(), $params['uuid'] );
+            $success = $xmlConfig->replace($xPath, $object);
+        }
+        if (FALSE === $success)
+        {
+            throw new OMVException(
+                OMVErrorMsg::E_CONFIG_GET_OBJECT_FAILED
+            );
+        }
+
+        // Notify configuration changes.
+        $dispatcher = &OMVNotifyDispatcher::getInstance();
+        $dispatcher->notify(
+            ($params['uuid'] == $GLOBALS['OMV_UUID_UNDEFINED']) ? OMV_NOTIFY_CREATE : OMV_NOTIFY_MODIFY,
+            $this->getEventMessagePathUser(),
+            $object
+        );
+
+        // Return the configuration object.
+        return $object;
+    }
+
+    public function deleteUser($params, $context)
+    {
+        global $xmlConfig;
+
+        // Validate the RPC caller context.
+        $this->validateMethodContext(
+            $context,
+            array( "role" => OMV_ROLE_ADMINISTRATOR )
+        );
+
+        // Validate the parameters of the RPC service method.
+        $this->validateMethodParams($params, '{
+            "type"       : "object",
+            "properties" : {
+                "uuid" : { '.$GLOBALS['OMV_JSONSCHEMA_UUID'].' }
+            }
+        }');
+
+        // Get the configuration object.
+        $xPath = sprintf("%s[uuid='%s']", $this->getXPathUser(), $params['uuid']);
+        $object = $xmlConfig->get($xPath);
+        if (is_null($object))
+        {
             throw new OMVException(
                 OMVErrorMsg::E_CONFIG_GET_OBJECT_FAILED,
-                $this->getXPath()
+                $xPath
             );
         }
 
-        $port    = intval($object['port']);
-        $config  = file_get_contents(sprintf("http://localhost:%d/rest/system/config", $port));
-        $configd = json_decode($config);
-        $result  = array();
+        // Delete the configuration object.
+        $xPath = sprintf("%s[uuid='%s']", $this->getXPathUser(), $params['uuid']);
 
-        foreach ($configd->folders as $folder)
-        {
-            if ($folder->id == "default")
-                continue;
-
-            $result[] = array(
-                "id"   => $folder->id,
-                "path" => $folder->path
-            );
-        }
-
-        return $result;
+        return $this->deleteConfigObjectByPath(
+            $xPath,
+            $this->getEventMessagePathUser()
+        );
     }
 }
 

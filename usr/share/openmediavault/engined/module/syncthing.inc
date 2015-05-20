@@ -43,29 +43,36 @@ class OMVModuleSyncthing extends OMVModuleServiceAbstract implements
         return sprintf( "//services/%s", $this->getPluginName() );
     }
 
+    private function getXPathUsers()
+    {
+        return sprintf( "%s/users", $this->getXPath() );
+    }
+
+    private function getXPathUser()
+    {
+        return sprintf( "%s/user", $this->getXPathUsers() );
+    }
+
     private function getEventMessagePath()
     {
         return sprintf( "org.openmediavault.services.%s", $this->getPluginName() );
+    }
+
+    private function getEventMessagePathUser()
+    {
+        return sprintf( "%s.users.user", $this->getEventMessagePath());
     }
 
     public function getStatus()
     {
         global $xmlConfig;
 
-        $object = $xmlConfig->get( $this->getXPath() );
-
-        if (is_null($object)) {
-            throw new OMVException(
-                OMVErrorMsg::E_CONFIG_GET_OBJECT_FAILED,
-                $this->getXPath()
-            );
-        }
-
+        $xPath = sprintf("%s[enable='1']", $this->getXPathUser());
         $initd = new OMVSysVInitScript( $this->getPluginName() );
         return array(
             "name"    => $this->getName(),
             "title"   => gettext( $this->getName() ),
-            "enabled" => boolval($object['enable']),
+            "enabled" => $xmlConfig->exists($xPath),
             "running" => ($initd->status() == 0)
         );
     }
@@ -87,16 +94,8 @@ class OMVModuleSyncthing extends OMVModuleServiceAbstract implements
     {
         global $xmlConfig;
 
-        $object = $xmlConfig->get( $this->getXPath() );
-
-        if (is_null($object)) {
-            throw new OMVException(
-                OMVErrorMsg::E_CONFIG_GET_OBJECT_FAILED,
-                $this->getXPath()
-            );
-        }
-
-        if (boolval($object['enable']) === true) {
+        $xPath = sprintf("%s[enable='1']", $this->getXPathUser());
+        if ( TRUE === $xmlConfig->exists($xPath) ) {
             $initd = new OMVSysVInitScript($this->getPluginName(), true);
             $initd->exec();
         }
@@ -111,8 +110,8 @@ class OMVModuleSyncthing extends OMVModuleServiceAbstract implements
     public function bindListeners(OMVNotifyDispatcher $dispatcher)
     {
         $dispatcher->addListener(
-            OMV_NOTIFY_MODIFY,
-            $this->getEventMessagePath(),
+            OMV_NOTIFY_CREATE | OMV_NOTIFY_MODIFY | OMV_NOTIFY_DELETE,
+            $this->getEventMessagePathUser(),
             array($this, "setDirty")
         );
     }

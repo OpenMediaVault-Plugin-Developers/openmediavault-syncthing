@@ -9,25 +9,16 @@ case "$1" in
 
     configure)
 
-        SERVICE_USERNAME="syncthing"
         SERVICE_GROUP="users"
-
         SERVICE_XPATH_NAME="syncthing"
         SERVICE_XPATH="/config/services/${SERVICE_XPATH_NAME}"
 
-        if ! grep -q "^${SERVICE_USERNAME}:" /etc/passwd; then
-            echo "Adding ${SERVICE_USERNAME} user..."
-            useradd --system --create-home --group ${SERVICE_GROUP} --no-user-group \
-                --shell /usr/sbin/nologin ${SERVICE_USERNAME}
-        else
-            echo "${SERVICE_USERNAME} user already exists."
-        fi
-
         if ! omv_config_exists "${SERVICE_XPATH}"; then
             omv_config_add_element "/config/services" "${SERVICE_XPATH_NAME}"
-            omv_config_add_element "${SERVICE_XPATH}" "enable" "0"
-            omv_config_add_element "${SERVICE_XPATH}" "port" "8384"
-            omv_config_add_element "${SERVICE_XPATH}" "address" "127.0.0.1"
+        fi
+
+        if ! omv_config_exists "${SERVICE_XPATH}/users"; then
+            omv_config_add_element "${SERVICE_XPATH}" "users" ""
         fi
 
         # Activate package triggers. These triggers are only set during the

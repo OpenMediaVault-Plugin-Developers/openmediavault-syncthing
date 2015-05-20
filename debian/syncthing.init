@@ -17,7 +17,6 @@
 PATH=/sbin:/usr/sbin:/bin:/usr/bin
 DESC="syncthing"
 NAME="syncthing"
-ST_USERS="syncthing"
 DAEMON=/usr/bin/syncthing
 DAEMON_ARGS=""
 SCRIPTNAME=/etc/init.d/$NAME
@@ -32,6 +31,9 @@ SCRIPTNAME=/etc/init.d/$NAME
 # Depend on lsb-base (>= 3.2-14) to ensure that this file is present
 # and status_of_proc is working.
 . /lib/lsb/init-functions
+
+# Read configuration variable file if it is present
+[ -r /etc/default/$NAME ] && . /etc/default/$NAME
 
 #
 # Function that starts the daemon/service
@@ -68,7 +70,7 @@ do_stop()
             #   1 if daemon was already stopped
             #   2 if daemon could not be stopped
             #   other if a failure occurred
-            echo "Starting Syncthing for user" $ST_USER
+            echo "Stopping Syncthing for user" $ST_USER
             start-stop-daemon --stop --oknodo --retry=TERM/30/KILL/5 --chuid $ST_USER --user $ST_USER --name $NAME
             RETVAL="$?"
             [ "$RETVAL" = 2 ] && return 2
