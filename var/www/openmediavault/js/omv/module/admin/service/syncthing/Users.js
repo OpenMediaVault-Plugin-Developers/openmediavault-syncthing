@@ -27,10 +27,12 @@
 // require("js/omv/data/Store.js")
 // require("js/omv/data/Model.js")
 // require("js/omv/data/proxy/Rpc.js")
+// require("js/omv/form/field/UserComboBox.js")
 
 Ext.define("OMV.module.admin.service.syncthing.User", {
     extend   : "OMV.workspace.window.Form",
     requires : [
+        "OMV.form.field.UserComboBox",
         "OMV.workspace.window.plugin.ConfigObject"
     ],
 

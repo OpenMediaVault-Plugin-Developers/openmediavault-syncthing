@@ -66,6 +66,10 @@ class OMVRpcServiceSyncthing extends OMVRpcServiceAbstract
         $this->registerMethod('getUser');
         $this->registerMethod('setUser');
         $this->registerMethod('deleteUser');
+
+        $this->registerMethod('getSettings');
+        $this->registerMethod('setSettings');
+        $this->registerMethod('getFolders');
     }
 
     public function getUsers($params, $context)
@@ -276,6 +280,141 @@ class OMVRpcServiceSyncthing extends OMVRpcServiceAbstract
             $xPath,
             $this->getEventMessagePathUser()
         );
+    }
+
+    public function getSettings($params, $context)
+    {
+        global $xmlConfig;
+
+        // Validate the RPC caller context.
+        $this->validateMethodContext(
+            $context,
+            array("role" => OMV_ROLE_USER)
+        );
+
+        // Get the configuration object.
+        $xPath = sprintf("%s[username='%s']", $this->getXPathUser(), $context['username']);
+        $object = $xmlConfig->get($xPath);
+
+        // Modify the result object.
+        if (!is_null($object))
+        {
+            $object['enable']   = boolval($object['enable']);
+            $object['port']     = intval($object['port']);
+            $object['maxsend']  = intval($object['maxsend']);
+            $object['maxrecv']  = intval($object['maxrecv']);
+        }
+
+        $object['username'] = $context['username'];
+
+        return $object;
+    }
+
+    public function setSettings($params, $context)
+    {
+        global $xmlConfig;
+
+        // Validate the RPC caller context.
+        $this->validateMethodContext(
+            $context,
+            array("role" => OMV_ROLE_USER)
+        );
+
+        // Validate the parameters of the RPC service method.
+        $this->validateMethodParams($params, '{
+            "type"       : "object",
+            "properties" : {
+                "enable"   : { "type" : "boolean" },
+                "username" : { "type" : "string" },
+                "port"     : { "type" : "integer" },
+                "address"  : { "type" : "string" },
+                "lport"    : { "type" : "integer" },
+                "laddress" : { "type" : "string" },
+                "maxsend"  : { "type" : "integer" },
+                "maxrecv"  : { "type" : "integer" }
+            }
+        }');
+
+        $newUser = false;
+
+        // Get the configuration object.
+        $xPath = sprintf("%s[username='%s']", $this->getXPathUser(), $context['username']);
+        $oldObject = $xmlConfig->get($xPath);
+
+        if (is_null($oldObject))
+            $newUser = true;
+
+        return $this->callMethod("setUser", array(
+            "uuid"     => ($newUser) ? $GLOBALS['OMV_UUID_UNDEFINED'] : $oldObject['uuid'],
+            "enable"   => array_boolval($params, 'enable'),
+            "username" => $context['username'],
+            "port"     => intval($params['port']),
+            "address"  => $params['address'],
+            "lport"    => intval($params['lport']),
+            "laddress" => $params['laddress'],
+            "maxsend"  => intval($params['maxsend']),
+            "maxrecv"  => intval($params['maxrecv'])
+        ), $this->getAdminContext());
+
+        // Apply the changes immediately (no user interaction is wanted).
+        OMVRpc::exec(
+            "Config",
+            "applyChanges",
+            array(
+                "modules" => array( $this->getPluginName() ),
+                "force"   => TRUE
+            ),
+            $this->getAdminContext()
+        );
+
+        /*
+        $cmd = sprintf("export LANG=C; omv-mkconf %s", $this->getPluginName());
+        if (0 !== $this->exec($cmd, $output))
+        {
+            throw new OMVException(
+                OMVErrorMsg::E_EXEC_FAILED,
+                $cmd,
+                implode("\n", $output)
+            );
+        }
+        */
+    }
+
+    function getFolders($params, $context)
+    {
+        global $xmlConfig;
+
+        // Validate the RPC caller context.
+        $this->validateMethodContext(
+            $context,
+            array("role" => OMV_ROLE_USER)
+        );
+
+        $result  = array();
+
+        // Get configuration object
+        $xPath = sprintf("%s[username='%s']", $this->getXPathUser(), $context['username'] );
+        $object = $xmlConfig->get($xPath);
+
+        if (!is_null($object))
+        {
+            $port    = intval($object['port']);
+            $config  = file_get_contents(sprintf("http://localhost:%d/rest/system/config", $port));
+            $configd = json_decode($config);
+
+            foreach ($configd->folders as $folder)
+            {
+                if ($folder->id == "default")
+                    continue;
+
+                $result[] = array(
+                    "id"   => $folder->id,
+                    "path" => $folder->path
+                );
+            }
+        }
+
+        return $result;
     }
 }
 
