@@ -92,6 +92,11 @@ do_status() {
     done
 }
 
+# Only apply actions to single user when a user is specified
+if [ "$2" != "" ]; then
+    ST_USERS=$2
+fi
+
 #
 # Actions
 #

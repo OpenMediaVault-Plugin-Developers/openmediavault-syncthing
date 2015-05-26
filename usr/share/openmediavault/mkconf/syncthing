@@ -30,26 +30,22 @@ SYNCTHING_CONFIG_DIR=".config"
 SYNCTHING_CONFIG="${SYNCTHING_CONFIG_DIR}/${SERVICE}/config.xml";
 SYNCTHING_DEFAULT_FILE="/etc/default/${SERVICE}"
 
-first=0
-restart=0
-names=""
+username=$2
 
-count=$(omv_config_get_count "${XPATH_USER}")
-index=1
-while [ ${index} -le ${count} ]; do
-    enable=$(omv_config_get "${XPATH_USER}[position()=${index}]/enable")
+if [ "${username}" != "" ]; then
+    position="[username='${username}']"
+    enable=$(omv_config_get "${XPATH_USER}${position}/enable")
 
     if [ "${enable}" != "0" ]; then
-        username=$(omv_config_get "${XPATH_USER}[position()=${index}]/username")
         home=$(getent passwd ${username} | awk -F: '{print $6}')
 
         if [ "${home}" != "" ]; then
-            port=$(omv_config_get "${XPATH_USER}[position()=${index}]/port")
-            address=$(omv_config_get "${XPATH_USER}[position()=${index}]/address")
-            lport=$(omv_config_get "${XPATH_USER}[position()=${index}]/lport")
-            laddress=$(omv_config_get "${XPATH_USER}[position()=${index}]/laddress")
-            maxsend=$(omv_config_get "${XPATH_USER}[position()=${index}]/maxsend")
-            maxrecv=$(omv_config_get "${XPATH_USER}[position()=${index}]/maxrecv")
+            port=$(omv_config_get "${XPATH_USER}${position}/port")
+            address=$(omv_config_get "${XPATH_USER}${position}/address")
+            lport=$(omv_config_get "${XPATH_USER}${position}/lport")
+            laddress=$(omv_config_get "${XPATH_USER}${position}/laddress")
+            maxsend=$(omv_config_get "${XPATH_USER}${position}/maxsend")
+            maxrecv=$(omv_config_get "${XPATH_USER}${position}/maxrecv")
 
             # create home directory if it does not exist and fix permissions
             mkdir -p ${home}
@@ -73,32 +69,82 @@ while [ ${index} -le ${count} ]; do
             # fix ownership and permissions
             chown -R ${username}:${RUN_GRP} "${home}/${SYNCTHING_CONFIG_DIR}"
             chmod 0600 "${home}/${SYNCTHING_CONFIG}"
-
-            # add to names list
-            if [ "${first}" != "0" ]; then
-                names="${names} ${username}"
-            else
-                names="${username}"
-                first=1
-            fi
-
-            restart=1
         fi
+
+        invoke-rc.d ${SERVICE} restart ${username}
+    fi
+else
+    first=0
+    restart=0
+    names=""
+
+    count=$(omv_config_get_count "${XPATH_USER}")
+    index=1
+    while [ ${index} -le ${count} ]; do
+        position="[position()=${index}]"
+        enable=$(omv_config_get "${XPATH_USER}${position}/enable")
+
+        if [ "${enable}" != "0" ]; then
+            username=$(omv_config_get "${XPATH_USER}${position}/username")
+            home=$(getent passwd ${username} | awk -F: '{print $6}')
+
+            if [ "${home}" != "" ]; then
+                port=$(omv_config_get "${XPATH_USER}${position}/port")
+                address=$(omv_config_get "${XPATH_USER}${position}/address")
+                lport=$(omv_config_get "${XPATH_USER}${position}/lport")
+                laddress=$(omv_config_get "${XPATH_USER}${position}/laddress")
+                maxsend=$(omv_config_get "${XPATH_USER}${position}/maxsend")
+                maxrecv=$(omv_config_get "${XPATH_USER}${position}/maxrecv")
+
+                # create home directory if it does not exist and fix permissions
+                mkdir -p ${home}
+                chown ${username}:${RUN_GRP} ${home}
+
+                # generate initial config, certs and then exit
+                unset HOME
+                export HOME="${home}/${SYNCTHING_CONFIG_DIR}"
+                /usr/bin/syncthing -generate="${home}/${SYNCTHING_CONFIG_DIR}/syncthing"
+
+                # Change settings
+                new="${address}:${port}"
+                xmlstarlet ed -L -u "/configuration/gui/address" -v ${new} -n "${home}/${SYNCTHING_CONFIG}"
+
+                new="${laddress}:${lport}"
+                xmlstarlet ed -L -u "/configuration/options/listenAddress" -v ${new} -n "${home}/${SYNCTHING_CONFIG}"
+
+                xmlstarlet ed -L -u "/configuration/options/maxSendKbps" -v ${maxsend} -n "${home}/${SYNCTHING_CONFIG}"
+                xmlstarlet ed -L -u "/configuration/options/maxRecvKbps" -v ${maxrecv} -n "${home}/${SYNCTHING_CONFIG}"
+
+                # fix ownership and permissions
+                chown -R ${username}:${RUN_GRP} "${home}/${SYNCTHING_CONFIG_DIR}"
+                chmod 0600 "${home}/${SYNCTHING_CONFIG}"
+
+                # add to names list
+                if [ "${first}" != "0" ]; then
+                    names="${names} ${username}"
+                else
+                    names="${username}"
+                    first=1
+                fi
+
+                restart=1
+            fi
+        fi
+
+        index=$(( ${index} + 1 ))
+    done
+
+    if [ "${restart}" != "0" ]; then
+        invoke-rc.d ${SERVICE} stop
     fi
 
-    index=$(( ${index} + 1 ))
-done
+    if [ "${names}" != "" ]; then
+        echo "ST_USERS=\"${names}\"" > ${SYNCTHING_DEFAULT_FILE}
+    fi
 
-if [ "${restart}" != "0" ]; then
-    invoke-rc.d ${SERVICE} stop
-fi
-
-if [ "${names}" != "" ]; then
-    echo "ST_USERS=\"${names}\"" > ${SYNCTHING_DEFAULT_FILE}
-fi
-
-if [ "${restart}" != "0" ]; then
-    invoke-rc.d ${SERVICE} start
+    if [ "${restart}" != "0" ]; then
+        invoke-rc.d ${SERVICE} start
+    fi
 fi
 
 exit 0

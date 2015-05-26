@@ -1,8 +1,8 @@
-openmediavault-syncthing (1.2) UNRELEASED; urgency=low
+openmediavault-syncthing (1.2) stable; urgency=low
 
   * Add user pages
 
- -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Sat, 23 May 2015 14:21:13 -0500
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Tue, 26 May 2015 07:20:26 -0500
 
 openmediavault-syncthing (1.1) stable; urgency=low
 

@@ -344,31 +344,58 @@ class OMVRpcServiceSyncthing extends OMVRpcServiceAbstract
         if (is_null($oldObject))
             $newUser = true;
 
-        return $this->callMethod("setUser", array(
-            "uuid"     => ($newUser) ? $GLOBALS['OMV_UUID_UNDEFINED'] : $oldObject['uuid'],
+        // Prepare configuration data.
+        $object = array(
+            "uuid"     => ($newUser) ? OMVUtil::uuid() : $oldObject['uuid'],
             "enable"   => array_boolval($params, 'enable'),
-            "username" => $context['username'],
+            "username" => $params['username'],
             "port"     => intval($params['port']),
             "address"  => $params['address'],
             "lport"    => intval($params['lport']),
             "laddress" => $params['laddress'],
             "maxsend"  => intval($params['maxsend']),
             "maxrecv"  => intval($params['maxrecv'])
-        ), $this->getAdminContext());
-
-        // Apply the changes immediately (no user interaction is wanted).
-        OMVRpc::exec(
-            "Config",
-            "applyChanges",
-            array(
-                "modules" => array( $this->getPluginName() ),
-                "force"   => TRUE
-            ),
-            $this->getAdminContext()
         );
 
-        /*
-        $cmd = sprintf("export LANG=C; omv-mkconf %s", $this->getPluginName());
+        // Set the configuration data.
+        $success = FALSE;
+        if ($newUser === true)
+        {
+            $xPath = sprintf("%s[port='%s']", $this->getXPathUser(), $object['port']);
+            if (TRUE === $xmlConfig->exists($xPath))
+            {
+                throw new OMVException(
+                    OMVErrorMsg::E_CONFIG_OBJECT_UNIQUENESS,
+                    gettext("This GUI port is already in use.")
+                );
+            }
+
+            $xPath = sprintf("%s[lport='%s']", $this->getXPathUser(), $object['lport']);
+            if (TRUE === $xmlConfig->exists($xPath))
+            {
+                throw new OMVException(
+                    OMVErrorMsg::E_CONFIG_OBJECT_UNIQUENESS,
+                    gettext("This listen port is already in use.")
+                );
+            }
+
+            // Append object to configuration.
+            $success = $xmlConfig->set($this->getXPathUsers(), array("user" => $object));
+        }
+        else
+        {
+            // Update existing configuration object.
+            $xPath = sprintf("%s[uuid='%s']", $this->getXPathUser(), $object['uuid'] );
+            $success = $xmlConfig->replace($xPath, $object);
+        }
+        if (FALSE === $success)
+        {
+            throw new OMVException(
+                OMVErrorMsg::E_CONFIG_GET_OBJECT_FAILED
+            );
+        }
+
+        $cmd = sprintf("export LANG=C; omv-mkconf %s %s", $this->getPluginName(), $context['username']);
         if (0 !== $this->exec($cmd, $output))
         {
             throw new OMVException(
@@ -377,7 +404,6 @@ class OMVRpcServiceSyncthing extends OMVRpcServiceAbstract
                 implode("\n", $output)
             );
         }
-        */
     }
 
     function getFolders($params, $context)
