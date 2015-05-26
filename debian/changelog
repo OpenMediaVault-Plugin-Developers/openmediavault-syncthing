@@ -2,6 +2,7 @@ openmediavault-syncthing (1.3) stable; urgency=low
 
   * Create log file for each user
   * Add log file viewer tab
+  * Update locales
 
  -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Tue, 26 May 2015 08:16:21 -0500
 
