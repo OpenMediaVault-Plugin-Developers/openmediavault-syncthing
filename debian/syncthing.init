@@ -20,6 +20,7 @@ NAME="syncthing"
 DAEMON=/usr/bin/syncthing
 DAEMON_ARGS=""
 SCRIPTNAME=/etc/init.d/$NAME
+LOG_LOCATION="/var/log/${NAME}"
 
 # Exit if the package is not installed
 [ -x "$DAEMON" ] || exit 0
@@ -35,6 +36,9 @@ SCRIPTNAME=/etc/init.d/$NAME
 # Read configuration variable file if it is present
 [ -r /etc/default/$NAME ] && . /etc/default/$NAME
 
+# Create log location if doesn't exist
+mkdir -p ${LOG_LOCATION}
+
 #
 # Function that starts the daemon/service
 #
@@ -43,15 +47,16 @@ do_start()
     for ST_USER in $ST_USERS; do
 
         HOMEDIR=$(getent passwd $ST_USER | awk -F: '{print $6}')
+        LOG_FILE=${LOG_LOCATION}/${NAME}_${ST_USER}.log
 
         # Return
         #   0 if daemon has been started
         #   1 if daemon was already running
         #   2 if daemon could not be started
         echo "Starting Syncthing for user" $ST_USER
-        start-stop-daemon --start --background --oknodo --chuid $ST_USER --user $ST_USER --exec $DAEMON --test > /dev/null \
+        start-stop-daemon --start --background --no-close --oknodo --chuid $ST_USER --user $ST_USER --exec $DAEMON --test >> $LOG_FILE 2>&1 \
             || return 1
-        start-stop-daemon --start --background --oknodo --chuid $ST_USER --user $ST_USER --exec $DAEMON -- $DAEMON_ARGS \
+        start-stop-daemon --start --background --no-close --oknodo --chuid $ST_USER --user $ST_USER --exec $DAEMON -- $DAEMON_ARGS >> $LOG_FILE 2>&1 \
             || return 2
     done
 }
@@ -65,13 +70,15 @@ do_stop()
         ST_PID=$(pgrep -fu $ST_USER $DAEMON)
         if [ ! -z "$ST_PID" ]; then
 
+            LOG_FILE=${LOG_LOCATION}/${NAME}_${ST_USER}.log
+
             # Return
             #   0 if daemon has been stopped
             #   1 if daemon was already stopped
             #   2 if daemon could not be stopped
             #   other if a failure occurred
             echo "Stopping Syncthing for user" $ST_USER
-            start-stop-daemon --stop --oknodo --retry=TERM/30/KILL/5 --chuid $ST_USER --user $ST_USER --name $NAME
+            start-stop-daemon --stop --oknodo --retry=TERM/30/KILL/5 --chuid $ST_USER --user $ST_USER --name $NAME >> $LOG_FILE 2>&1
             RETVAL="$?"
             [ "$RETVAL" = 2 ] && return 2
         fi

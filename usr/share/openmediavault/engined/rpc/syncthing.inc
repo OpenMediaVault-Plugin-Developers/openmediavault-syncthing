@@ -62,14 +62,17 @@ class OMVRpcServiceSyncthing extends OMVRpcServiceAbstract
 
     public function initialize()
     {
+        // Admin functions
         $this->registerMethod('getUsers');
         $this->registerMethod('getUser');
         $this->registerMethod('setUser');
         $this->registerMethod('deleteUser');
 
+        // User functions
         $this->registerMethod('getSettings');
         $this->registerMethod('setSettings');
         $this->registerMethod('getFolders');
+        $this->registerMethod('getLog');
     }
 
     public function getUsers($params, $context)
@@ -441,6 +444,18 @@ class OMVRpcServiceSyncthing extends OMVRpcServiceAbstract
         }
 
         return $result;
+    }
+
+    public function getLog($params, $context)
+    {
+        $output = "";
+        $result = "";
+
+        $cmd = sprintf("cat /var/log/syncthing/syncthing_%s.log", $context['username']);
+        OMVUtil::exec($cmd, $result);
+        $output = implode("\n", $result) . "\n";
+
+        return $output;
     }
 }
 
