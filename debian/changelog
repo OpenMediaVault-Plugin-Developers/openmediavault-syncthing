@@ -1,6 +1,7 @@
 openmediavault-syncthing (1.2) stable; urgency=low
 
   * Add user pages
+  * Add translations
 
  -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Tue, 26 May 2015 07:20:26 -0500
 
