@@ -28,11 +28,13 @@
 // require("js/omv/data/Model.js")
 // require("js/omv/data/proxy/Rpc.js")
 // require("js/omv/form/field/UserComboBox.js")
+// require("js/omv/module/admin/service/syncthing/Log.js")
 
 Ext.define("OMV.module.admin.service.syncthing.User", {
     extend   : "OMV.workspace.window.Form",
     requires : [
         "OMV.form.field.UserComboBox",
+        "OMV.module.admin.service.syncthing.Log",
         "OMV.workspace.window.plugin.ConfigObject"
     ],
 
@@ -219,7 +221,6 @@ Ext.define("OMV.module.admin.service.syncthing.Users", {
                         { name : "laddress", type: "string" },
                         { name : "maxsend", type: "integer" },
                         { name : "maxrecv", type: "integer" }
-
                     ]
                 }),
                 proxy    : {
@@ -243,9 +244,21 @@ Ext.define("OMV.module.admin.service.syncthing.Users", {
             text     : _("Open Web Interface"),
             icon     : "images/syncthing.png",
             iconCls  : Ext.baseCSSPrefix + "btn-icon-16x16",
-            disabled : true,
             scope    : me,
             handler  : Ext.Function.bind(me.onOpenWebButton, me, [ me ]),
+            disabled : true,
+            selectionConfig : {
+                minSelections : 1,
+                maxSelections : 1
+            }
+        },{
+            id       : me.getId() + "-viewlog",
+            xtype    : "button",
+            text     : _("View Log"),
+            icon     : "images/logs.png",
+            iconCls  : Ext.baseCSSPrefix + "btn-icon-16x16",
+            scope    : me,
+            handler  : Ext.Function.bind(me.onViewLogButton, me, [ me ]),
             disabled : true,
             selectionConfig : {
                 minSelections : 1,
@@ -306,7 +319,18 @@ Ext.define("OMV.module.admin.service.syncthing.Users", {
         if (enable == true) {
             window.open("http://" + window.location.hostname + ":" + port, "_blank");
         }
-    }
+    },
+
+    onViewLogButton : function() {
+        var record = this.getSelected();
+        enable = record.get("enable");
+
+        if (enable == true) {
+            Ext.create("OMV.module.admin.service.syncthing.Log", {
+                username: record.get("username")
+            }).show();        
+        }
+    }    
 });
 
 OMV.WorkspaceManager.registerPanel({

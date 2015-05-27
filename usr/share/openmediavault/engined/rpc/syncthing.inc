@@ -60,6 +60,11 @@ class OMVRpcServiceSyncthing extends OMVRpcServiceAbstract
         return sprintf( "%s.users.user", $this->getEventMessagePath());
     }
 
+    private function getLogPath()
+    {
+        return "/var/log/syncthing";
+    }
+
     public function initialize()
     {
         // Admin functions
@@ -67,6 +72,7 @@ class OMVRpcServiceSyncthing extends OMVRpcServiceAbstract
         $this->registerMethod('getUser');
         $this->registerMethod('setUser');
         $this->registerMethod('deleteUser');
+        $this->registerMethod('getLogView');
 
         // User functions
         $this->registerMethod('getSettings');
@@ -74,6 +80,9 @@ class OMVRpcServiceSyncthing extends OMVRpcServiceAbstract
         $this->registerMethod('getFolders');
         $this->registerMethod('getLog');
     }
+
+
+    // Admin functions
 
     public function getUsers($params, $context)
     {
@@ -285,6 +294,57 @@ class OMVRpcServiceSyncthing extends OMVRpcServiceAbstract
         );
     }
 
+    public function getLogView($params, $context)
+    {
+        // Validate the RPC caller context.
+        $this->validateMethodContext(
+            $context,
+            array("role" => OMV_ROLE_ADMINISTRATOR)
+        );
+
+        // Validate the parameters of the RPC service method.
+        $this->validateMethodParams($params, '{
+            "type"       : "object",
+            "properties" : {
+                "start"     : { "type": "integer" },
+                "limit"     : {' . $GLOBALS["OMV_JSONSCHEMA_COUNTFIELD"] . '},
+                "sortfield" : {' . $GLOBALS["OMV_JSONSCHEMA_SORTFIELD"] . '},
+                "sortdir"   : {' . $GLOBALS["OMV_JSONSCHEMA_SORTDIR"] . '},
+                "username"  : { "type": "string" }
+            }
+        }');
+
+        $username = $params["username"];
+        $logRows  = array();
+        $logPath  = sprintf("cat %s/syncthing_%s.log", $this->getLogPath(), $username);
+
+        if (file_exists($logPath))
+        {
+            $logText      = file_get_contents($logPath);
+            $logTextArray = explode("\n", $logText);
+            $rowNumber    = 1;
+
+            foreach ($logTextArray as $row)
+            {
+                if (!empty($row))
+                    continue;
+
+                $logRows[] = array(
+                    "id"      => $rowNumber++,
+                    "message" => $row,
+                );
+            }
+        }
+
+        return array(
+            "total" => count($logRows),
+            "data"  => $logRows,
+        );
+    }
+
+
+    // User functions
+
     public function getSettings($params, $context)
     {
         global $xmlConfig;
@@ -448,10 +508,16 @@ class OMVRpcServiceSyncthing extends OMVRpcServiceAbstract
 
     public function getLog($params, $context)
     {
+        // Validate the RPC caller context.
+        $this->validateMethodContext(
+            $context,
+            array("role" => OMV_ROLE_USER)
+        );
+
         $output = "";
         $result = "";
 
-        $cmd = sprintf("cat /var/log/syncthing/syncthing_%s.log", $context['username']);
+        $cmd = sprintf("cat %s/syncthing_%s.log", $this->getLogPath(), $context['username']);
         OMVUtil::exec($cmd, $result);
         $output = implode("\n", $result) . "\n";
 
