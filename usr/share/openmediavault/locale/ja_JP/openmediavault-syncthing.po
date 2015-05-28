@@ -3,12 +3,13 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
+# Toshihiro Kan <kansuke4649@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-syncthing\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-05-26 07:24-0500\n"
-"PO-Revision-Date: 2015-05-26 12:26+0000\n"
+"POT-Creation-Date: 2015-05-27 23:00-0500\n"
+"PO-Revision-Date: 2015-05-28 04:01+0000\n"
 "Last-Translator: Aaron Murray <aaron27@ryecoinc.com>\n"
 "Language-Team: Japanese (Japan) (http://www.transifex.com/projects/p/openmediavault-syncthing/language/ja_JP/)\n"
 "MIME-Version: 1.0\n"
@@ -18,82 +19,97 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 msgid "Add user"
-msgstr ""
+msgstr "ユーザーを追加"
 
 msgid "Edit user"
-msgstr ""
+msgstr "ユーザーを編集"
 
 msgid "Enable"
-msgstr ""
+msgstr "有効化"
 
 msgid "Enabled"
-msgstr ""
+msgstr "有効化済"
 
 msgid "Folders"
-msgstr ""
+msgstr "フォルダー"
 
 msgid "GUI Address"
-msgstr ""
+msgstr "GUIのアドレス"
 
 msgid "GUI Port"
-msgstr ""
+msgstr "GUIのポート"
 
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 msgid "IP address for GUI. Use 0.0.0.0 for all host IPs."
-msgstr ""
+msgstr "GUIのIPアドレス。0.0.0.0を使用するとホストに設定されているIPすべてでアクセス可能です。"
 
 msgid "IP address to listen on. Use 0.0.0.0 for all host IPs."
-msgstr ""
+msgstr "待ち受けるIPアドレス。0.0.0.0を使用するとホストに設定されているIPすべてで待ち受けます。"
 
 msgid "Limit receive speed. Value is Kb/s. 0 to disable."
-msgstr ""
+msgstr "受信速度の制限。値はKb/sで指定します。0の場合は無制限になります。"
 
 msgid "Limit send speed. Value is Kb/s. 0 to disable."
+msgstr "送信速度の制限。値はKb/sで指定します。0の場合は無制限になります。"
+
+msgid "Line"
 msgstr ""
 
 msgid "Listen Address"
-msgstr ""
+msgstr "待ち受けアドレス"
 
 msgid "Listen Port"
+msgstr "待ち受けポート"
+
+msgid "Log"
 msgstr ""
 
 msgid "Max Receive"
-msgstr ""
+msgstr "最大受信"
 
 msgid "Max Send"
+msgstr "最大送信"
+
+msgid "Message"
+msgstr ""
+
+msgid "Message - row {0}"
 msgstr ""
 
 msgid "Open Web Interface"
-msgstr ""
+msgstr "Webインタフェースを開く"
 
 msgid "Path"
-msgstr ""
+msgstr "パス"
 
 msgid "Port to listen on."
-msgstr ""
+msgstr "待ち受けポート。"
 
 msgid "Services"
-msgstr ""
+msgstr "サービス"
 
 msgid "Settings"
-msgstr ""
+msgstr "設定"
 
 msgid "Syncthing"
-msgstr ""
+msgstr "Syncthing"
 
 msgid "Syncthing Users"
-msgstr ""
+msgstr "Syncthingユーザー"
 
 msgid "This GUI port is already in use."
-msgstr ""
+msgstr "このGUIポートは既に使用されています。"
 
 msgid "This listen port is already in use."
-msgstr ""
+msgstr "この待ち受けポートは既に使用されています。"
 
 msgid "This username is already in use."
-msgstr ""
+msgstr "このユーザー名は既に使用されています。"
 
 msgid "User"
+msgstr "ユーザー"
+
+msgid "View Log"
 msgstr ""

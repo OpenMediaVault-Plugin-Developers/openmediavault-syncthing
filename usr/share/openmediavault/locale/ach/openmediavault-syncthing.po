@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-syncthing\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-05-26 07:24-0500\n"
-"PO-Revision-Date: 2015-05-26 12:26+0000\n"
+"POT-Creation-Date: 2015-05-27 23:00-0500\n"
+"PO-Revision-Date: 2015-05-28 04:01+0000\n"
 "Last-Translator: Aaron Murray <aaron27@ryecoinc.com>\n"
 "Language-Team: Acoli (http://www.transifex.com/projects/p/openmediavault-syncthing/language/ach/)\n"
 "MIME-Version: 1.0\n"
@@ -53,16 +53,28 @@ msgstr ""
 msgid "Limit send speed. Value is Kb/s. 0 to disable."
 msgstr ""
 
+msgid "Line"
+msgstr ""
+
 msgid "Listen Address"
 msgstr ""
 
 msgid "Listen Port"
 msgstr ""
 
+msgid "Log"
+msgstr ""
+
 msgid "Max Receive"
 msgstr ""
 
 msgid "Max Send"
+msgstr ""
+
+msgid "Message"
+msgstr ""
+
+msgid "Message - row {0}"
 msgstr ""
 
 msgid "Open Web Interface"
@@ -96,4 +108,7 @@ msgid "This username is already in use."
 msgstr ""
 
 msgid "User"
+msgstr ""
+
+msgid "View Log"
 msgstr ""

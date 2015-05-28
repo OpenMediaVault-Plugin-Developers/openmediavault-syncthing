@@ -1,6 +1,7 @@
 openmediavault-syncthing (1.4) stable; urgency=low
 
   * Add log view to admin page
+  * Update locales
 
  -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Wed, 27 May 2015 22:59:50 -0500
 
