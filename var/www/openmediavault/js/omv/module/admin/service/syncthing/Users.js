@@ -34,7 +34,6 @@ Ext.define("OMV.module.admin.service.syncthing.User", {
     extend   : "OMV.workspace.window.Form",
     requires : [
         "OMV.form.field.UserComboBox",
-        "OMV.module.admin.service.syncthing.Log",
         "OMV.workspace.window.plugin.ConfigObject"
     ],
 
@@ -150,7 +149,8 @@ Ext.define("OMV.module.admin.service.syncthing.Users", {
         "OMV.util.Format"
     ],
     uses     : [
-        "OMV.module.admin.service.syncthing.User"
+        "OMV.module.admin.service.syncthing.User",
+        "OMV.module.admin.service.syncthing.Log"
     ],
 
     hidePagingToolbar : false,
@@ -328,9 +328,9 @@ Ext.define("OMV.module.admin.service.syncthing.Users", {
         if (enable == true) {
             Ext.create("OMV.module.admin.service.syncthing.Log", {
                 username: record.get("username")
-            }).show();        
+            }).show();
         }
-    }    
+    }
 });
 
 OMV.WorkspaceManager.registerPanel({

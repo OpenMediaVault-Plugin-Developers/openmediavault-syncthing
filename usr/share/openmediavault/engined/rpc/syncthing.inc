@@ -316,7 +316,7 @@ class OMVRpcServiceSyncthing extends OMVRpcServiceAbstract
 
         $username = $params["username"];
         $logRows  = array();
-        $logPath  = sprintf("cat %s/syncthing_%s.log", $this->getLogPath(), $username);
+        $logPath  = sprintf("%s/syncthing_%s.log", $this->getLogPath(), $username);
 
         if (file_exists($logPath))
         {
@@ -326,7 +326,7 @@ class OMVRpcServiceSyncthing extends OMVRpcServiceAbstract
 
             foreach ($logTextArray as $row)
             {
-                if (!empty($row))
+                if (empty($row))
                     continue;
 
                 $logRows[] = array(
