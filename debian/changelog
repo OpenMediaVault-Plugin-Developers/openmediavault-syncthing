@@ -1,3 +1,9 @@
+openmediavault-syncthing (1.5) stable; urgency=low
+
+  * Fix issue with calibre conflict
+
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Mon, 01 Jun 2015 07:08:22 -0500
+
 openmediavault-syncthing (1.4) stable; urgency=low
 
   * Add log view to admin page
