@@ -4,3 +4,7 @@ Upstream-Name: openmediavault-syncthing
 Files: *
 Copyright: 2015 OpenMediaVault Plugin Developers <plugins@omv-extras.org>
 License: GPL-3+
+
+Files: /var/www/openmediavault/images/syncthing.*
+Copyright: The Syncthing Authors
+License: MIT
