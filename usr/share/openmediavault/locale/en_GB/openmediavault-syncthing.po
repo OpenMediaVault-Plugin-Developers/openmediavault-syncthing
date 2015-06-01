@@ -3,13 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
+# Andi Chandler <andi@gowling.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-syncthing\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-05-27 23:00-0500\n"
-"PO-Revision-Date: 2015-05-28 04:01+0000\n"
-"Last-Translator: Aaron Murray <aaron27@ryecoinc.com>\n"
+"PO-Revision-Date: 2015-05-28 08:49+0000\n"
+"Last-Translator: Andi Chandler <andi@gowling.com>\n"
 "Language-Team: English (United Kingdom) (http://www.transifex.com/projects/p/openmediavault-syncthing/language/en_GB/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -18,97 +19,97 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "Add user"
-msgstr ""
+msgstr "Add user"
 
 msgid "Edit user"
-msgstr ""
+msgstr "Edit user"
 
 msgid "Enable"
-msgstr ""
+msgstr "Enable"
 
 msgid "Enabled"
-msgstr ""
+msgstr "Enabled"
 
 msgid "Folders"
-msgstr ""
+msgstr "Folders"
 
 msgid "GUI Address"
-msgstr ""
+msgstr "GUI Address"
 
 msgid "GUI Port"
-msgstr ""
+msgstr "GUI Port"
 
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 msgid "IP address for GUI. Use 0.0.0.0 for all host IPs."
-msgstr ""
+msgstr "IP address for GUI. Use 0.0.0.0 for all host IPs."
 
 msgid "IP address to listen on. Use 0.0.0.0 for all host IPs."
-msgstr ""
+msgstr "IP address to listen on. Use 0.0.0.0 for all host IPs."
 
 msgid "Limit receive speed. Value is Kb/s. 0 to disable."
-msgstr ""
+msgstr "Limit receive speed. Value is Kb/s. 0 to disable."
 
 msgid "Limit send speed. Value is Kb/s. 0 to disable."
-msgstr ""
+msgstr "Limit send speed. Value is Kb/s. 0 to disable."
 
 msgid "Line"
-msgstr ""
+msgstr "Line"
 
 msgid "Listen Address"
-msgstr ""
+msgstr "Listen Address"
 
 msgid "Listen Port"
-msgstr ""
+msgstr "Listen Port"
 
 msgid "Log"
-msgstr ""
+msgstr "Log"
 
 msgid "Max Receive"
-msgstr ""
+msgstr "Max Receive"
 
 msgid "Max Send"
-msgstr ""
+msgstr "Max Send"
 
 msgid "Message"
-msgstr ""
+msgstr "Message"
 
 msgid "Message - row {0}"
-msgstr ""
+msgstr "Message - row {0}"
 
 msgid "Open Web Interface"
-msgstr ""
+msgstr "Open Web Interface"
 
 msgid "Path"
-msgstr ""
+msgstr "Path"
 
 msgid "Port to listen on."
-msgstr ""
+msgstr "Port to listen on."
 
 msgid "Services"
-msgstr ""
+msgstr "Services"
 
 msgid "Settings"
-msgstr ""
+msgstr "Settings"
 
 msgid "Syncthing"
-msgstr ""
+msgstr "Syncthing"
 
 msgid "Syncthing Users"
-msgstr ""
+msgstr "Syncthing Users"
 
 msgid "This GUI port is already in use."
-msgstr ""
+msgstr "This GUI port is already in use."
 
 msgid "This listen port is already in use."
-msgstr ""
+msgstr "This listen port is already in use."
 
 msgid "This username is already in use."
-msgstr ""
+msgstr "This username is already in use."
 
 msgid "User"
-msgstr ""
+msgstr "User"
 
 msgid "View Log"
-msgstr ""
+msgstr "View Log"
