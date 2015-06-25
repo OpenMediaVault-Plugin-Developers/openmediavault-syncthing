@@ -17,11 +17,13 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-require_once ("openmediavault/object.inc");
+
 require_once ("openmediavault/error.inc");
-require_once ("openmediavault/util.inc");
-require_once ("openmediavault/rpc.inc");
+require_once ("openmediavault/initscript.inc");
 require_once ("openmediavault/notify.inc");
+require_once ("openmediavault/object.inc");
+require_once ("openmediavault/rpc.inc");
+require_once ("openmediavault/util.inc");
 
 class OMVRpcServiceSyncthing extends OMVRpcServiceAbstract
 {
@@ -73,6 +75,7 @@ class OMVRpcServiceSyncthing extends OMVRpcServiceAbstract
         $this->registerMethod('setUser');
         $this->registerMethod('deleteUser');
         $this->registerMethod('getLogView');
+        $this->registerMethod('doRestart');
 
         // User functions
         $this->registerMethod('getSettings');
@@ -340,6 +343,24 @@ class OMVRpcServiceSyncthing extends OMVRpcServiceAbstract
             "total" => count($logRows),
             "data"  => $logRows,
         );
+    }
+
+    public function doRestart($params, $context)
+    {
+        global $xmlConfig;
+
+        // Validate the RPC caller context.
+        $this->validateMethodContext(
+            $context,
+            array( "role" => OMV_ROLE_ADMINISTRATOR )
+        );
+
+        $xPath = sprintf("%s[enable=1]", $this->getXPathUser());
+        if (TRUE === $xmlConfig->exists($xPath))
+        {
+            $initd = new OMVSysVInitScript($this->getPluginName());
+            $initd->invoke("restart");
+        }
     }
 
 

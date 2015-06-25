@@ -239,6 +239,8 @@ Ext.define("OMV.module.admin.service.syncthing.Users", {
         var me = this;
         var items = me.callParent(arguments);
         items.push({
+            xtype    : "tbseparator"
+        },{
             id       : me.getId() + "-openweb",
             xtype    : "button",
             text     : _("Open Web Interface"),
@@ -264,6 +266,16 @@ Ext.define("OMV.module.admin.service.syncthing.Users", {
                 minSelections : 1,
                 maxSelections : 1
             }
+        },{
+            xtype    : "tbseparator"
+        },{
+            id       : me.getId() + "-restart",
+            xtype    : "button",
+            text     : _("Restart"),
+            icon     : "images/refresh.png",
+            iconCls  : Ext.baseCSSPrefix + "btn-icon-16x16",
+            scope    : me,
+            handler  : Ext.Function.bind(me.onRestartButton, me, [ me ])
         });
         return items;
     },
@@ -319,6 +331,20 @@ Ext.define("OMV.module.admin.service.syncthing.Users", {
         if (enable == true) {
             window.open("http://" + window.location.hostname + ":" + port, "_blank");
         }
+    },
+
+    onRestartButton : function() {
+        OMV.Rpc.request({
+            scope       : this,
+            callback    : function(id, success, response) {
+                this.doReload();
+            },
+            relayErrors : false,
+            rpcData     : {
+                service  : "Syncthing",
+                method   : "doRestart"
+            }
+        });
     },
 
     onViewLogButton : function() {
