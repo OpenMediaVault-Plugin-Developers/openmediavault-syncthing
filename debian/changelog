@@ -1,6 +1,7 @@
 openmediavault-syncthing (1.6) stable; urgency=low
 
   * Add restart button
+  * Update locales
 
  -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Thu, 25 Jun 2015 08:44:24 -0500
 

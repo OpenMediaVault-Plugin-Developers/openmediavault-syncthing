@@ -3,12 +3,13 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
+# songming <by@songming.me>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-syncthing\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-05-27 23:00-0500\n"
-"PO-Revision-Date: 2015-05-28 04:01+0000\n"
+"POT-Creation-Date: 2015-06-25 08:45-0500\n"
+"PO-Revision-Date: 2015-06-25 13:45+0000\n"
 "Last-Translator: Aaron Murray <aaron27@ryecoinc.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/projects/p/openmediavault-syncthing/language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
@@ -18,97 +19,100 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 msgid "Add user"
-msgstr ""
+msgstr "添加用户"
 
 msgid "Edit user"
-msgstr ""
+msgstr "编辑用户"
 
 msgid "Enable"
-msgstr ""
+msgstr "启用"
 
 msgid "Enabled"
-msgstr ""
+msgstr "已启用"
 
 msgid "Folders"
-msgstr ""
+msgstr "文件夹"
 
 msgid "GUI Address"
-msgstr ""
+msgstr "GUI地址"
 
 msgid "GUI Port"
-msgstr ""
+msgstr "GUI端口"
 
 msgid "ID"
-msgstr ""
+msgstr " ID"
 
 msgid "IP address for GUI. Use 0.0.0.0 for all host IPs."
-msgstr ""
+msgstr "GUI的登录IP地址，使用0.0.0.0代表所有主机IP。"
 
 msgid "IP address to listen on. Use 0.0.0.0 for all host IPs."
-msgstr ""
+msgstr "监听IP地址，使用0.0.0.0代表监听所有IP的主机。"
 
 msgid "Limit receive speed. Value is Kb/s. 0 to disable."
-msgstr ""
+msgstr "限制接收速度，单位是Kb/s，0表示不限制。"
 
 msgid "Limit send speed. Value is Kb/s. 0 to disable."
-msgstr ""
+msgstr "限制发送速度，单位是Kb/s，0表示不限制。"
 
 msgid "Line"
-msgstr ""
+msgstr "行"
 
 msgid "Listen Address"
-msgstr ""
+msgstr "监听地址"
 
 msgid "Listen Port"
-msgstr ""
+msgstr "监听端口"
 
 msgid "Log"
-msgstr ""
+msgstr "日志"
 
 msgid "Max Receive"
-msgstr ""
+msgstr "最大接收"
 
 msgid "Max Send"
-msgstr ""
+msgstr "最大发送"
 
 msgid "Message"
-msgstr ""
+msgstr "消息"
 
 msgid "Message - row {0}"
 msgstr ""
 
 msgid "Open Web Interface"
-msgstr ""
+msgstr "打开标签页"
 
 msgid "Path"
-msgstr ""
+msgstr "路径"
 
 msgid "Port to listen on."
+msgstr "打开监听端口"
+
+msgid "Restart"
 msgstr ""
 
 msgid "Services"
-msgstr ""
+msgstr "服务"
 
 msgid "Settings"
-msgstr ""
+msgstr "设置"
 
 msgid "Syncthing"
-msgstr ""
+msgstr "Syncthing"
 
 msgid "Syncthing Users"
-msgstr ""
+msgstr "Syncthing用户"
 
 msgid "This GUI port is already in use."
-msgstr ""
+msgstr "该GUI端口已经被使用。"
 
 msgid "This listen port is already in use."
-msgstr ""
+msgstr "该监听端口已经被使用。"
 
 msgid "This username is already in use."
-msgstr ""
+msgstr "该用户名已经被使用。"
 
 msgid "User"
-msgstr ""
+msgstr "用户"
 
 msgid "View Log"
-msgstr ""
+msgstr "查看日志"
