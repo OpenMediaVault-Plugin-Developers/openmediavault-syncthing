@@ -24,7 +24,10 @@ RUN_GRP="users"
 
 SERVICE="syncthing"
 XPATH="//services/${SERVICE}"
+XPATH_SETTINGS="${XPATH}/settings"
 XPATH_USER="${XPATH}/users/user"
+
+DISCOSRV_CONFIG="/etc/discosrv"
 
 SYNCTHING_CONFIG_DIR=".config"
 SYNCTHING_CONFIG="${SYNCTHING_CONFIG_DIR}/${SERVICE}/config.xml";
@@ -145,6 +148,16 @@ else
     if [ "${restart}" != "0" ]; then
         invoke-rc.d ${SERVICE} start
     fi
+fi
+
+# discosrv config file
+enable=$(omv_config_get "${XPATH_SETTINGS}/enable")
+
+if [ "${enable}" != "0" ]; then
+    port=$(omv_config_get "${XPATH_SETTINGS}/port")
+    cat <<EOF > ${DISCOSRV_CONFIG}
+PORT=${port}
+EOF
 fi
 
 exit 0
