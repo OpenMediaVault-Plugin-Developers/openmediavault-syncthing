@@ -42,6 +42,11 @@ class OMVRpcServiceSyncthing extends OMVRpcServiceAbstract
         return sprintf( "//services/%s", $this->getPluginName() );
     }
 
+    private function getXPathSettings()
+    {
+        return sprintf( "%s/settings", $this->getXPath() );
+    }
+
     private function getXPathUsers()
     {
         return sprintf( "%s/users", $this->getXPath() );
@@ -55,6 +60,11 @@ class OMVRpcServiceSyncthing extends OMVRpcServiceAbstract
     private function getEventMessagePath()
     {
         return sprintf( "org.openmediavault.services.%s", $this->getPluginName() );
+    }
+
+    private function getEventMessagePathSettings()
+    {
+        return sprintf( "%s.settings", $this->getEventMessagePath());
     }
 
     private function getEventMessagePathUser()
@@ -76,6 +86,8 @@ class OMVRpcServiceSyncthing extends OMVRpcServiceAbstract
         $this->registerMethod('deleteUser');
         $this->registerMethod('getLogView');
         $this->registerMethod('doRestart');
+        $this->registerMethod('getDiscosrv');
+        $this->registerMethod('setDiscosrv');
 
         // User functions
         $this->registerMethod('getSettings');
@@ -363,6 +375,78 @@ class OMVRpcServiceSyncthing extends OMVRpcServiceAbstract
         }
     }
 
+    public function getDiscosrv($params, $context)
+    {
+        global $xmlConfig;
+
+        // Validate the RPC caller context.
+        $this->validateMethodContext(
+            $context,
+            array( "role" => OMV_ROLE_ADMINISTRATOR )
+        );
+
+        // Get the configuration object.
+        $object = $xmlConfig->get($this->getXPathSettings());
+        if (is_null($object))
+        {
+            throw new OMVException(
+                OMVErrorMsg::E_CONFIG_GET_OBJECT_FAILED,
+                $this->getXPathSettings()
+            );
+        }
+        // Modify the result object.
+        $object["enable"] = boolval($object["enable"]);
+        $object["port"]   = intval($object["port"]);
+
+        // Remove useless fields from the result object.
+        unset($object["shares"]);
+
+        return $object;
+    }
+
+    public function setDiscosrv($params, $context)
+    {
+        global $xmlConfig;
+
+        // Validate the RPC caller context.
+        $this->validateMethodContext(
+            $context,
+            array( "role" => OMV_ROLE_ADMINISTRATOR )
+        );
+
+        // Validate the parameters of the RPC service method.
+        $this->validateMethodParams(
+            $params,
+            '{
+                "type"        : "object",
+                "properties"  : {
+                    "enable"   : { "type" : "boolean" },
+                    "port"     : { "type" : "integer", "minimum" : 1, "maximum" : 65535 }
+                }
+            }'
+        );
+
+        // Update the configuration object.
+        $object = array(
+            "enable" => array_boolval($params, "enable"),
+            "port"   => $params["port"]
+        );
+        if ($xmlConfig->replace($this->getXPathSettings(), $object) === false)
+        {
+            throw new OMVException(
+                OMVErrorMsg::E_CONFIG_SET_OBJECT_FAILED
+            );
+        }
+        // Notify configuration changes.
+        $dispatcher = &OMVNotifyDispatcher::getInstance();
+        $dispatcher->notify(
+            OMV_NOTIFY_MODIFY,
+            $this->getEventMessagePathSettings(),
+            $object
+        );
+        // Return the configuration object.
+        return $object;
+    }
 
     // User functions
 
