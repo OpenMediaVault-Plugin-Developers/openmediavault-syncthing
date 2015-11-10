@@ -58,11 +58,6 @@ class OMVModuleSyncthing extends OMVModuleServiceAbstract implements
         return sprintf( "org.openmediavault.services.%s", $this->getPluginName() );
     }
 
-    private function getEventMessagePathSettings()
-    {
-        return sprintf( "%s.settings", $this->getEventMessagePath());
-    }
-
     private function getEventMessagePathUser()
     {
         return sprintf( "%s.users.user", $this->getEventMessagePath());
@@ -104,31 +99,16 @@ class OMVModuleSyncthing extends OMVModuleServiceAbstract implements
             $initd = new OMVSysVInitScript($this->getPluginName(), true);
             $initd->exec();
         }
-
-        $xPath = sprintf("%s[enable='1']", $this->getXPathSettings());
-        if ( TRUE === $xmlConfig->exists($xPath) ) {
-            $initd = new OMVSysVInitScript("discosrv", true);
-            $initd->exec();
-        }
     }
 
     public function stopService()
     {
         $initd = new OMVSysVInitScript($this->getPluginName(), false);
         $initd->exec();
-
-        $initd = new OMVSysVInitScript("discosrv", false);
-        $initd->exec();
     }
 
     public function bindListeners(OMVNotifyDispatcher $dispatcher)
     {
-        $dispatcher->addListener(
-            OMV_NOTIFY_CREATE | OMV_NOTIFY_MODIFY | OMV_NOTIFY_DELETE,
-            $this->getEventMessagePathSettings(),
-            array($this, "setDirty")
-        );
-
         $dispatcher->addListener(
             OMV_NOTIFY_CREATE | OMV_NOTIFY_MODIFY | OMV_NOTIFY_DELETE,
             $this->getEventMessagePathUser(),

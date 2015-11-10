@@ -13,18 +13,8 @@ case "$1" in
         SERVICE_XPATH_NAME="syncthing"
         SERVICE_XPATH="/config/services/${SERVICE_XPATH_NAME}"
 
-        if [ -z "$2" ]; then
-            echo "Updating init script links and actions."
-            invoke-rc.d --force discosrv stop
-            update-rc.d discosrv disable >/dev/null
-        fi
-
         if ! omv_config_exists "${SERVICE_XPATH}"; then
             omv_config_add_element "/config/services" "${SERVICE_XPATH_NAME}"
-        fi
-
-        if ! omv_config_exists "${SERVICE_XPATH}/settings"; then
-            omv_config_add_element "${SERVICE_XPATH}" "settings" ""
         fi
 
         if ! omv_config_exists "${SERVICE_XPATH}/users"; then
