@@ -57,7 +57,7 @@ if [ "${username}" != "" ]; then
             /usr/bin/syncthing -generate="${home}/${SYNCTHING_CONFIG_DIR}/syncthing"
 
             # Change settings
-            new="${address}:${port}"
+            new="tcp://${address}:${port}"
             xmlstarlet ed -L -u "/configuration/gui/address" -v ${new} -n "${home}/${SYNCTHING_CONFIG}"
 
             new="${laddress}:${lport}"
