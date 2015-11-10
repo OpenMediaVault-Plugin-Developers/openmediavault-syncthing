@@ -3,14 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
+# Paolo Velati <paolo.velati@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-syncthing\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-06-25 08:45-0500\n"
-"PO-Revision-Date: 2015-06-25 13:45+0000\n"
-"Last-Translator: Aaron Murray <aaron27@ryecoinc.com>\n"
-"Language-Team: Italian (http://www.transifex.com/projects/p/openmediavault-syncthing/language/it/)\n"
+"PO-Revision-Date: 2015-09-14 10:06+0000\n"
+"Last-Translator: Paolo Velati <paolo.velati@gmail.com>\n"
+"Language-Team: Italian (http://www.transifex.com/openmediavault-plugin-developers/openmediavault-syncthing/language/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -18,16 +19,16 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "Add user"
-msgstr ""
+msgstr "Aggiungi utente"
 
 msgid "Edit user"
-msgstr ""
+msgstr "Modifica utente"
 
 msgid "Enable"
-msgstr ""
+msgstr "Abilita"
 
 msgid "Enabled"
-msgstr ""
+msgstr "Abilitato"
 
 msgid "Folders"
 msgstr ""
@@ -54,16 +55,16 @@ msgid "Limit send speed. Value is Kb/s. 0 to disable."
 msgstr ""
 
 msgid "Line"
-msgstr ""
+msgstr "Linea"
 
 msgid "Listen Address"
 msgstr ""
 
 msgid "Listen Port"
-msgstr ""
+msgstr "Porta di ascolto"
 
 msgid "Log"
-msgstr ""
+msgstr "Log"
 
 msgid "Max Receive"
 msgstr ""
@@ -72,28 +73,28 @@ msgid "Max Send"
 msgstr ""
 
 msgid "Message"
-msgstr ""
+msgstr "Messaggio"
 
 msgid "Message - row {0}"
-msgstr ""
+msgstr "Messaggio - riga {0}"
 
 msgid "Open Web Interface"
 msgstr ""
 
 msgid "Path"
-msgstr ""
+msgstr "Percorso"
 
 msgid "Port to listen on."
-msgstr ""
+msgstr "Porta su cui ascoltare."
 
 msgid "Restart"
-msgstr ""
+msgstr "Riavvia"
 
 msgid "Services"
-msgstr ""
+msgstr "Servizi"
 
 msgid "Settings"
-msgstr ""
+msgstr "Impostazioni"
 
 msgid "Syncthing"
 msgstr ""
@@ -111,7 +112,7 @@ msgid "This username is already in use."
 msgstr ""
 
 msgid "User"
-msgstr ""
+msgstr "Utente"
 
 msgid "View Log"
-msgstr ""
+msgstr "Visualizza Log"
