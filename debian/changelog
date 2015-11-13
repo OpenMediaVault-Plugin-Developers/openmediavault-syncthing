@@ -1,3 +1,9 @@
+openmediavault-syncthing (1.8) UNRELEASED; urgency=low
+
+  * Add logrotate config
+
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Fri, 13 Nov 2015 11:05:22 -0600
+
 openmediavault-syncthing (1.7) stable; urgency=low
 
   * Update for Syncthing 0.12
