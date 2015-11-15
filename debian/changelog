@@ -1,8 +1,8 @@
-openmediavault-syncthing (1.9) UNRELEASED; urgency=low
+openmediavault-syncthing (1.9) stable; urgency=low
 
   * Bug fix
 
- -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Sun, 15 Nov 2015 07:08:45 -0600
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Sun, 15 Nov 2015 07:09:59 -0600
 
 openmediavault-syncthing (1.8) stable; urgency=low
 
