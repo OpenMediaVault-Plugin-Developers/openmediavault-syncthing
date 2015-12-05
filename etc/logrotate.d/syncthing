@@ -4,5 +4,6 @@
   rotate 4
   compress
   notifempty
-  create 0666 root root
+  su root users
+  create 0666 root users
 }

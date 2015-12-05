@@ -1,3 +1,15 @@
+openmediavault-syncthing (1.9.2) stable; urgency=low
+
+  * Fix logrotate config
+
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Sat, 05 Dec 2015 11:49:50 -0600
+
+openmediavault-syncthing (1.9.1) stable; urgency=low
+
+  * Add armhf architecture
+
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Sat, 05 Dec 2015 11:32:37 -0600
+
 openmediavault-syncthing (1.9) stable; urgency=low
 
   * Bug fix
