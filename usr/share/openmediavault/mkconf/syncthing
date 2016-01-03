@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Copyright (C) 2015 OpenMediaVault Plugin Developers
+# Copyright (C) 2015-2016 OpenMediaVault Plugin Developers
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -23,7 +23,7 @@ set -e
 RUN_GRP="users"
 
 SERVICE="syncthing"
-XPATH="//services/${SERVICE}"
+XPATH="/config/services/${SERVICE}"
 XPATH_USER="${XPATH}/users/user"
 
 SYNCTHING_CONFIG_DIR=".config"
@@ -58,20 +58,20 @@ if [ "${username}" != "" ]; then
 
             # Change settings
             new="${address}:${port}"
-            xmlstarlet ed -L -u "/configuration/gui/address" -v ${new} -n "${home}/${SYNCTHING_CONFIG}"
+            xmlstarlet ed -L -u "/configuration/gui/address" -v ${new} "${home}/${SYNCTHING_CONFIG}"
 
             new="tcp://${laddress}:${lport}"
-            xmlstarlet ed -L -u "/configuration/options/listenAddress" -v ${new} -n "${home}/${SYNCTHING_CONFIG}"
+            xmlstarlet ed -L -u "/configuration/options/listenAddress" -v ${new} "${home}/${SYNCTHING_CONFIG}"
 
-            xmlstarlet ed -L -u "/configuration/options/maxSendKbps" -v ${maxsend} -n "${home}/${SYNCTHING_CONFIG}"
-            xmlstarlet ed -L -u "/configuration/options/maxRecvKbps" -v ${maxrecv} -n "${home}/${SYNCTHING_CONFIG}"
+            xmlstarlet ed -L -u "/configuration/options/maxSendKbps" -v ${maxsend} "${home}/${SYNCTHING_CONFIG}"
+            xmlstarlet ed -L -u "/configuration/options/maxRecvKbps" -v ${maxrecv} "${home}/${SYNCTHING_CONFIG}"
 
             # fix ownership and permissions
             chown -R ${username}:${RUN_GRP} "${home}/${SYNCTHING_CONFIG_DIR}"
             chmod 0600 "${home}/${SYNCTHING_CONFIG}"
         fi
 
-        invoke-rc.d ${SERVICE} restart ${username}
+        deb-systemd-invoke restart ${SERVICE}.service ${username} >/dev/null || true
     fi
 else
     first=0
@@ -107,13 +107,13 @@ else
 
                 # Change settings
                 new="${address}:${port}"
-                xmlstarlet ed -L -u "/configuration/gui/address" -v ${new} -n "${home}/${SYNCTHING_CONFIG}"
+                xmlstarlet ed -L -u "/configuration/gui/address" -v ${new} "${home}/${SYNCTHING_CONFIG}"
 
                 new="tcp://${laddress}:${lport}"
-                xmlstarlet ed -L -u "/configuration/options/listenAddress" -v ${new} -n "${home}/${SYNCTHING_CONFIG}"
+                xmlstarlet ed -L -u "/configuration/options/listenAddress" -v ${new} "${home}/${SYNCTHING_CONFIG}"
 
-                xmlstarlet ed -L -u "/configuration/options/maxSendKbps" -v ${maxsend} -n "${home}/${SYNCTHING_CONFIG}"
-                xmlstarlet ed -L -u "/configuration/options/maxRecvKbps" -v ${maxrecv} -n "${home}/${SYNCTHING_CONFIG}"
+                xmlstarlet ed -L -u "/configuration/options/maxSendKbps" -v ${maxsend} "${home}/${SYNCTHING_CONFIG}"
+                xmlstarlet ed -L -u "/configuration/options/maxRecvKbps" -v ${maxrecv} "${home}/${SYNCTHING_CONFIG}"
 
                 # fix ownership and permissions
                 chown -R ${username}:${RUN_GRP} "${home}/${SYNCTHING_CONFIG_DIR}"
@@ -135,7 +135,7 @@ else
     done
 
     if [ "${restart}" != "0" ]; then
-        invoke-rc.d ${SERVICE} stop
+        deb-systemd-invoke stop ${SERVICE}.service >/dev/null || true
     fi
 
     if [ "${names}" != "" ]; then
@@ -143,7 +143,7 @@ else
     fi
 
     if [ "${restart}" != "0" ]; then
-        invoke-rc.d ${SERVICE} start
+        deb-systemd-invoke start ${SERVICE}.service >/dev/null || true
     fi
 fi
 

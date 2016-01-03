@@ -1,3 +1,9 @@
+openmediavault-syncthing (3.0) stable; urgency=low
+
+  * Adapt for OMV 3.0
+
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Sun, 03 Jan 2016 16:06:31 -0600
+
 openmediavault-syncthing (1.9.2) stable; urgency=low
 
   * Fix logrotate config

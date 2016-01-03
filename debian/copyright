@@ -2,7 +2,7 @@ Format: http://dep.debian.net/deps/dep5
 Upstream-Name: openmediavault-syncthing
 
 Files: *
-Copyright: 2015 OpenMediaVault Plugin Developers <plugins@omv-extras.org>
+Copyright: 2015-2016 OpenMediaVault Plugin Developers <plugins@omv-extras.org>
 License: GPL-3+
 
 Files: /var/www/openmediavault/images/syncthing.*

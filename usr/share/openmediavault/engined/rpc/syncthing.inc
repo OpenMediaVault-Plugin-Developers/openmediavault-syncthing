@@ -2,7 +2,7 @@
 /**
  * @author    Volker Theile <volker.theile@openmediavault.org>
  * @copyright Copyright (C) 2009-2014 Volker Theile
- * @copyright Copyright (C) 2015 OpenMediaVault Plugin Developers
+ * @copyright Copyright (C) 2015-2016 OpenMediaVault Plugin Developers
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,10 +19,10 @@
  */
 
 require_once ("openmediavault/error.inc");
-require_once ("openmediavault/initscript.inc");
 require_once ("openmediavault/notify.inc");
 require_once ("openmediavault/object.inc");
 require_once ("openmediavault/rpc.inc");
+require_once "openmediavault/systemctl.inc";
 require_once ("openmediavault/util.inc");
 
 class OMVRpcServiceSyncthing extends OMVRpcServiceAbstract
@@ -39,7 +39,7 @@ class OMVRpcServiceSyncthing extends OMVRpcServiceAbstract
 
     private function getXPath()
     {
-        return sprintf( "//services/%s", $this->getPluginName() );
+        return sprintf( "/config/services/%s", $this->getPluginName() );
     }
 
     private function getXPathUsers()
@@ -94,7 +94,7 @@ class OMVRpcServiceSyncthing extends OMVRpcServiceAbstract
         // Validate the RPC caller context.
         $this->validateMethodContext(
             $context,
-            array( "role" => OMV_ROLE_ADMINISTRATOR )
+            [ "role" => OMV_ROLE_ADMINISTRATOR ]
         );
 
         // Validate the parameters of the RPC service method.
@@ -110,8 +110,7 @@ class OMVRpcServiceSyncthing extends OMVRpcServiceAbstract
 
         // Get configuration data.
         $objects = $xmlConfig->getList( $this->getXPathUser() );
-        if (is_null($objects))
-        {
+        if (is_null($objects)) {
             throw new OMVException(
                 OMVErrorMsg::E_CONFIG_GET_OBJECT_FAILED,
                 $this->getXPathUser()
@@ -130,7 +129,7 @@ class OMVRpcServiceSyncthing extends OMVRpcServiceAbstract
         // Validate the RPC caller context.
         $this->validateMethodContext(
             $context,
-            array("role" => OMV_ROLE_ADMINISTRATOR)
+            [ "role" => OMV_ROLE_ADMINISTRATOR ]
         );
 
         // Validate the parameters of the RPC service method.
@@ -144,8 +143,7 @@ class OMVRpcServiceSyncthing extends OMVRpcServiceAbstract
           // Get the configuration object.
         $xPath = sprintf("%s[uuid='%s']", $this->getXPathUser(), $params['uuid']);
         $object = $xmlConfig->get($xPath);
-        if (is_null($object))
-        {
+        if (is_null($object)) {
             throw new OMVException(
                 OMVErrorMsg::E_CONFIG_GET_OBJECT_FAILED,
                 $xPath
@@ -168,7 +166,7 @@ class OMVRpcServiceSyncthing extends OMVRpcServiceAbstract
         // Validate the RPC caller context.
         $this->validateMethodContext(
             $context,
-            array( "role" => OMV_ROLE_ADMINISTRATOR )
+            [ "role" => OMV_ROLE_ADMINISTRATOR ]
         );
 
         // Validate the parameters of the RPC service method.
@@ -188,7 +186,7 @@ class OMVRpcServiceSyncthing extends OMVRpcServiceAbstract
         }');
 
         // Prepare configuration data.
-        $object = array(
+        $object = [
             "uuid"     => ($params['uuid'] == $GLOBALS['OMV_UUID_UNDEFINED']) ? OMVUtil::uuid() : $params['uuid'],
             "enable"   => array_boolval($params, 'enable'),
             "username" => $params['username'],
@@ -198,15 +196,13 @@ class OMVRpcServiceSyncthing extends OMVRpcServiceAbstract
             "laddress" => $params['laddress'],
             "maxsend"  => intval($params['maxsend']),
             "maxrecv"  => intval($params['maxrecv'])
-        );
+        ];
 
         // Set the configuration data.
         $success = FALSE;
-        if ($params['uuid'] == $GLOBALS['OMV_UUID_UNDEFINED'])
-        {
+        if ($params['uuid'] == $GLOBALS['OMV_UUID_UNDEFINED']) {
             $xPath = sprintf("%s[username='%s']", $this->getXPathUser(), $params['username']);
-            if (TRUE === $xmlConfig->exists($xPath))
-            {
+            if (TRUE === $xmlConfig->exists($xPath)) {
                 throw new OMVException(
                     OMVErrorMsg::E_CONFIG_OBJECT_UNIQUENESS,
                     gettext("This username is already in use.")
@@ -214,8 +210,7 @@ class OMVRpcServiceSyncthing extends OMVRpcServiceAbstract
             }
 
             $xPath = sprintf("%s[port='%s']", $this->getXPathUser(), $params['port']);
-            if (TRUE === $xmlConfig->exists($xPath))
-            {
+            if (TRUE === $xmlConfig->exists($xPath)) {
                 throw new OMVException(
                     OMVErrorMsg::E_CONFIG_OBJECT_UNIQUENESS,
                     gettext("This GUI port is already in use.")
@@ -223,8 +218,7 @@ class OMVRpcServiceSyncthing extends OMVRpcServiceAbstract
             }
 
             $xPath = sprintf("%s[lport='%s']", $this->getXPathUser(), $params['lport']);
-            if (TRUE === $xmlConfig->exists($xPath))
-            {
+            if (TRUE === $xmlConfig->exists($xPath)) {
                 throw new OMVException(
                     OMVErrorMsg::E_CONFIG_OBJECT_UNIQUENESS,
                     gettext("This listen port is already in use.")
@@ -233,15 +227,12 @@ class OMVRpcServiceSyncthing extends OMVRpcServiceAbstract
 
             // Append object to configuration.
             $success = $xmlConfig->set($this->getXPathUsers(), array("user" => $object));
-        }
-        else
-        {
+        } else {
             // Update existing configuration object.
             $xPath = sprintf("%s[uuid='%s']", $this->getXPathUser(), $params['uuid'] );
             $success = $xmlConfig->replace($xPath, $object);
         }
-        if (FALSE === $success)
-        {
+        if (FALSE === $success) {
             throw new OMVException(
                 OMVErrorMsg::E_CONFIG_GET_OBJECT_FAILED
             );
@@ -266,7 +257,7 @@ class OMVRpcServiceSyncthing extends OMVRpcServiceAbstract
         // Validate the RPC caller context.
         $this->validateMethodContext(
             $context,
-            array( "role" => OMV_ROLE_ADMINISTRATOR )
+            [ "role" => OMV_ROLE_ADMINISTRATOR ]
         );
 
         // Validate the parameters of the RPC service method.
@@ -280,8 +271,7 @@ class OMVRpcServiceSyncthing extends OMVRpcServiceAbstract
         // Get the configuration object.
         $xPath = sprintf("%s[uuid='%s']", $this->getXPathUser(), $params['uuid']);
         $object = $xmlConfig->get($xPath);
-        if (is_null($object))
-        {
+        if (is_null($object)) {
             throw new OMVException(
                 OMVErrorMsg::E_CONFIG_GET_OBJECT_FAILED,
                 $xPath
@@ -302,7 +292,7 @@ class OMVRpcServiceSyncthing extends OMVRpcServiceAbstract
         // Validate the RPC caller context.
         $this->validateMethodContext(
             $context,
-            array("role" => OMV_ROLE_ADMINISTRATOR)
+            [ "role" => OMV_ROLE_ADMINISTRATOR ]
         );
 
         // Validate the parameters of the RPC service method.
@@ -318,31 +308,29 @@ class OMVRpcServiceSyncthing extends OMVRpcServiceAbstract
         }');
 
         $username = $params["username"];
-        $logRows  = array();
+        $logRows  = [];
         $logPath  = sprintf("%s/syncthing_%s.log", $this->getLogPath(), $username);
 
-        if (file_exists($logPath))
-        {
+        if (file_exists($logPath)) {
             $logText      = file_get_contents($logPath);
             $logTextArray = explode("\n", $logText);
             $rowNumber    = 1;
 
-            foreach ($logTextArray as $row)
-            {
+            foreach ($logTextArray as $row) {
                 if (empty($row))
                     continue;
 
-                $logRows[] = array(
+                $logRows[] = [
                     "id"      => $rowNumber++,
                     "message" => $row,
-                );
+                ];
             }
         }
 
-        return array(
+        return [
             "total" => count($logRows),
             "data"  => $logRows,
-        );
+        ];
     }
 
     public function doRestart($params, $context)
@@ -352,14 +340,13 @@ class OMVRpcServiceSyncthing extends OMVRpcServiceAbstract
         // Validate the RPC caller context.
         $this->validateMethodContext(
             $context,
-            array( "role" => OMV_ROLE_ADMINISTRATOR )
+            [ "role" => OMV_ROLE_ADMINISTRATOR ]
         );
 
         $xPath = sprintf("%s[enable=1]", $this->getXPathUser());
-        if (TRUE === $xmlConfig->exists($xPath))
-        {
-            $initd = new OMVSysVInitScript($this->getPluginName());
-            $initd->invoke("restart");
+        if (TRUE === $xmlConfig->exists($xPath)) {
+            $systemCtl = new OMVSystemCtl($this->getPluginName);
+            $systemCtl->restart();
         }
     }
 
@@ -373,7 +360,7 @@ class OMVRpcServiceSyncthing extends OMVRpcServiceAbstract
         // Validate the RPC caller context.
         $this->validateMethodContext(
             $context,
-            array("role" => OMV_ROLE_USER)
+            [ "role" => OMV_ROLE_USER ]
         );
 
         // Get the configuration object.
@@ -381,8 +368,7 @@ class OMVRpcServiceSyncthing extends OMVRpcServiceAbstract
         $object = $xmlConfig->get($xPath);
 
         // Modify the result object.
-        if (!is_null($object))
-        {
+        if (!is_null($object)) {
             $object['enable']   = boolval($object['enable']);
             $object['port']     = intval($object['port']);
             $object['maxsend']  = intval($object['maxsend']);
@@ -401,7 +387,7 @@ class OMVRpcServiceSyncthing extends OMVRpcServiceAbstract
         // Validate the RPC caller context.
         $this->validateMethodContext(
             $context,
-            array("role" => OMV_ROLE_USER)
+            [ "role" => OMV_ROLE_USER ]
         );
 
         // Validate the parameters of the RPC service method.
@@ -425,11 +411,12 @@ class OMVRpcServiceSyncthing extends OMVRpcServiceAbstract
         $xPath = sprintf("%s[username='%s']", $this->getXPathUser(), $context['username']);
         $oldObject = $xmlConfig->get($xPath);
 
-        if (is_null($oldObject))
+        if (is_null($oldObject)) {
             $newUser = true;
+        }
 
         // Prepare configuration data.
-        $object = array(
+        $object = [
             "uuid"     => ($newUser) ? OMVUtil::uuid() : $oldObject['uuid'],
             "enable"   => array_boolval($params, 'enable'),
             "username" => $params['username'],
@@ -439,15 +426,13 @@ class OMVRpcServiceSyncthing extends OMVRpcServiceAbstract
             "laddress" => $params['laddress'],
             "maxsend"  => intval($params['maxsend']),
             "maxrecv"  => intval($params['maxrecv'])
-        );
+        ];
 
         // Set the configuration data.
         $success = FALSE;
-        if ($newUser === true)
-        {
+        if ($newUser === true) {
             $xPath = sprintf("%s[port='%s']", $this->getXPathUser(), $object['port']);
-            if (TRUE === $xmlConfig->exists($xPath))
-            {
+            if (TRUE === $xmlConfig->exists($xPath)) {
                 throw new OMVException(
                     OMVErrorMsg::E_CONFIG_OBJECT_UNIQUENESS,
                     gettext("This GUI port is already in use.")
@@ -455,8 +440,7 @@ class OMVRpcServiceSyncthing extends OMVRpcServiceAbstract
             }
 
             $xPath = sprintf("%s[lport='%s']", $this->getXPathUser(), $object['lport']);
-            if (TRUE === $xmlConfig->exists($xPath))
-            {
+            if (TRUE === $xmlConfig->exists($xPath)) {
                 throw new OMVException(
                     OMVErrorMsg::E_CONFIG_OBJECT_UNIQUENESS,
                     gettext("This listen port is already in use.")
@@ -465,23 +449,19 @@ class OMVRpcServiceSyncthing extends OMVRpcServiceAbstract
 
             // Append object to configuration.
             $success = $xmlConfig->set($this->getXPathUsers(), array("user" => $object));
-        }
-        else
-        {
+        } else {
             // Update existing configuration object.
             $xPath = sprintf("%s[uuid='%s']", $this->getXPathUser(), $object['uuid'] );
             $success = $xmlConfig->replace($xPath, $object);
         }
-        if (FALSE === $success)
-        {
+        if (FALSE === $success) {
             throw new OMVException(
                 OMVErrorMsg::E_CONFIG_GET_OBJECT_FAILED
             );
         }
 
         $cmd = sprintf("export LANG=C; omv-mkconf %s %s", $this->getPluginName(), $context['username']);
-        if (0 !== $this->exec($cmd, $output))
-        {
+        if (0 !== $this->exec($cmd, $output)) {
             throw new OMVException(
                 OMVErrorMsg::E_EXEC_FAILED,
                 $cmd,
@@ -497,30 +477,28 @@ class OMVRpcServiceSyncthing extends OMVRpcServiceAbstract
         // Validate the RPC caller context.
         $this->validateMethodContext(
             $context,
-            array("role" => OMV_ROLE_USER)
+            [ "role" => OMV_ROLE_USER ]
         );
 
-        $result  = array();
+        $result = [];
 
         // Get configuration object
         $xPath = sprintf("%s[username='%s']", $this->getXPathUser(), $context['username'] );
         $object = $xmlConfig->get($xPath);
 
-        if (!is_null($object))
-        {
+        if (!is_null($object)) {
             $port    = intval($object['port']);
             $config  = file_get_contents(sprintf("http://localhost:%d/rest/system/config", $port));
             $configd = json_decode($config);
 
-            foreach ($configd->folders as $folder)
-            {
+            foreach ($configd->folders as $folder) {
                 if ($folder->id == "default")
                     continue;
 
-                $result[] = array(
+                $result[] = [
                     "id"   => $folder->id,
                     "path" => $folder->path
-                );
+                ];
             }
         }
 
@@ -532,7 +510,7 @@ class OMVRpcServiceSyncthing extends OMVRpcServiceAbstract
         // Validate the RPC caller context.
         $this->validateMethodContext(
             $context,
-            array("role" => OMV_ROLE_USER)
+            [ "role" => OMV_ROLE_USER ]
         );
 
         $output = "";
