@@ -1,0 +1,40 @@
+{
+	"type": "config",
+	"id": "conf.service.syncthing.user",
+	"title": "Syncthing",
+	"queryinfo": {
+		"xpath": "/config/services/syncthing/users/user",
+		"iterable": true,
+		"idproperty": "uuid"
+	},
+	"properties": {
+	  "uuid": {
+	    "type": "string",
+	    "format": "uuidv4"
+	  },
+	  "enable": {
+	    "type": "boolean"
+	  },
+	  "username": {
+	    "type": "string"
+	  },
+	  "port": {
+	    "type": "integer"
+	  },
+	  "address": {
+	    "type": "string"
+	  },
+	  "lport": {
+	    "type": "integer"
+	  },
+	  "laddress": {
+	    "type": "string"
+	  },
+	  "maxsend": {
+	    "type": "integer"
+	  },
+	  "maxrecv": {
+	    "type": "integer"
+	  }
+	}
+}
