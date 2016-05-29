@@ -20,14 +20,11 @@
 
 class OMVRpcServiceSyncthing extends \OMV\Rpc\ServiceAbstract
 {
+    private $getLogPath = "/var/log/syncthing";
+
     public function getName()
     {
         return 'syncthing';
-    }
-	
-    private function getLogPath()
-    {
-        return "/var/log/syncthing";
     }
 
     public function initialize()
@@ -47,20 +44,19 @@ class OMVRpcServiceSyncthing extends \OMV\Rpc\ServiceAbstract
         $this->registerMethod('getLog');
     }
 
-
     // Admin functions
 
     public function getUsers($params, $context)
     {
         // Validate the RPC caller context.
-	$this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
+        $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
 
         // Validate the parameters of the RPC service method.
-	$this->validateMethodParams($params, "rpc.common.getlist");
+        $this->validateMethodParams($params, "rpc.common.getlist");
 
         // Get configuration data.
-	$db = \OMV\Config\Database::getInstance();
-	$objects = $db->getAssoc("conf.service.syncthing.user");
+        $db = \OMV\Config\Database::getInstance();
+        $objects = $db->getAssoc("conf.service.syncthing.user");
 
         // Filter the result.
         return $this->applyFilter($objects, $params['start'], $params['limit'],
@@ -70,31 +66,29 @@ class OMVRpcServiceSyncthing extends \OMV\Rpc\ServiceAbstract
     public function getUser($params, $context)
     {
         // Validate the RPC caller context.
-	$this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
+        $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
 
         // Validate the parameters of the RPC service method.
-	$this->validateMethodParams($params, "rpc.common.objectuuid");
+        $this->validateMethodParams($params, "rpc.common.objectuuid");
 
         // Get the configuration object.
-	$db = \OMV\Config\Database::getInstance();
-	return $db->getAssoc("conf.service.syncthing.user", $params['uuid']);
+        $db = \OMV\Config\Database::getInstance();
+        return $db->getAssoc("conf.service.syncthing.user", $params['uuid']);
     }
 
     public function setUser($params, $context)
     {
         // Validate the RPC caller context.
-	$this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
+        $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
 
         // Validate the parameters of the RPC service method.
-	$this->validateMethodParams($params, "rpc.syncthing.setuser");
+        $this->validateMethodParams($params, "rpc.syncthing.setuser");
 
         // Prepare configuration data.
-	$object = new \OMV\Config\ConfigObject("conf.service.syncthing.user");
-	$object->setAssoc($params);
-
+        $object = new \OMV\Config\ConfigObject("conf.service.syncthing.user");
+        $object->setAssoc($params);
         $isNew = $object->isNew();
-
-	$db = \OMV\Config\Database::getInstance();
+        $db = \OMV\Config\Database::getInstance();
         $db->set($object);
 
         // Notify configuration changes.
@@ -111,13 +105,13 @@ class OMVRpcServiceSyncthing extends \OMV\Rpc\ServiceAbstract
     public function deleteUser($params, $context)
     {
         // Validate the RPC caller context.
-	$this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
+        $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
 
         // Validate the parameters of the RPC service method.
-       $this->validateMethodParams($params, "rpc.common.objectuuid");
- 
+        $this->validateMethodParams($params, "rpc.common.objectuuid");
+
         // Delete the configuration object.
-	return $this->deleteConfigObjectByUuid(
+        return $this->deleteConfigObjectByUuid(
             "conf.service.syncthing.user",
             $params['uuid'],
             "org.openmediavault.services.syncthing.user"
@@ -127,10 +121,9 @@ class OMVRpcServiceSyncthing extends \OMV\Rpc\ServiceAbstract
     public function getLogView($params, $context)
     {
         // Validate the RPC caller context.
-       $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]); 
-
+        $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
         // Validate the parameters of the RPC service method.
-       $this->validateMethodParams($params, "rpc.common.getlist"); 
+        $this->validateMethodParams($params, "rpc.common.getlist");
 
         $username = $params["username"];
         $logRows  = [];
@@ -142,16 +135,15 @@ class OMVRpcServiceSyncthing extends \OMV\Rpc\ServiceAbstract
             $rowNumber    = 1;
 
             foreach ($logTextArray as $row) {
-                if (empty($row))
+                if (empty($row)) {
                     continue;
-
+                }
                 $logRows[] = [
                     "id"      => $rowNumber++,
                     "message" => $row,
                 ];
             }
         }
-
         return [
             "total" => count($logRows),
             "data"  => $logRows,
@@ -161,15 +153,12 @@ class OMVRpcServiceSyncthing extends \OMV\Rpc\ServiceAbstract
     public function doRestart($params, $context)
     {
         // Validate the RPC caller context.
-	$this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
-
-	$db = \OMV\Config\Database::getInstance();
-	if ( $db->exists("conf.service.syncthing.user",["operator" => "stringEquals","arg0" => "enable" , arg1 => "1" ] ) )
-        {
-                $systemCtl = new \OMV\System\SystemCtl("syncthing");
-                $systemCtl->restart();
+        $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
+        $db = \OMV\Config\Database::getInstance();
+        if ( $db->exists("conf.service.syncthing.user", ["operator" => "stringEquals","arg0" => "enable" , arg1 => "1"])) {
+            $systemCtl = new \OMV\System\SystemCtl("syncthing");
+            $systemCtl->restart();
         }
-	
     }
 
 
@@ -178,97 +167,54 @@ class OMVRpcServiceSyncthing extends \OMV\Rpc\ServiceAbstract
     public function getSettings($params, $context)
     {
         // Validate the RPC caller context.
-        $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
-
+        $this->validateMethodContext($context, ["role" => OMV_ROLE_USER]);
         // Get the configuration object.
-	$db = \OMV\Config\Database::getInstance();
-	$object = $db->get("conf.service.syncthing.user");
-
+        $db = \OMV\Config\Database::getInstance();
+        $object = $db->get("conf.service.syncthing.user", [
+            "operator" => "stringEquals",
+            "arg0" => "username",
+            "arg1" => $context['username']
+        ]);
         return $object;
     }
 
     public function setSettings($params, $context)
     {
         // Validate the RPC caller context.
-	$this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
-
+        $this->validateMethodContext($context, ["role" => OMV_ROLE_USER]);
         // Validate the parameters of the RPC service method.
-	$this->validateMethodParams($params, "rpc.syncthing.setuser");
-
-        $newUser = false;
-
-        // Get the configuration object.
-        $xPath = sprintf("%s[username='%s']", $this->getXPathUser(), $context['username']);
-        $oldObject = $xmlConfig->get($xPath);
-
-        if (is_null($oldObject)) {
-            $newUser = true;
-        }
-
+        $this->validateMethodParams($params, "rpc.syncthing.setuser");
         // Prepare configuration data.
-        $object = [
-            "uuid"     => ($newUser) ? OMVUtil::uuid() : $oldObject['uuid'],
-            "enable"   => array_boolval($params, 'enable'),
-            "username" => $params['username'],
-            "port"     => intval($params['port']),
-            "address"  => $params['address'],
-            "lport"    => intval($params['lport']),
-            "laddress" => $params['laddress'],
-            "maxsend"  => intval($params['maxsend']),
-            "maxrecv"  => intval($params['maxrecv'])
-        ];
-
-        // Set the configuration data.
-        $success = FALSE;
-        if ($newUser === true) {
-            $xPath = sprintf("%s[port='%s']", $this->getXPathUser(), $object['port']);
-            if (TRUE === $xmlConfig->exists($xPath)) {
-                throw new OMVException(
-                    OMVErrorMsg::E_CONFIG_OBJECT_UNIQUENESS,
-                    gettext("This GUI port is already in use.")
-                );
-            }
-
-            $xPath = sprintf("%s[lport='%s']", $this->getXPathUser(), $object['lport']);
-            if (TRUE === $xmlConfig->exists($xPath)) {
-                throw new OMVException(
-                    OMVErrorMsg::E_CONFIG_OBJECT_UNIQUENESS,
-                    gettext("This listen port is already in use.")
-                );
-            }
-
-            // Append object to configuration.
-            $success = $xmlConfig->set($this->getXPathUsers(), array("user" => $object));
-        } else {
-            // Update existing configuration object.
-            $xPath = sprintf("%s[uuid='%s']", $this->getXPathUser(), $object['uuid'] );
-            $success = $xmlConfig->replace($xPath, $object);
+        $object = new \OMV\Config\ConfigObject("conf.service.syncthing.user");
+        $object->setAssoc($params);
+        $isNew = $object->isNew();
+        if (TRUE === $isNew) {
+            // Check uniqueness - port, lport
+            $db->assertIsUnique($object, "port");
+            $db->assertIsUnique($object, "lport");
         }
-        if (FALSE === $success) {
-            throw new OMVException(
-                OMVErrorMsg::E_CONFIG_GET_OBJECT_FAILED
-            );
-        }
-
+        $db = \OMV\Config\Database::getInstance();
+        $db->set($object);
+        // Notify configuration changes.
+        $dispatcher = \OMV\Engine\Notify\Dispatcher::getInstance();
+        $dispatcher->notify(
+            $isNew ? OMV_NOTIFY_CREATE : OMV_NOTIFY_MODIFY,
+            "org.openmediavault.services.syncthing.user",
+            $object->getAssoc()
+        );
+        // Create/modify syncthing instance for user
         $cmd = sprintf("export LANG=C; omv-mkconf %s %s", $this->getPluginName(), $context['username']);
         if (0 !== $this->exec($cmd, $output)) {
-            throw new OMVException(
-                OMVErrorMsg::E_EXEC_FAILED,
-                $cmd,
-                implode("\n", $output)
-            );
+            throw new OMVException(implode("\n", $output));
         }
+        // Return the configuration object.
+        return $object->getAssoc();
     }
 
     function getFolders($params, $context)
     {
-        global $xmlConfig;
-
         // Validate the RPC caller context.
-        $this->validateMethodContext(
-            $context,
-            [ "role" => OMV_ROLE_USER ]
-        );
+        $this->validateMethodContext($context, ["role" => OMV_ROLE_USER]);
 
         $result = [];
 
@@ -282,32 +228,28 @@ class OMVRpcServiceSyncthing extends \OMV\Rpc\ServiceAbstract
             $configd = json_decode($config);
 
             foreach ($configd->folders as $folder) {
-                if ($folder->id == "default")
+                if ($folder->id == "default") {
                     continue;
-
+                }
                 $result[] = [
                     "id"   => $folder->id,
                     "path" => $folder->path
                 ];
             }
         }
-
         return $result;
     }
 
     public function getLog($params, $context)
     {
         // Validate the RPC caller context.
-	$this->validateMethodContext($context, ["role" => OMV_ROLE_USER]);
+        $this->validateMethodContext($context, ["role" => OMV_ROLE_USER]);
 
         $output = "";
         $result = "";
-
         $cmd = sprintf("cat %s/syncthing_%s.log", $this->getLogPath(), $context['username']);
-        OMVUtil::exec($cmd, $result);
+        exec($cmd, $result);
         $output = implode("\n", $result) . "\n";
-
         return $output;
     }
 }
-

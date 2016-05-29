@@ -19,7 +19,7 @@
  */
 
 class OMVModuleSyncthing extends \OMV\Engine\Module\ServiceAbstract
-	implements \OMV\Engine\Notify\IListener, \OMV\Engine\Module\IServiceStatus
+    implements \OMV\Engine\Notify\IListener, \OMV\Engine\Module\IServiceStatus
 {
 
     public function getName()
@@ -30,7 +30,7 @@ class OMVModuleSyncthing extends \OMV\Engine\Module\ServiceAbstract
 
     public function getStatus()
     {
-	$db = \OMV\Config\Database::getInstance();
+        $db = \OMV\Config\Database::getInstance();
         $object = $db->get("conf.service.syncthing.user");
         $systemCtl = new \OMV\System\SystemCtl("syncthing");
         return array(
@@ -43,35 +43,32 @@ class OMVModuleSyncthing extends \OMV\Engine\Module\ServiceAbstract
 
     public function applyConfig()
     {
-	$cmd = new \OMV\System\Process("omv-mkconf", "syncthing");
-	$cmd->setRedirect2to1(TRUE);
-	$cmd->execute();
+        $cmd = new \OMV\System\Process("omv-mkconf", "syncthing");
+        $cmd->setRedirect2to1(TRUE);
+        $cmd->execute();
     }
 
     public function startService()
     {
-	$db = \OMV\Config\Database::getInstance();
-	
-	if ( $db->exists("conf.service.syncthing.user",["operator" => "stringEquals","arg0" => "enable" , arg1 => "1" ] ) )
-        {
-                $systemCtl = new \OMV\System\SystemCtl("syncthing");
-                $systemCtl->enable(TRUE);
+        $db = \OMV\Config\Database::getInstance();
+        if ( $db->exists("conf.service.syncthing.user",["operator" => "stringEquals","arg0" => "enable" , arg1 => "1" ] ) ) {
+            $systemCtl = new \OMV\System\SystemCtl("syncthing");
+            $systemCtl->enable(TRUE);
         }
     }
 
     public function stopService()
     {
-	$systemCtl = new \OMV\System\SystemCtl("syncthing");
+        $systemCtl = new \OMV\System\SystemCtl("syncthing");
         $systemCtl->disable(TRUE);
     }
 
     public function bindListeners(\OMV\Engine\Notify\Dispatcher $dispatcher)
     {
-	$dispatcher->addListener(
+        $dispatcher->addListener(
             OMV_NOTIFY_CREATE | OMV_NOTIFY_MODIFY | OMV_NOTIFY_DELETE,
-       	    "org.openmediavault.services.syncthing.user",
-            [ $this, "setDirty" ] 
-	);
+            "org.openmediavault.services.syncthing.user",
+            [ $this, "setDirty" ]
+        );
     }
 }
-

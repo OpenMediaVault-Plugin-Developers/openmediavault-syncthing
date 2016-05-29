@@ -8,33 +8,33 @@
 		"idproperty": "uuid"
 	},
 	"properties": {
-	  "uuid": {
-	    "type": "string",
-	    "format": "uuidv4"
-	  },
-	  "enable": {
-	    "type": "boolean"
-	  },
-	  "username": {
-	    "type": "string"
-	  },
-	  "port": {
-	    "type": "integer"
-	  },
-	  "address": {
-	    "type": "string"
-	  },
-	  "lport": {
-	    "type": "integer"
-	  },
-	  "laddress": {
-	    "type": "string"
-	  },
-	  "maxsend": {
-	    "type": "integer"
-	  },
-	  "maxrecv": {
-	    "type": "integer"
-	  }
+		"uuid": {
+			"type": "string",
+			"format": "uuidv4"
+		},
+		"enable": {
+			"type": "boolean"
+		},
+		"username": {
+			"type": "string"
+		},
+		"port": {
+			"type": "integer"
+		},
+		"address": {
+			"type": "string"
+		},
+		"lport": {
+			"type": "integer"
+		},
+		"laddress": {
+			"type": "string"
+		},
+		"maxsend": {
+			"type": "integer"
+		},
+		"maxrecv": {
+			"type": "integer"
+		}
 	}
 }

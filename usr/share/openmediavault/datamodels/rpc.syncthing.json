@@ -1,40 +1,38 @@
-[
-  {
-    "type": "rpc",
-    "id": "rpc.syncthing.setuser",
-    "params": {
-      "type": "object",
-      "properties": {
-        "uuid": {
-          "type": "string",
-          "format": "uuidv4",
-          "required": true
-        },
-        "enable": {
-          "type": "boolean"
-        },
-        "username": {
-          "type": "string"
-        },
-        "port": {
-          "type": "integer"
-        },
-        "address": {
-          "type": "string"
-        },
-        "lport": {
-          "type": "integer"
-        },
-        "laddress": {
-          "type": "string"
-        },
-        "maxsend": {
-          "type": "integer"
-        },
-        "maxrecv": {
-          "type": "integer"
-        }
-      }
-    }
-  }
-]
+{
+	"type": "rpc",
+	"id": "rpc.syncthing.setuser",
+	"params": {
+		"type": "object",
+		"properties": {
+			"uuid": {
+				"type": "string",
+				"format": "uuidv4",
+				"required": true
+			},
+			"enable": {
+				"type": "boolean"
+			},
+			"username": {
+				"type": "string"
+			},
+			"port": {
+				"type": "integer"
+			},
+			"address": {
+				"type": "string"
+			},
+			"lport": {
+				"type": "integer"
+			},
+			"laddress": {
+				"type": "string"
+			},
+			"maxsend": {
+				"type": "integer"
+			},
+			"maxrecv": {
+				"type": "integer"
+			}
+		}
+	}
+}
