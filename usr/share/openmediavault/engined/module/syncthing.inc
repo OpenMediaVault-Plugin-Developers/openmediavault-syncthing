@@ -17,15 +17,9 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-require_once "openmediavault/config.inc";
-require_once "openmediavault/error.inc";
-require_once "openmediavault/module.inc";
-require_once "openmediavault/systemctl.inc";
-require_once "openmediavault/util.inc";
 
-class OMVModuleSyncthing extends OMVModuleServiceAbstract implements
-    OMVINotifyListener,
-    OMVIModuleServiceStatus
+class OMVModuleSyncthing extends \OMV\Engine\Module\ServiceAbstract
+	implements \OMV\Engine\Notify\IListener, \OMV\Engine\Module\IServiceStatus
 {
 
     public function getName()
@@ -33,90 +27,51 @@ class OMVModuleSyncthing extends OMVModuleServiceAbstract implements
         return "Syncthing";
     }
 
-    private function getPluginName()
-    {
-        return strtolower( $this->getName() );
-    }
-
-    private function getXPath()
-    {
-        return sprintf( "/config/services/%s", $this->getPluginName() );
-    }
-
-    private function getXPathUsers()
-    {
-        return sprintf( "%s/users", $this->getXPath() );
-    }
-
-    private function getXPathUser()
-    {
-        return sprintf( "%s/user", $this->getXPathUsers() );
-    }
-
-    private function getEventMessagePath()
-    {
-        return sprintf( "org.openmediavault.services.%s", $this->getPluginName() );
-    }
-
-    private function getEventMessagePathUser()
-    {
-        return sprintf( "%s.users.user", $this->getEventMessagePath());
-    }
 
     public function getStatus()
     {
-        global $xmlConfig;
-
-        $xPath = sprintf("%s[enable='1']", $this->getXPathUser());
-        $systemCtl = new OMVSystemCtl( $this->getPluginName() );
-        return [
-            "name"    => $this->getName(),
-            "title"   => gettext( $this->getName() ),
-            "enabled" => $xmlConfig->exists($xPath),
+	$db = \OMV\Config\Database::getInstance();
+        $object = $db->get("conf.service.syncthing.user");
+        $systemCtl = new \OMV\System\SystemCtl("syncthing");
+        return array(
+            "name" => $this->getName(),
+            "title" => gettext("Syncthing"),
+            "enabled" => $object->get("enable"),
             "running" => $systemCtl->isActive()
-        ];
+        );
     }
 
     public function applyConfig()
     {
-        $cmd = sprintf("omv-mkconf %s 2>&1", $this->getPluginName());
-
-        if (0 !== $this->exec($cmd, $output)) {
-            throw new OMVException(
-                OMVErrorMsg::E_EXEC_FAILED,
-                $cmd,
-                implode("\n", $output)
-            );
-        }
+	$cmd = new \OMV\System\Process("omv-mkconf", "syncthing");
+	$cmd->setRedirect2to1(TRUE);
+	$cmd->execute();
     }
 
     public function startService()
     {
-        global $xmlConfig;
-
-        $xPath = sprintf("%s[enable='1']", $this->getXPathUser());
-        if ( TRUE === $xmlConfig->exists($xPath) ) {
-            $systemCtl = new OMVSystemCtl($this->getPluginName());
-            $systemCtl->enable(true);
+	$db = \OMV\Config\Database::getInstance();
+	
+	if ( $db->exists("conf.service.syncthing.user",["operator" => "stringEquals","arg0" => "enable" , arg1 => "1" ] ) )
+        {
+                $systemCtl = new \OMV\System\SystemCtl("syncthing");
+                $systemCtl->enable(TRUE);
         }
     }
 
     public function stopService()
     {
-        $systemCtl = new OMVSystemCtl($this->getPluginName());
-        $systemCtl->disable(true);
+	$systemCtl = new \OMV\System\SystemCtl("syncthing");
+        $systemCtl->disable(TRUE);
     }
 
-    public function bindListeners(OMVNotifyDispatcher $dispatcher)
+    public function bindListeners(\OMV\Engine\Notify\Dispatcher $dispatcher)
     {
-        $dispatcher->addListener(
+	$dispatcher->addListener(
             OMV_NOTIFY_CREATE | OMV_NOTIFY_MODIFY | OMV_NOTIFY_DELETE,
-            $this->getEventMessagePathUser(),
-            array($this, "setDirty")
-        );
+       	    "org.openmediavault.services.syncthing.user",
+            [ $this, "setDirty" ] 
+	);
     }
 }
 
-// Register module
-$moduleMgr = &OMVModuleMgr::getInstance();
-$moduleMgr->registerModule(new OMVModuleSyncthing());
