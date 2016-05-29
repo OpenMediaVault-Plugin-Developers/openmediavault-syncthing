@@ -83,8 +83,7 @@ Ext.define("OMV.module.user.service.syncthing.Settings", {
                 xtype      : "textfield",
                 name       : "username",
                 fieldLabel : _("User"),
-                readOnly   : true,
-                value      : ""
+                readOnly   : true
             },{
                 xtype         : "numberfield",
                 name          : "port",
