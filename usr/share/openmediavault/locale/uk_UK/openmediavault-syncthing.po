@@ -3,12 +3,13 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
+# zubr139, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-syncthing\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-05 11:53-0600\n"
-"PO-Revision-Date: 2015-06-25 13:45+0000\n"
+"POT-Creation-Date: 2016-05-29 11:13-0500\n"
+"PO-Revision-Date: 2016-05-29 16:13+0000\n"
 "Last-Translator: Aaron Murray <aaronmurray27@gmail.com>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/openmediavault-plugin-developers/openmediavault-syncthing/language/uk/)\n"
 "MIME-Version: 1.0\n"
@@ -18,10 +19,10 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
 msgid "Add user"
-msgstr ""
+msgstr "Додати користувача"
 
 msgid "Edit user"
-msgstr ""
+msgstr "Редагувати користувача"
 
 msgid "Enable"
 msgstr ""
@@ -93,7 +94,7 @@ msgid "Services"
 msgstr ""
 
 msgid "Settings"
-msgstr ""
+msgstr "Налаштування"
 
 msgid "Syncthing"
 msgstr ""
@@ -101,17 +102,8 @@ msgstr ""
 msgid "Syncthing Users"
 msgstr ""
 
-msgid "This GUI port is already in use."
-msgstr ""
-
-msgid "This listen port is already in use."
-msgstr ""
-
-msgid "This username is already in use."
-msgstr ""
-
 msgid "User"
-msgstr ""
+msgstr "Користувач"
 
 msgid "View Log"
 msgstr ""

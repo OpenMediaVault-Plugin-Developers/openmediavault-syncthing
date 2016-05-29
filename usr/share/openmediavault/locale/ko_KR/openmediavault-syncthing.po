@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-syncthing\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-05 11:53-0600\n"
-"PO-Revision-Date: 2015-06-26 05:07+0000\n"
-"Last-Translator: Hyeonkyu Chu <hyeonkyu@gmail.com>\n"
+"POT-Creation-Date: 2016-05-29 11:13-0500\n"
+"PO-Revision-Date: 2016-05-29 16:13+0000\n"
+"Last-Translator: Aaron Murray <aaronmurray27@gmail.com>\n"
 "Language-Team: Korean (Korea) (http://www.transifex.com/openmediavault-plugin-developers/openmediavault-syncthing/language/ko_KR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -101,15 +101,6 @@ msgstr "Syncthing"
 
 msgid "Syncthing Users"
 msgstr "Syncthing 사용자"
-
-msgid "This GUI port is already in use."
-msgstr "이 GUI 포트는 이미 사용 중 입니다."
-
-msgid "This listen port is already in use."
-msgstr "이 수신 대기 포트는 이미 사용 중 입니다."
-
-msgid "This username is already in use."
-msgstr "이 사용자 이름은 이미 사용 중 입니다."
 
 msgid "User"
 msgstr "사용자"
