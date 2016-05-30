@@ -21,22 +21,23 @@
 class OMVModuleSyncthing extends \OMV\Engine\Module\ServiceAbstract
     implements \OMV\Engine\Notify\IListener, \OMV\Engine\Module\IServiceStatus
 {
-
     public function getName()
     {
         return "Syncthing";
     }
 
-
     public function getStatus()
     {
         $db = \OMV\Config\Database::getInstance();
-        $object = $db->get("conf.service.syncthing.user");
         $systemCtl = new \OMV\System\SystemCtl("syncthing");
+        $enabled = $db->exists(
+            "conf.service.syncthing.user",
+            ["operator" => "stringEquals", "arg0" => "enable" , arg1 => "1"]
+        );
         return array(
             "name" => $this->getName(),
             "title" => gettext("Syncthing"),
-            "enabled" => $object->get("enable"),
+            "enabled" => $enabled,
             "running" => $systemCtl->isActive()
         );
     }
@@ -51,7 +52,11 @@ class OMVModuleSyncthing extends \OMV\Engine\Module\ServiceAbstract
     public function startService()
     {
         $db = \OMV\Config\Database::getInstance();
-        if ( $db->exists("conf.service.syncthing.user",["operator" => "stringEquals","arg0" => "enable" , arg1 => "1" ] ) ) {
+        $enabled = $db->exists(
+            "conf.service.syncthing.user",
+            ["operator" => "stringEquals", "arg0" => "enable" , arg1 => "1"]
+        );
+        if ( $enabled ) {
             $systemCtl = new \OMV\System\SystemCtl("syncthing");
             $systemCtl->enable(TRUE);
         }

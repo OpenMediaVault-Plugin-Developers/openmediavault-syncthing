@@ -227,7 +227,7 @@ Ext.define("OMV.module.admin.service.syncthing.Users", {
                     type    : "rpc",
                     rpcData : {
                         service : "Syncthing",
-                        method  : "getUsers"
+                        method  : "getUserList"
                     }
                 }
             })

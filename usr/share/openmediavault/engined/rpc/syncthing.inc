@@ -30,7 +30,7 @@ class OMVRpcServiceSyncthing extends \OMV\Rpc\ServiceAbstract
     public function initialize()
     {
         // Admin functions
-        $this->registerMethod('getUsers');
+        $this->registerMethod('getUserList');
         $this->registerMethod('getUser');
         $this->registerMethod('setUser');
         $this->registerMethod('deleteUser');
@@ -46,7 +46,7 @@ class OMVRpcServiceSyncthing extends \OMV\Rpc\ServiceAbstract
 
     // Admin functions
 
-    public function getUsers($params, $context)
+    public function getUserList($params, $context)
     {
         // Validate the RPC caller context.
         $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
@@ -81,12 +81,13 @@ class OMVRpcServiceSyncthing extends \OMV\Rpc\ServiceAbstract
         $object = new \OMV\Config\ConfigObject("conf.service.syncthing.user");
         $object->setAssoc($params);
         $isNew = $object->isNew();
-        // Check uniqueness - port, lport
-        $db->assertIsUnique($object, "port");
-        $db->assertIsUnique($object, "lport");
         $db = \OMV\Config\Database::getInstance();
+        if (TRUE === $isNew) {
+            // Check uniqueness - port, lport
+            $db->assertIsUnique($object, "port");
+            $db->assertIsUnique($object, "lport");
+        }
         $db->set($object);
-
         // Notify configuration changes.
         $dispatcher = \OMV\Engine\Notify\Dispatcher::getInstance();
         $dispatcher->notify(
@@ -178,24 +179,17 @@ class OMVRpcServiceSyncthing extends \OMV\Rpc\ServiceAbstract
         $this->validateMethodContext($context, ["role" => OMV_ROLE_EVERYONE]);
         // Validate the parameters of the RPC service method.
         $this->validateMethodParams($params, "rpc.syncthing.setuser");
-        // Get the configuration object.
+        // Prepare configuration data.
+        $object = new \OMV\Config\ConfigObject("conf.service.syncthing.user");
+        $object->setAssoc($params);
+        $isNew = $object->isNew();
         $db = \OMV\Config\Database::getInstance();
-        $object = $db->getByFilter("conf.service.syncthing.user", [
-            "operator" => "stringEquals",
-            "arg0" => "username",
-            "arg1" => $context['username']
-        ],1);
-        // Check uniqueness - port, lport
-        $db->assertIsUnique($object, "port");
-        $db->assertIsUnique($object, "lport");
+        if (TRUE === $isNew) {
+            // Check uniqueness - port, lport
+            $db->assertIsUnique($object, "port");
+            $db->assertIsUnique($object, "lport");
+        }
         $db->set($object);
-        // Notify configuration changes.
-        $dispatcher = \OMV\Engine\Notify\Dispatcher::getInstance();
-        $dispatcher->notify(
-            OMV_NOTIFY_MODIFY,
-            "org.openmediavault.services.syncthing.user",
-            $object->getAssoc()
-        );
         // Create/modify syncthing instance for user
         $cmd = sprintf("export LANG=C; omv-mkconf syncthing %s", $context['username']);
         if (0 !== $this->exec($cmd, $output)) {
@@ -219,7 +213,7 @@ class OMVRpcServiceSyncthing extends \OMV\Rpc\ServiceAbstract
         ],1);
         $result = [];
         if (!is_null($object)) {
-            $port    = intval($object['port']);
+            $port    = intval($object->get('port'));
             $config  = file_get_contents(sprintf("http://localhost:%d/rest/system/config", $port));
             $configd = json_decode($config);
 
