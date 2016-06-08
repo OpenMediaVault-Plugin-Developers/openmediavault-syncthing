@@ -88,13 +88,6 @@ class OMVRpcServiceSyncthing extends \OMV\Rpc\ServiceAbstract
             $db->assertIsUnique($object, "lport");
         }
         $db->set($object);
-        // Notify configuration changes.
-        $dispatcher = \OMV\Engine\Notify\Dispatcher::getInstance();
-        $dispatcher->notify(
-            $isNew ? OMV_NOTIFY_CREATE : OMV_NOTIFY_MODIFY,
-            "org.openmediavault.services.syncthing.user",
-            $object->getAssoc()
-        );
         // Return the configuration object.
         return $object->getAssoc();
     }
@@ -106,11 +99,11 @@ class OMVRpcServiceSyncthing extends \OMV\Rpc\ServiceAbstract
         // Validate the parameters of the RPC service method.
         $this->validateMethodParams($params, "rpc.common.objectuuid");
         // Delete the configuration object.
-        return $this->deleteConfigObjectByUuid(
-            "conf.service.syncthing.user",
-            $params['uuid'],
-            "org.openmediavault.services.syncthing.user"
-        );
+        $db = \OMV\Config\Database::getInstance();
+        $object = $db->get("conf.service.syncthing.user", $params['uuid']);
+        $db->delete($object);
+        // Return the deleted configuration object.
+        return $object->getAssoc();
     }
 
     public function getLogView($params, $context)
