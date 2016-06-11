@@ -45,7 +45,7 @@ class OMVModuleSyncthing extends \OMV\Engine\Module\ServiceAbstract
     public function applyConfig()
     {
         $cmd = new \OMV\System\Process("omv-mkconf", "syncthing");
-        $cmd->setRedirect2to1(TRUE);
+        $cmd->setRedirect2to1();
         $cmd->execute();
     }
 
@@ -72,7 +72,7 @@ class OMVModuleSyncthing extends \OMV\Engine\Module\ServiceAbstract
     {
         $dispatcher->addListener(
             OMV_NOTIFY_CREATE | OMV_NOTIFY_MODIFY | OMV_NOTIFY_DELETE,
-            "org.openmediavault.services.syncthing.user",
+            "org.openmediavault.conf.service.syncthing.user",
             [ $this, "setDirty" ]
         );
     }
