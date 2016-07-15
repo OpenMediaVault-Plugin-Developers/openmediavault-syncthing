@@ -30,7 +30,7 @@ SYNCTHING_CONFIG_DIR=".config"
 SYNCTHING_CONFIG="${SYNCTHING_CONFIG_DIR}/${SERVICE}/config.xml";
 SYNCTHING_DEFAULT_FILE="/etc/default/${SERVICE}"
 
-username=$2
+username=$1
 
 if [ "${username}" != "" ]; then
     position="[username='${username}']"
