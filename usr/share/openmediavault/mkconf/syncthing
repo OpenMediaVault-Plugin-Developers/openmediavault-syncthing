@@ -32,7 +32,7 @@ SYNCTHING_DEFAULT_FILE="/etc/default/${SERVICE}"
 
 username=$1
 
-if [ "${username}" != "mkconf" ]; then
+if [ "${username}" != "" ]; then
     position="[username='${username}']"
     enable=$(omv_config_get "${XPATH_USER}${position}/enable")
 
