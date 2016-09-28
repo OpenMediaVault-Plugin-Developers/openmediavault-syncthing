@@ -1,3 +1,9 @@
+openmediavault-syncthing (3.8) stable; urgency=low
+
+  * Fix postinst
+
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Tue, 27 Sep 2016 20:51:08 -0500
+
 openmediavault-syncthing (3.7) stable; urgency=low
 
   * update for 3.0.40
