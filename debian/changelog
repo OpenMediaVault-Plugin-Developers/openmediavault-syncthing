@@ -1,3 +1,9 @@
+openmediavault-syncthing (3.7) stable; urgency=low
+
+  * update for 3.0.40
+
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Tue, 27 Sep 2016 20:44:05 -0500
+
 openmediavault-syncthing (3.6) stable; urgency=low
 
   * Fix for OMV 3.0.31

@@ -8,7 +8,7 @@ Standards-Version: 3.9.6
 
 Package: openmediavault-syncthing
 Architecture: all
-Depends: openmediavault (>= 3.0.31),
+Depends: openmediavault (>= 3.0.40),
          syncthing (>= 0.12)
 Description: Syncthing plugin for OpenMediaVault.
  Syncthing replaces proprietary sync and cloud services with something
