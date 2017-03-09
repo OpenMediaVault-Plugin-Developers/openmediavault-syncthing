@@ -1,9 +1,0 @@
-/var/log/syncthing/*.log {
-  weekly
-  missingok
-  rotate 4
-  compress
-  notifempty
-  su root users
-  create 0666 root users
-}

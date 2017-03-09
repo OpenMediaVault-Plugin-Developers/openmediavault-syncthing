@@ -4,4 +4,4 @@
 	dh $@
 
 override_dh_installinit:
-	dh_installinit -r --no-start --name=syncthing
+	dh_installinit --no-start --name=syncthing

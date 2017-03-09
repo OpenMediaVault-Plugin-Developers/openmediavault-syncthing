@@ -2,7 +2,7 @@
 /**
  * @author    Volker Theile <volker.theile@openmediavault.org>
  * @copyright Copyright (C) 2009-2014 Volker Theile
- * @copyright Copyright (C) 2015-2016 OpenMediaVault Plugin Developers
+ * @copyright Copyright (C) 2015-2017 OpenMediaVault Plugin Developers
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -20,8 +20,6 @@
 
 class OMVRpcServiceSyncthing extends \OMV\Rpc\ServiceAbstract
 {
-    private $getLogPath = "/var/log/syncthing";
-
     public function getName()
     {
         return 'syncthing';
@@ -34,14 +32,11 @@ class OMVRpcServiceSyncthing extends \OMV\Rpc\ServiceAbstract
         $this->registerMethod('getUser');
         $this->registerMethod('setUser');
         $this->registerMethod('deleteUser');
-        $this->registerMethod('getLogView');
-        $this->registerMethod('doRestart');
 
         // User functions
         $this->registerMethod('getSettings');
         $this->registerMethod('setSettings');
         $this->registerMethod('getFolders');
-        $this->registerMethod('getLog');
     }
 
     // Admin functions
@@ -104,49 +99,6 @@ class OMVRpcServiceSyncthing extends \OMV\Rpc\ServiceAbstract
         $db->delete($object);
         // Return the deleted configuration object.
         return $object->getAssoc();
-    }
-
-    public function getLogView($params, $context)
-    {
-        // Validate the RPC caller context.
-        $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
-        // Validate the parameters of the RPC service method.
-        $this->validateMethodParams($params, "rpc.common.getlist");
-
-        $username = $params["username"];
-        $logRows  = [];
-        $logPath  = sprintf("%s/syncthing_%s.log", $this->getLogPath, $username);
-
-        if (file_exists($logPath)) {
-            $logText      = file_get_contents($logPath);
-            $logTextArray = explode("\n", $logText);
-            $rowNumber    = 1;
-
-            foreach ($logTextArray as $row) {
-                if (empty($row)) {
-                    continue;
-                }
-                $logRows[] = [
-                    "id"      => $rowNumber++,
-                    "message" => $row,
-                ];
-            }
-        }
-        return [
-            "total" => count($logRows),
-            "data"  => $logRows,
-        ];
-    }
-
-    public function doRestart($params, $context)
-    {
-        // Validate the RPC caller context.
-        $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
-        $db = \OMV\Config\Database::getInstance();
-        if ( $db->exists("conf.service.syncthing.user", ["operator" => "stringEquals","arg0" => "enable" , arg1 => "1"])) {
-            $systemCtl = new \OMV\System\SystemCtl("syncthing");
-            $systemCtl->restart();
-        }
     }
 
 
@@ -221,18 +173,5 @@ class OMVRpcServiceSyncthing extends \OMV\Rpc\ServiceAbstract
             }
         }
         return $result;
-    }
-
-    public function getLog($params, $context)
-    {
-        // Validate the RPC caller context.
-        $this->validateMethodContext($context, ["role" => OMV_ROLE_EVERYONE]);
-
-        $output = "";
-        $result = "";
-        $cmd = sprintf("cat %s/syncthing_%s.log", $this->getLogPath, $context['username']);
-        exec($cmd, $result);
-        $output = implode("\n", $result) . "\n";
-        return $output;
     }
 }

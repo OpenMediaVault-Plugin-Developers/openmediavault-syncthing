@@ -3,7 +3,7 @@
  * @author    Volker Theile <volker.theile@openmediavault.org>
  * @author    OpenMediaVault Plugin Developers <plugins@omv-extras.org>
  * @copyright Copyright (c) 2009-2013 Volker Theile
- * @copyright Copyright (c) 2015-2016 OpenMediaVault Plugin Developers
+ * @copyright Copyright (c) 2015-2017 OpenMediaVault Plugin Developers
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -28,7 +28,6 @@
 // require("js/omv/data/Model.js")
 // require("js/omv/data/proxy/Rpc.js")
 // require("js/omv/form/field/UserComboBox.js")
-// require("js/omv/module/admin/service/syncthing/Log.js")
 
 Ext.define("OMV.module.admin.service.syncthing.User", {
     extend   : "OMV.workspace.window.Form",
@@ -253,29 +252,6 @@ Ext.define("OMV.module.admin.service.syncthing.Users", {
                 minSelections : 1,
                 maxSelections : 1
             }
-        },{
-            id       : me.getId() + "-viewlog",
-            xtype    : "button",
-            text     : _("View Log"),
-            icon     : "images/logs.png",
-            iconCls  : Ext.baseCSSPrefix + "btn-icon-16x16",
-            scope    : me,
-            handler  : Ext.Function.bind(me.onViewLogButton, me, [ me ]),
-            disabled : true,
-            selectionConfig : {
-                minSelections : 1,
-                maxSelections : 1
-            }
-        },{
-            xtype    : "tbseparator"
-        },{
-            id       : me.getId() + "-restart",
-            xtype    : "button",
-            text     : _("Restart"),
-            icon     : "images/refresh.png",
-            iconCls  : Ext.baseCSSPrefix + "btn-icon-16x16",
-            scope    : me,
-            handler  : Ext.Function.bind(me.onRestartButton, me, [ me ])
         });
         return items;
     },
@@ -330,31 +306,6 @@ Ext.define("OMV.module.admin.service.syncthing.Users", {
         port = record.get("port");
         if (enable == true) {
             window.open("http://" + window.location.hostname + ":" + port, "_blank");
-        }
-    },
-
-    onRestartButton : function() {
-        OMV.Rpc.request({
-            scope       : this,
-            callback    : function(id, success, response) {
-                this.doReload();
-            },
-            relayErrors : false,
-            rpcData     : {
-                service  : "Syncthing",
-                method   : "doRestart"
-            }
-        });
-    },
-
-    onViewLogButton : function() {
-        var record = this.getSelected();
-        enable = record.get("enable");
-
-        if (enable == true) {
-            Ext.create("OMV.module.admin.service.syncthing.Log", {
-                username: record.get("username")
-            }).show();
         }
     }
 });

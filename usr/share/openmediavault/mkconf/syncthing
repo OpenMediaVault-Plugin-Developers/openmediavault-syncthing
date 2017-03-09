@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Copyright (C) 2015-2016 OpenMediaVault Plugin Developers
+# Copyright (C) 2015-2017 OpenMediaVault Plugin Developers
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -71,13 +71,9 @@ if [ "${username}" != "" ]; then
             chmod 0600 "${home}/${SYNCTHING_CONFIG}"
         fi
 
-        deb-systemd-invoke restart ${SERVICE}.service ${username} >/dev/null || true
+        systemctl restart ${SERVICE}@${username}.service >/dev/null || true
     fi
 else
-    first=0
-    restart=0
-    names=""
-
     count=$(omv_config_get_count "${XPATH_USER}")
     index=1
     while [ ${index} -le ${count} ]; do
@@ -119,32 +115,12 @@ else
                 chown -R ${username}:${RUN_GRP} "${home}/${SYNCTHING_CONFIG_DIR}"
                 chmod 0600 "${home}/${SYNCTHING_CONFIG}"
 
-                # add to names list
-                if [ "${first}" != "0" ]; then
-                    names="${names} ${username}"
-                else
-                    names="${username}"
-                    first=1
-                fi
-
-                restart=1
+                systemctl restart ${SERVICE}@${username}.service >/dev/null || true
             fi
         fi
 
         index=$(( ${index} + 1 ))
     done
-
-    if [ "${restart}" != "0" ]; then
-        deb-systemd-invoke stop ${SERVICE}.service >/dev/null || true
-    fi
-
-    if [ "${names}" != "" ]; then
-        echo "ST_USERS=\"${names}\"" > ${SYNCTHING_DEFAULT_FILE}
-    fi
-
-    if [ "${restart}" != "0" ]; then
-        deb-systemd-invoke start ${SERVICE}.service >/dev/null || true
-    fi
 fi
 
 exit 0

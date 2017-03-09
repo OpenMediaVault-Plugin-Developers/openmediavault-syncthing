@@ -2,7 +2,7 @@
 /**
  * @author    Volker Theile <volker.theile@openmediavault.org>
  * @copyright Copyright (C) 2009-2014 Volker Theile
- * @copyright Copyright (C) 2014-2016 OpenMediaVault Plugin Developers
+ * @copyright Copyright (C) 2014-2017 OpenMediaVault Plugin Developers
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -29,17 +29,16 @@ class OMVModuleSyncthing extends \OMV\Engine\Module\ServiceAbstract
     public function getStatus()
     {
         $db = \OMV\Config\Database::getInstance();
-        $systemCtl = new \OMV\System\SystemCtl("syncthing");
         $enabled = $db->exists(
             "conf.service.syncthing.user",
             ["operator" => "stringEquals", "arg0" => "enable" , arg1 => "1"]
         );
-        return array(
+        return [
             "name" => $this->getName(),
             "title" => gettext("Syncthing"),
             "enabled" => $enabled,
-            "running" => $systemCtl->isActive()
-        );
+            "running" => $enabled
+        ];
     }
 
     public function applyConfig()
@@ -52,20 +51,29 @@ class OMVModuleSyncthing extends \OMV\Engine\Module\ServiceAbstract
     public function startService()
     {
         $db = \OMV\Config\Database::getInstance();
-        $enabled = $db->exists(
-            "conf.service.syncthing.user",
-            ["operator" => "stringEquals", "arg0" => "enable" , arg1 => "1"]
-        );
-        if ( $enabled ) {
-            $systemCtl = new \OMV\System\SystemCtl("syncthing");
-            $systemCtl->enable(TRUE);
+        $objects = $db->get("conf.service.syncthing.user");
+        // Loop through all users and start enabled users
+        foreach ($objects as $objectk => &$objectv) {
+            if ($objectv->get("enable")) {
+                $service = sprintf("syncthing@%s", $objectv->get("username"));
+                $systemCtl = new \OMV\System\SystemCtl($service);
+                $systemCtl->enable(TRUE);
+            }
         }
     }
 
     public function stopService()
     {
-        $systemCtl = new \OMV\System\SystemCtl("syncthing");
-        $systemCtl->disable(TRUE);
+        $db = \OMV\Config\Database::getInstance();
+        $objects = $db->get("conf.service.syncthing.user");
+        // Loop through all users and start enabled users
+        foreach ($objects as $objectk => &$objectv) {
+            if (!$objectv->get("enable")) {
+                $service = sprintf("syncthing@%s", $objectv->get("username"));
+                $systemCtl = new \OMV\System\SystemCtl($service);
+                $systemCtl->disable(TRUE);
+            }
+        }
     }
 
     public function bindListeners(\OMV\Engine\Notify\Dispatcher $dispatcher)
