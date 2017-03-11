@@ -29,16 +29,17 @@ class OMVModuleSyncthing extends \OMV\Engine\Module\ServiceAbstract
     public function getStatus()
     {
         $db = \OMV\Config\Database::getInstance();
+        $systemCtl = new \OMV\System\SystemCtl("syncthing");
         $enabled = $db->exists(
             "conf.service.syncthing.user",
             ["operator" => "stringEquals", "arg0" => "enable" , arg1 => "1"]
         );
-        return [
+        return array(
             "name" => $this->getName(),
             "title" => gettext("Syncthing"),
             "enabled" => $enabled,
             "running" => $enabled
-        ];
+        );
     }
 
     public function applyConfig()

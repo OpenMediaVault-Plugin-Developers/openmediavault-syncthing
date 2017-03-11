@@ -28,7 +28,6 @@ XPATH_USER="${XPATH}/users/user"
 
 SYNCTHING_CONFIG_DIR=".config"
 SYNCTHING_CONFIG="${SYNCTHING_CONFIG_DIR}/${SERVICE}/config.xml";
-SYNCTHING_DEFAULT_FILE="/etc/default/${SERVICE}"
 
 username=$1
 
@@ -71,7 +70,11 @@ if [ "${username}" != "" ]; then
             chmod 0600 "${home}/${SYNCTHING_CONFIG}"
         fi
 
+        systemctl enable ${SERVICE}@${username}.service >/dev/null || true
         systemctl restart ${SERVICE}@${username}.service >/dev/null || true
+    else
+        systemctl stop ${SERVICE}@${username}.service >/dev/null || true
+        systemctl disable ${SERVICE}@${username}.service >/dev/null || true
     fi
 else
     count=$(omv_config_get_count "${XPATH_USER}")
@@ -115,8 +118,12 @@ else
                 chown -R ${username}:${RUN_GRP} "${home}/${SYNCTHING_CONFIG_DIR}"
                 chmod 0600 "${home}/${SYNCTHING_CONFIG}"
 
+                systemctl enable ${SERVICE}@${username}.service >/dev/null || true
                 systemctl restart ${SERVICE}@${username}.service >/dev/null || true
             fi
+        else
+            systemctl stop ${SERVICE}@${username}.service >/dev/null || true
+            systemctl disable ${SERVICE}@${username}.service >/dev/null || true
         fi
 
         index=$(( ${index} + 1 ))

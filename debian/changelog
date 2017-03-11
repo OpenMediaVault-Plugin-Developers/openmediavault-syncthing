@@ -1,9 +1,9 @@
-openmediavault-syncthing (3.9) UNRELEASED; urgency=medium
+openmediavault-syncthing (3.9) stable; urgency=low
 
   * Switch to systemd unit files
   * Remove log tabs since logging is to syslog
 
- -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Thu, 09 Mar 2017 13:29:52 -0600
+ -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Sat, 11 Mar 2017 08:25:07 -0600
 
 openmediavault-syncthing (3.8) stable; urgency=low
 

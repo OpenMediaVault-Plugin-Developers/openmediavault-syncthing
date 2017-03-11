@@ -93,10 +93,20 @@ class OMVRpcServiceSyncthing extends \OMV\Rpc\ServiceAbstract
         $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
         // Validate the parameters of the RPC service method.
         $this->validateMethodParams($params, "rpc.common.objectuuid");
-        // Delete the configuration object.
+        // Get the configuration object.
         $db = \OMV\Config\Database::getInstance();
         $object = $db->get("conf.service.syncthing.user", $params['uuid']);
+        // Disable the user's service
+        $service = sprintf("syncthing@%s", $object->get("username"));
+        $systemCtl = new \OMV\System\SystemCtl($service);
+        $systemCtl->disable(TRUE);
+        // Delete the configuration object
         $db->delete($object);
+        // Apply changes immmediately
+        \OMV\Rpc\Rpc::call('Config', 'applyChanges', [
+            'modules' => [ 'syncthing' ],
+            'force' => TRUE
+        ], $context);
         // Return the deleted configuration object.
         return $object->getAssoc();
     }
