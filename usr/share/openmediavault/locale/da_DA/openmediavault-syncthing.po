@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-syncthing\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-29 11:13-0500\n"
-"PO-Revision-Date: 2016-05-29 16:13+0000\n"
+"POT-Creation-Date: 2017-03-11 15:28-0600\n"
+"PO-Revision-Date: 2017-03-11 21:28+0000\n"
 "Last-Translator: Aaron Murray <aaronmurray27@gmail.com>\n"
 "Language-Team: Danish (http://www.transifex.com/openmediavault-plugin-developers/openmediavault-syncthing/language/da/)\n"
 "MIME-Version: 1.0\n"
@@ -26,6 +26,10 @@ msgstr "Rediger bruger"
 
 msgid "Enable"
 msgstr "Aktiver"
+
+msgid ""
+"Enable syncthing inotify.  Use inotify to detect changes almost instantly."
+msgstr ""
 
 msgid "Enabled"
 msgstr "Aktiveret"
@@ -48,14 +52,14 @@ msgstr "IP adresse til GUI. Brug 0.0.0.0 til alle vært IPer."
 msgid "IP address to listen on. Use 0.0.0.0 for all host IPs."
 msgstr "IP adresse, der skal lyttes på. Brug 0.0.0.0 til alle vært IPer."
 
+msgid "Inotify"
+msgstr ""
+
 msgid "Limit receive speed. Value is Kb/s. 0 to disable."
 msgstr "Begræns modtage hastighed. Værdi er Kb/s. 0 for at deaktivere."
 
 msgid "Limit send speed. Value is Kb/s. 0 to disable."
 msgstr "Begræns sende hastighed. Værdi er Kb/s. 0 for at deaktivere."
-
-msgid "Line"
-msgstr "Linje"
 
 msgid "Listen Address"
 msgstr "Lyttende Adresse"
@@ -63,20 +67,11 @@ msgstr "Lyttende Adresse"
 msgid "Listen Port"
 msgstr "Lyttende Port"
 
-msgid "Log"
-msgstr "Log"
-
 msgid "Max Receive"
 msgstr "Maks Modtage"
 
 msgid "Max Send"
 msgstr "Maks Sende"
-
-msgid "Message"
-msgstr "Besked"
-
-msgid "Message - row {0}"
-msgstr "Besked - række {0}"
 
 msgid "Open Web Interface"
 msgstr "Åben Web Interface"
@@ -86,9 +81,6 @@ msgstr "Sti"
 
 msgid "Port to listen on."
 msgstr "Port, der skal lyttes på."
-
-msgid "Restart"
-msgstr "Genstart"
 
 msgid "Services"
 msgstr "Tjenester"
@@ -102,8 +94,8 @@ msgstr "Syncthing"
 msgid "Syncthing Users"
 msgstr "Syncthing Brugere"
 
+msgid "UUID"
+msgstr ""
+
 msgid "User"
 msgstr "Bruger"
-
-msgid "View Log"
-msgstr "Vis Log"

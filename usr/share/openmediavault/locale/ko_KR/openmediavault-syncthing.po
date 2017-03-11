@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-syncthing\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-29 11:13-0500\n"
-"PO-Revision-Date: 2016-05-29 16:13+0000\n"
+"POT-Creation-Date: 2017-03-11 15:28-0600\n"
+"PO-Revision-Date: 2017-03-11 21:28+0000\n"
 "Last-Translator: Aaron Murray <aaronmurray27@gmail.com>\n"
 "Language-Team: Korean (Korea) (http://www.transifex.com/openmediavault-plugin-developers/openmediavault-syncthing/language/ko_KR/)\n"
 "MIME-Version: 1.0\n"
@@ -26,6 +26,10 @@ msgstr "사용자 편집"
 
 msgid "Enable"
 msgstr "활성화"
+
+msgid ""
+"Enable syncthing inotify.  Use inotify to detect changes almost instantly."
+msgstr ""
 
 msgid "Enabled"
 msgstr "활성화된"
@@ -48,14 +52,14 @@ msgstr "GUI에 사용할 IP 주소. 0.0.0.0 을 입력하면 host IP를 사용."
 msgid "IP address to listen on. Use 0.0.0.0 for all host IPs."
 msgstr "수신 대기에 사용할 IP 주소. 0.0.0.0 을 입력하면 host IP를 사용."
 
+msgid "Inotify"
+msgstr ""
+
 msgid "Limit receive speed. Value is Kb/s. 0 to disable."
 msgstr "수신 속도 제한. 값은 KiB/s. 0을 입력하면 비활성."
 
 msgid "Limit send speed. Value is Kb/s. 0 to disable."
 msgstr "송신 속도 제한. 값은 KiB/s. 0을 입력하면 비활성."
-
-msgid "Line"
-msgstr "Line"
 
 msgid "Listen Address"
 msgstr "수신 대기 주소"
@@ -63,20 +67,11 @@ msgstr "수신 대기 주소"
 msgid "Listen Port"
 msgstr "수신 대기 포트"
 
-msgid "Log"
-msgstr "기록"
-
 msgid "Max Receive"
 msgstr "수신 최대 값"
 
 msgid "Max Send"
 msgstr "송신 최대 값"
-
-msgid "Message"
-msgstr "전언"
-
-msgid "Message - row {0}"
-msgstr "전언 - 열 {0}"
 
 msgid "Open Web Interface"
 msgstr "Web 연결 열기"
@@ -86,9 +81,6 @@ msgstr "경로"
 
 msgid "Port to listen on."
 msgstr "수신 대기할 포트."
-
-msgid "Restart"
-msgstr "재시작"
 
 msgid "Services"
 msgstr "Services"
@@ -102,8 +94,8 @@ msgstr "Syncthing"
 msgid "Syncthing Users"
 msgstr "Syncthing 사용자"
 
+msgid "UUID"
+msgstr ""
+
 msgid "User"
 msgstr "사용자"
-
-msgid "View Log"
-msgstr "기록 보기"

@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-syncthing\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-29 11:13-0500\n"
-"PO-Revision-Date: 2016-05-29 16:13+0000\n"
+"POT-Creation-Date: 2017-03-11 15:28-0600\n"
+"PO-Revision-Date: 2017-03-11 21:28+0000\n"
 "Last-Translator: Aaron Murray <aaronmurray27@gmail.com>\n"
 "Language-Team: German (http://www.transifex.com/openmediavault-plugin-developers/openmediavault-syncthing/language/de/)\n"
 "MIME-Version: 1.0\n"
@@ -26,6 +26,10 @@ msgstr "Benutzer bearbeiten"
 
 msgid "Enable"
 msgstr "Aktivieren"
+
+msgid ""
+"Enable syncthing inotify.  Use inotify to detect changes almost instantly."
+msgstr ""
 
 msgid "Enabled"
 msgstr "Aktiviert"
@@ -48,14 +52,14 @@ msgstr "IP Adresse für GUI. Benutze 0.0.0.0 für alle Host IPs."
 msgid "IP address to listen on. Use 0.0.0.0 for all host IPs."
 msgstr "IP Adresse, auf der gehorcht wird. Benutze 0.0.0.0 für alle Host IPs."
 
+msgid "Inotify"
+msgstr ""
+
 msgid "Limit receive speed. Value is Kb/s. 0 to disable."
 msgstr "Begrenze Empfangsgeschwindigkeit. Wert ist in Kb/s. 0 um dies zu deaktivieren"
 
 msgid "Limit send speed. Value is Kb/s. 0 to disable."
 msgstr "Begrenze Sendegeschwindigkeit. Wert ist in Kb/s. 0 um dies zu deaktivieren"
-
-msgid "Line"
-msgstr "Leitung"
 
 msgid "Listen Address"
 msgstr "IP Adresse, auf die gehorcht wird"
@@ -63,20 +67,11 @@ msgstr "IP Adresse, auf die gehorcht wird"
 msgid "Listen Port"
 msgstr "Port, auf dem gehorcht wird"
 
-msgid "Log"
-msgstr "Log"
-
 msgid "Max Receive"
 msgstr "Max. Empfang"
 
 msgid "Max Send"
 msgstr "Max. Senden"
-
-msgid "Message"
-msgstr "Nachricht"
-
-msgid "Message - row {0}"
-msgstr "Nachricht - Reihe {0}"
 
 msgid "Open Web Interface"
 msgstr "Öffne Web Interface"
@@ -86,9 +81,6 @@ msgstr "Pfad"
 
 msgid "Port to listen on."
 msgstr "Port, auf dem gehorcht wird."
-
-msgid "Restart"
-msgstr "Neustart"
 
 msgid "Services"
 msgstr "Services"
@@ -102,8 +94,8 @@ msgstr "Syncthing"
 msgid "Syncthing Users"
 msgstr "Syncthing Benutzer"
 
+msgid "UUID"
+msgstr ""
+
 msgid "User"
 msgstr "Benutzer"
-
-msgid "View Log"
-msgstr "Log ansehen"

@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-syncthing\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-29 11:13-0500\n"
-"PO-Revision-Date: 2016-05-29 16:13+0000\n"
+"POT-Creation-Date: 2017-03-11 15:28-0600\n"
+"PO-Revision-Date: 2017-03-11 21:28+0000\n"
 "Last-Translator: Aaron Murray <aaronmurray27@gmail.com>\n"
 "Language-Team: Japanese (Japan) (http://www.transifex.com/openmediavault-plugin-developers/openmediavault-syncthing/language/ja_JP/)\n"
 "MIME-Version: 1.0\n"
@@ -26,6 +26,10 @@ msgstr "ユーザーを編集"
 
 msgid "Enable"
 msgstr "有効化"
+
+msgid ""
+"Enable syncthing inotify.  Use inotify to detect changes almost instantly."
+msgstr ""
 
 msgid "Enabled"
 msgstr "有効化済"
@@ -48,14 +52,14 @@ msgstr "GUIのIPアドレス。0.0.0.0を使用するとホストに設定され
 msgid "IP address to listen on. Use 0.0.0.0 for all host IPs."
 msgstr "待ち受けるIPアドレス。0.0.0.0を使用するとホストに設定されているIPすべてで待ち受けます。"
 
+msgid "Inotify"
+msgstr ""
+
 msgid "Limit receive speed. Value is Kb/s. 0 to disable."
 msgstr "受信速度の制限。値はKb/sで指定します。0の場合は無制限になります。"
 
 msgid "Limit send speed. Value is Kb/s. 0 to disable."
 msgstr "送信速度の制限。値はKb/sで指定します。0の場合は無制限になります。"
-
-msgid "Line"
-msgstr "行"
 
 msgid "Listen Address"
 msgstr "待ち受けアドレス"
@@ -63,20 +67,11 @@ msgstr "待ち受けアドレス"
 msgid "Listen Port"
 msgstr "待ち受けポート"
 
-msgid "Log"
-msgstr "ログ"
-
 msgid "Max Receive"
 msgstr "最大受信"
 
 msgid "Max Send"
 msgstr "最大送信"
-
-msgid "Message"
-msgstr "メッセージ"
-
-msgid "Message - row {0}"
-msgstr "メッセージ - 行 {0}"
 
 msgid "Open Web Interface"
 msgstr "Webインタフェースを開く"
@@ -86,9 +81,6 @@ msgstr "パス"
 
 msgid "Port to listen on."
 msgstr "待ち受けポート。"
-
-msgid "Restart"
-msgstr "再起動"
 
 msgid "Services"
 msgstr "サービス"
@@ -102,8 +94,8 @@ msgstr "Syncthing"
 msgid "Syncthing Users"
 msgstr "Syncthingユーザー"
 
+msgid "UUID"
+msgstr ""
+
 msgid "User"
 msgstr "ユーザー"
-
-msgid "View Log"
-msgstr "ログの表示"

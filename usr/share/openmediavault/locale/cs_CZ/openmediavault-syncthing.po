@@ -3,13 +3,13 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# Pavel Borecki <pavel.borecki@gmail.com>, 2015
+# Pavel Borecki <pavel.borecki@gmail.com>, 2015-2016
 msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-syncthing\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-29 11:13-0500\n"
-"PO-Revision-Date: 2016-05-29 16:13+0000\n"
+"POT-Creation-Date: 2017-03-11 15:28-0600\n"
+"PO-Revision-Date: 2017-03-11 21:28+0000\n"
 "Last-Translator: Aaron Murray <aaronmurray27@gmail.com>\n"
 "Language-Team: Czech (Czech Republic) (http://www.transifex.com/openmediavault-plugin-developers/openmediavault-syncthing/language/cs_CZ/)\n"
 "MIME-Version: 1.0\n"
@@ -27,6 +27,10 @@ msgstr "Upravit uživatele"
 msgid "Enable"
 msgstr "Zapnout"
 
+msgid ""
+"Enable syncthing inotify.  Use inotify to detect changes almost instantly."
+msgstr ""
+
 msgid "Enabled"
 msgstr "Zapnuto"
 
@@ -34,10 +38,10 @@ msgid "Folders"
 msgstr "Složky"
 
 msgid "GUI Address"
-msgstr "Adresa grafického uživatelského rozhraní"
+msgstr "Adresa graf. uživatelského rozhr."
 
 msgid "GUI Port"
-msgstr "Port grafického uživatelského rozhraní"
+msgstr "Port graf. uživatelského rozhr."
 
 msgid "ID"
 msgstr "Identifikátor"
@@ -46,7 +50,10 @@ msgid "IP address for GUI. Use 0.0.0.0 for all host IPs."
 msgstr "IP adresa pro grafické uživatelské rozhraní. Pokud chcete použít všechny IP adresy stroje, zadejte 0.0.0.0"
 
 msgid "IP address to listen on. Use 0.0.0.0 for all host IPs."
-msgstr "IP adresa, na které očekávat spojení. Pokud chcete použít všechny IP adresy stroje, zadejte 0.0.0.0"
+msgstr "IP adresa na které očekávat spojení. Pokud chcete použít všechny IP adresy stroje, zadejte 0.0.0.0"
+
+msgid "Inotify"
+msgstr ""
 
 msgid "Limit receive speed. Value is Kb/s. 0 to disable."
 msgstr "Omezení rychlosti příjmu. Hodnota je v Kb/s. 0 (nula) znamená bez omezení."
@@ -54,29 +61,17 @@ msgstr "Omezení rychlosti příjmu. Hodnota je v Kb/s. 0 (nula) znamená bez om
 msgid "Limit send speed. Value is Kb/s. 0 to disable."
 msgstr "Omezení rychlosti odesílání. Hodnota je v Kb/s. 0 (nula) znamená bez omezení."
 
-msgid "Line"
-msgstr "Spojení"
-
 msgid "Listen Address"
-msgstr "Adresa, na které očekávat spojení"
+msgstr "Adresa na které očekávat spojení"
 
 msgid "Listen Port"
-msgstr "Port, na kterém očekávat spojení"
-
-msgid "Log"
-msgstr "Záznam událostí"
+msgstr "Port na kterém očekávat spojení"
 
 msgid "Max Receive"
 msgstr "Příjem nejvýše"
 
 msgid "Max Send"
 msgstr "Odesílání nejvýše"
-
-msgid "Message"
-msgstr "Zpráva"
-
-msgid "Message - row {0}"
-msgstr "Zpráva – řádek {0}"
 
 msgid "Open Web Interface"
 msgstr "Otevřít webové rozhraní"
@@ -86,9 +81,6 @@ msgstr "Umístění"
 
 msgid "Port to listen on."
 msgstr "Port, na kterém očekávat spojení."
-
-msgid "Restart"
-msgstr "Restartovat"
 
 msgid "Services"
 msgstr "Služby"
@@ -102,8 +94,8 @@ msgstr "Syncthing"
 msgid "Syncthing Users"
 msgstr "Uživatelé Syncthing"
 
+msgid "UUID"
+msgstr ""
+
 msgid "User"
 msgstr "Uživatel"
-
-msgid "View Log"
-msgstr "Zobrazit záznam událostí"

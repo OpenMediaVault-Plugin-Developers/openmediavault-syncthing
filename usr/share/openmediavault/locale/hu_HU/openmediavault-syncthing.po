@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-syncthing\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-29 11:13-0500\n"
-"PO-Revision-Date: 2016-05-29 16:13+0000\n"
+"POT-Creation-Date: 2017-03-11 15:28-0600\n"
+"PO-Revision-Date: 2017-03-11 21:28+0000\n"
 "Last-Translator: Aaron Murray <aaronmurray27@gmail.com>\n"
 "Language-Team: Hungarian (Hungary) (http://www.transifex.com/openmediavault-plugin-developers/openmediavault-syncthing/language/hu_HU/)\n"
 "MIME-Version: 1.0\n"
@@ -26,6 +26,10 @@ msgstr "Felhasználó szerkesztés"
 
 msgid "Enable"
 msgstr "Engedélyez"
+
+msgid ""
+"Enable syncthing inotify.  Use inotify to detect changes almost instantly."
+msgstr ""
 
 msgid "Enabled"
 msgstr "Engedélyezve"
@@ -48,14 +52,14 @@ msgstr "Grafikus felület IP címe. Használd a 0.0.0.0-t a kiszolgáló összes
 msgid "IP address to listen on. Use 0.0.0.0 for all host IPs."
 msgstr "Figyelés ezen az IP címen. Használd a 0.0.0.0-t a kiszolgáló összes IP címéhez."
 
+msgid "Inotify"
+msgstr ""
+
 msgid "Limit receive speed. Value is Kb/s. 0 to disable."
 msgstr "Fogadás sebességének korlátozása. Érték Kb/s-ban. 0 a letiltáshoz."
 
 msgid "Limit send speed. Value is Kb/s. 0 to disable."
 msgstr "Küldés sebességének korlátozása. Érték Kb/s-ban. 0 a letiltáshoz."
-
-msgid "Line"
-msgstr "Vonal"
 
 msgid "Listen Address"
 msgstr "Figyelés cím"
@@ -63,20 +67,11 @@ msgstr "Figyelés cím"
 msgid "Listen Port"
 msgstr "Figyelés port"
 
-msgid "Log"
-msgstr "Napló"
-
 msgid "Max Receive"
 msgstr "Max fogadás"
 
 msgid "Max Send"
 msgstr "Max küldés"
-
-msgid "Message"
-msgstr "Üzenet"
-
-msgid "Message - row {0}"
-msgstr "Üzenet - row {0}"
 
 msgid "Open Web Interface"
 msgstr "Webes felület megnyitása"
@@ -86,9 +81,6 @@ msgstr "Útvonal"
 
 msgid "Port to listen on."
 msgstr "Figyelt port"
-
-msgid "Restart"
-msgstr "Újraindítás"
 
 msgid "Services"
 msgstr "Szolgáltatások"
@@ -102,8 +94,8 @@ msgstr "Syncthing"
 msgid "Syncthing Users"
 msgstr "Syncthing felhasználók"
 
+msgid "UUID"
+msgstr ""
+
 msgid "User"
 msgstr "Felhasználó"
-
-msgid "View Log"
-msgstr "Napló megtekintés"

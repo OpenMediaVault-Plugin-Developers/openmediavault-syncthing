@@ -134,6 +134,15 @@ Ext.define("OMV.module.admin.service.syncthing.User", {
                 ptype: "fieldinfo",
                 text: _("Limit receive speed. Value is Kb/s. 0 to disable.")
             }]
+        },{
+            xtype      : "checkbox",
+            name       : "inotify",
+            fieldLabel : _("Inotify"),
+            checked    : true,
+            plugins: [{
+                ptype: "fieldinfo",
+                text: _("Enable syncthing inotify.  Use inotify to detect changes almost instantly.")
+            }]
         }];
     }
 });

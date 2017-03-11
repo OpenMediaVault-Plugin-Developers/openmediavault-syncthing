@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-syncthing\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-29 11:13-0500\n"
-"PO-Revision-Date: 2016-05-29 16:13+0000\n"
+"POT-Creation-Date: 2017-03-11 15:28-0600\n"
+"PO-Revision-Date: 2017-03-11 21:28+0000\n"
 "Last-Translator: Aaron Murray <aaronmurray27@gmail.com>\n"
 "Language-Team: Italian (http://www.transifex.com/openmediavault-plugin-developers/openmediavault-syncthing/language/it/)\n"
 "MIME-Version: 1.0\n"
@@ -27,6 +27,10 @@ msgstr "Modifica utente"
 
 msgid "Enable"
 msgstr "Abilita"
+
+msgid ""
+"Enable syncthing inotify.  Use inotify to detect changes almost instantly."
+msgstr ""
 
 msgid "Enabled"
 msgstr "Abilitato"
@@ -49,14 +53,14 @@ msgstr "Indirizzo IP per l'Inteefaccia Grafica Utente (GUI). Usare 0.0.0.0 per t
 msgid "IP address to listen on. Use 0.0.0.0 for all host IPs."
 msgstr "Indirizzo IP in ascolto. Usare 0.0.0.0 per tutti gli IP host."
 
+msgid "Inotify"
+msgstr ""
+
 msgid "Limit receive speed. Value is Kb/s. 0 to disable."
 msgstr "Limite velocità di ricezione. Valore in Kb/s. 0 per disabilitare."
 
 msgid "Limit send speed. Value is Kb/s. 0 to disable."
 msgstr "Limite velocità in uscita. Valore in Kb/s. 0 per disabilitare."
-
-msgid "Line"
-msgstr "Linea"
 
 msgid "Listen Address"
 msgstr "Indirizzo di ascolto."
@@ -64,20 +68,11 @@ msgstr "Indirizzo di ascolto."
 msgid "Listen Port"
 msgstr "Porta di ascolto"
 
-msgid "Log"
-msgstr "Log"
-
 msgid "Max Receive"
 msgstr "Ricezione massima"
 
 msgid "Max Send"
 msgstr "Invio massimo"
-
-msgid "Message"
-msgstr "Messaggio"
-
-msgid "Message - row {0}"
-msgstr "Messaggio - riga {0}"
 
 msgid "Open Web Interface"
 msgstr "Apri interfaccia web"
@@ -87,9 +82,6 @@ msgstr "Percorso"
 
 msgid "Port to listen on."
 msgstr "Porta su cui ascoltare."
-
-msgid "Restart"
-msgstr "Riavvia"
 
 msgid "Services"
 msgstr "Servizi"
@@ -103,8 +95,8 @@ msgstr "Syncthing"
 msgid "Syncthing Users"
 msgstr "Utenti Syncthing"
 
+msgid "UUID"
+msgstr ""
+
 msgid "User"
 msgstr "Utente"
-
-msgid "View Log"
-msgstr "Visualizza Log"

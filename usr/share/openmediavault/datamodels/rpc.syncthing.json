@@ -10,28 +10,40 @@
 				"required": true
 			},
 			"enable": {
-				"type": "boolean"
+				"type": "boolean",
+				"required": true
 			},
 			"username": {
-				"type": "string"
+				"type": "string",
+				"required": true
 			},
 			"port": {
-				"type": "integer"
+				"type": "integer",
+				"required": true
 			},
 			"address": {
-				"type": "string"
+				"type": "string",
+				"required": true
 			},
 			"lport": {
-				"type": "integer"
+				"type": "integer",
+				"required": true
 			},
 			"laddress": {
-				"type": "string"
+				"type": "string",
+				"required": true
 			},
 			"maxsend": {
-				"type": "integer"
+				"type": "integer",
+				"required": true
 			},
 			"maxrecv": {
-				"type": "integer"
+				"type": "integer",
+				"required": true
+			},
+			"inotify": {
+				"type": "boolean",
+				"required": false
 			}
 		}
 	}

@@ -3,13 +3,13 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# артур Мудрых <arturmon82@gmail.com>, 2015
+# Артур Мудрых <arturmon82@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-syncthing\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-29 11:13-0500\n"
-"PO-Revision-Date: 2016-05-29 16:13+0000\n"
+"POT-Creation-Date: 2017-03-11 15:28-0600\n"
+"PO-Revision-Date: 2017-03-11 21:28+0000\n"
 "Last-Translator: Aaron Murray <aaronmurray27@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.com/openmediavault-plugin-developers/openmediavault-syncthing/language/ru/)\n"
 "MIME-Version: 1.0\n"
@@ -26,6 +26,10 @@ msgstr "Редактировать пользователя"
 
 msgid "Enable"
 msgstr "Включить"
+
+msgid ""
+"Enable syncthing inotify.  Use inotify to detect changes almost instantly."
+msgstr ""
 
 msgid "Enabled"
 msgstr "Включено"
@@ -48,14 +52,14 @@ msgstr "IP-адрес для GUI. Используйте 0.0.0.0 принима�
 msgid "IP address to listen on. Use 0.0.0.0 for all host IPs."
 msgstr "IP-адрес для прослушивания. Используйте 0.0.0.0 принимать для всех IP."
 
+msgid "Inotify"
+msgstr ""
+
 msgid "Limit receive speed. Value is Kb/s. 0 to disable."
 msgstr "Ограничить скорость получения. 0 Кб/с. для отключения."
 
 msgid "Limit send speed. Value is Kb/s. 0 to disable."
 msgstr "Ограничить скорость отдачи. 0 Кб/с. для отключения."
-
-msgid "Line"
-msgstr "Линия"
 
 msgid "Listen Address"
 msgstr ""
@@ -63,19 +67,10 @@ msgstr ""
 msgid "Listen Port"
 msgstr ""
 
-msgid "Log"
-msgstr "Лог"
-
 msgid "Max Receive"
 msgstr ""
 
 msgid "Max Send"
-msgstr ""
-
-msgid "Message"
-msgstr "Сообщение"
-
-msgid "Message - row {0}"
 msgstr ""
 
 msgid "Open Web Interface"
@@ -85,9 +80,6 @@ msgid "Path"
 msgstr ""
 
 msgid "Port to listen on."
-msgstr ""
-
-msgid "Restart"
 msgstr ""
 
 msgid "Services"
@@ -102,8 +94,8 @@ msgstr ""
 msgid "Syncthing Users"
 msgstr ""
 
-msgid "User"
+msgid "UUID"
 msgstr ""
 
-msgid "View Log"
+msgid "User"
 msgstr ""

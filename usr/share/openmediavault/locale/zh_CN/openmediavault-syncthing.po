@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-syncthing\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-29 11:13-0500\n"
-"PO-Revision-Date: 2016-05-29 16:13+0000\n"
+"POT-Creation-Date: 2017-03-11 15:28-0600\n"
+"PO-Revision-Date: 2017-03-11 21:28+0000\n"
 "Last-Translator: Aaron Murray <aaronmurray27@gmail.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/openmediavault-plugin-developers/openmediavault-syncthing/language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
@@ -26,6 +26,10 @@ msgstr "编辑用户"
 
 msgid "Enable"
 msgstr "启用"
+
+msgid ""
+"Enable syncthing inotify.  Use inotify to detect changes almost instantly."
+msgstr ""
 
 msgid "Enabled"
 msgstr "已启用"
@@ -48,14 +52,14 @@ msgstr "GUI的登录IP地址，使用0.0.0.0代表所有主机IP。"
 msgid "IP address to listen on. Use 0.0.0.0 for all host IPs."
 msgstr "监听IP地址，使用0.0.0.0代表监听所有IP的主机。"
 
+msgid "Inotify"
+msgstr ""
+
 msgid "Limit receive speed. Value is Kb/s. 0 to disable."
 msgstr "限制接收速度，单位是Kb/s，0表示不限制。"
 
 msgid "Limit send speed. Value is Kb/s. 0 to disable."
 msgstr "限制发送速度，单位是Kb/s，0表示不限制。"
-
-msgid "Line"
-msgstr "行"
 
 msgid "Listen Address"
 msgstr "监听地址"
@@ -63,20 +67,11 @@ msgstr "监听地址"
 msgid "Listen Port"
 msgstr "监听端口"
 
-msgid "Log"
-msgstr "日志"
-
 msgid "Max Receive"
 msgstr "最大接收"
 
 msgid "Max Send"
 msgstr "最大发送"
-
-msgid "Message"
-msgstr "消息"
-
-msgid "Message - row {0}"
-msgstr "消息 - 列 {0}"
 
 msgid "Open Web Interface"
 msgstr "打开标签页"
@@ -86,9 +81,6 @@ msgstr "路径"
 
 msgid "Port to listen on."
 msgstr "打开监听端口"
-
-msgid "Restart"
-msgstr "重启"
 
 msgid "Services"
 msgstr "服务"
@@ -102,8 +94,8 @@ msgstr "Syncthing"
 msgid "Syncthing Users"
 msgstr "Syncthing用户"
 
+msgid "UUID"
+msgstr ""
+
 msgid "User"
 msgstr "用户"
-
-msgid "View Log"
-msgstr "查看日志"
