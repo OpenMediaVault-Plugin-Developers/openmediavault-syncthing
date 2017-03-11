@@ -76,58 +76,6 @@ if [ "${username}" != "" ]; then
         systemctl stop ${SERVICE}@${username}.service >/dev/null || true
         systemctl disable ${SERVICE}@${username}.service >/dev/null || true
     fi
-else
-    count=$(omv_config_get_count "${XPATH_USER}")
-    index=1
-    while [ ${index} -le ${count} ]; do
-        position="[position()=${index}]"
-        enable=$(omv_config_get "${XPATH_USER}${position}/enable")
-
-        if [ "${enable}" != "0" ]; then
-            username=$(omv_config_get "${XPATH_USER}${position}/username")
-            home=$(getent passwd ${username} | awk -F: '{print $6}')
-
-            if [ "${home}" != "" ]; then
-                port=$(omv_config_get "${XPATH_USER}${position}/port")
-                address=$(omv_config_get "${XPATH_USER}${position}/address")
-                lport=$(omv_config_get "${XPATH_USER}${position}/lport")
-                laddress=$(omv_config_get "${XPATH_USER}${position}/laddress")
-                maxsend=$(omv_config_get "${XPATH_USER}${position}/maxsend")
-                maxrecv=$(omv_config_get "${XPATH_USER}${position}/maxrecv")
-
-                # create home directory if it does not exist and fix permissions
-                mkdir -p ${home}
-                chown ${username}:${RUN_GRP} ${home}
-
-                # generate initial config, certs and then exit
-                unset HOME
-                export HOME="${home}/${SYNCTHING_CONFIG_DIR}"
-                /usr/bin/syncthing -generate="${home}/${SYNCTHING_CONFIG_DIR}/syncthing"
-
-                # Change settings
-                new="${address}:${port}"
-                xmlstarlet ed -L -u "/configuration/gui/address" -v ${new} "${home}/${SYNCTHING_CONFIG}"
-
-                new="tcp://${laddress}:${lport}"
-                xmlstarlet ed -L -u "/configuration/options/listenAddress" -v ${new} "${home}/${SYNCTHING_CONFIG}"
-
-                xmlstarlet ed -L -u "/configuration/options/maxSendKbps" -v ${maxsend} "${home}/${SYNCTHING_CONFIG}"
-                xmlstarlet ed -L -u "/configuration/options/maxRecvKbps" -v ${maxrecv} "${home}/${SYNCTHING_CONFIG}"
-
-                # fix ownership and permissions
-                chown -R ${username}:${RUN_GRP} "${home}/${SYNCTHING_CONFIG_DIR}"
-                chmod 0600 "${home}/${SYNCTHING_CONFIG}"
-
-                systemctl enable ${SERVICE}@${username}.service >/dev/null || true
-                systemctl restart ${SERVICE}@${username}.service >/dev/null || true
-            fi
-        else
-            systemctl stop ${SERVICE}@${username}.service >/dev/null || true
-            systemctl disable ${SERVICE}@${username}.service >/dev/null || true
-        fi
-
-        index=$(( ${index} + 1 ))
-    done
 fi
 
 exit 0

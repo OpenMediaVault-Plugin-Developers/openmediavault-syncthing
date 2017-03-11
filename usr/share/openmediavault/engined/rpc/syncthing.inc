@@ -44,12 +44,12 @@ class OMVRpcServiceSyncthing extends \OMV\Rpc\ServiceAbstract
     public function getUserList($params, $context)
     {
         // Validate the RPC caller context.
-        $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
+        $this->validateMethodContext($context, ['role' => OMV_ROLE_ADMINISTRATOR]);
         // Validate the parameters of the RPC service method.
-        $this->validateMethodParams($params, "rpc.common.getlist");
+        $this->validateMethodParams($params, 'rpc.common.getlist');
         // Get configuration data.
         $db = \OMV\Config\Database::getInstance();
-        $objects = $db->getAssoc("conf.service.syncthing.user");
+        $objects = $db->getAssoc('conf.service.syncthing.user');
         // Filter the result.
         return $this->applyFilter($objects, $params['start'], $params['limit'],
             $params['sortfield'], $params['sortdir']);
@@ -58,31 +58,34 @@ class OMVRpcServiceSyncthing extends \OMV\Rpc\ServiceAbstract
     public function getUser($params, $context)
     {
         // Validate the RPC caller context.
-        $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
+        $this->validateMethodContext($context, ['role' => OMV_ROLE_ADMINISTRATOR]);
         // Validate the parameters of the RPC service method.
-        $this->validateMethodParams($params, "rpc.common.objectuuid");
+        $this->validateMethodParams($params, 'rpc.common.objectuuid');
         // Get the configuration object.
         $db = \OMV\Config\Database::getInstance();
-        return $db->getAssoc("conf.service.syncthing.user", $params['uuid']);
+        return $db->getAssoc('conf.service.syncthing.user', $params['uuid']);
     }
 
     public function setUser($params, $context)
     {
         // Validate the RPC caller context.
-        $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
+        $this->validateMethodContext($context, ['role' => OMV_ROLE_ADMINISTRATOR]);
         // Validate the parameters of the RPC service method.
-        $this->validateMethodParams($params, "rpc.syncthing.setuser");
+        $this->validateMethodParams($params, 'rpc.syncthing.setuser');
         // Prepare configuration data.
-        $object = new \OMV\Config\ConfigObject("conf.service.syncthing.user");
+        $object = new \OMV\Config\ConfigObject('conf.service.syncthing.user');
         $object->setAssoc($params);
         $isNew = $object->isNew();
         $db = \OMV\Config\Database::getInstance();
         if (TRUE === $isNew) {
             // Check uniqueness - port, lport
-            $db->assertIsUnique($object, "port");
-            $db->assertIsUnique($object, "lport");
+            $db->assertIsUnique($object, 'port');
+            $db->assertIsUnique($object, 'lport');
         }
         $db->set($object);
+        // Create/modify syncthing instance for user
+        $process = new OMV\System\Process('omv-mkconf', 'syncthing', $params['username']);
+        $process->execute($output);
         // Return the configuration object.
         return $object->getAssoc();
     }
@@ -90,23 +93,18 @@ class OMVRpcServiceSyncthing extends \OMV\Rpc\ServiceAbstract
     public function deleteUser($params, $context)
     {
         // Validate the RPC caller context.
-        $this->validateMethodContext($context, ["role" => OMV_ROLE_ADMINISTRATOR]);
+        $this->validateMethodContext($context, ['role' => OMV_ROLE_ADMINISTRATOR]);
         // Validate the parameters of the RPC service method.
-        $this->validateMethodParams($params, "rpc.common.objectuuid");
+        $this->validateMethodParams($params, 'rpc.common.objectuuid');
         // Get the configuration object.
         $db = \OMV\Config\Database::getInstance();
-        $object = $db->get("conf.service.syncthing.user", $params['uuid']);
+        $object = $db->get('conf.service.syncthing.user', $params['uuid']);
         // Disable the user's service
-        $service = sprintf("syncthing@%s", $object->get("username"));
+        $service = sprintf('syncthing@%s', $object->get('username'));
         $systemCtl = new \OMV\System\SystemCtl($service);
         $systemCtl->disable(TRUE);
         // Delete the configuration object
         $db->delete($object);
-        // Apply changes immmediately
-        \OMV\Rpc\Rpc::call('Config', 'applyChanges', [
-            'modules' => [ 'syncthing' ],
-            'force' => TRUE
-        ], $context);
         // Return the deleted configuration object.
         return $object->getAssoc();
     }
@@ -117,13 +115,13 @@ class OMVRpcServiceSyncthing extends \OMV\Rpc\ServiceAbstract
     public function getSettings($params, $context)
     {
         // Validate the RPC caller context.
-        $this->validateMethodContext($context, ["role" => OMV_ROLE_EVERYONE]);
+        $this->validateMethodContext($context, ['role' => OMV_ROLE_EVERYONE]);
         // Get the configuration object.
         $db = \OMV\Config\Database::getInstance();
-        $object = $db->getByFilter("conf.service.syncthing.user", [
-            "operator" => "stringEquals",
-            "arg0" => "username",
-            "arg1" => $context['username']
+        $object = $db->getByFilter('conf.service.syncthing.user', [
+            'operator' => 'stringEquals',
+            'arg0' => 'username',
+            'arg1' => $context['username']
         ],1);
         return $object->getAssoc();
     }
@@ -131,25 +129,23 @@ class OMVRpcServiceSyncthing extends \OMV\Rpc\ServiceAbstract
     public function setSettings($params, $context)
     {
         // Validate the RPC caller context.
-        $this->validateMethodContext($context, ["role" => OMV_ROLE_EVERYONE]);
+        $this->validateMethodContext($context, ['role' => OMV_ROLE_EVERYONE]);
         // Validate the parameters of the RPC service method.
-        $this->validateMethodParams($params, "rpc.syncthing.setuser");
+        $this->validateMethodParams($params, 'rpc.syncthing.setuser');
         // Prepare configuration data.
-        $object = new \OMV\Config\ConfigObject("conf.service.syncthing.user");
+        $object = new \OMV\Config\ConfigObject('conf.service.syncthing.user');
         $object->setAssoc($params);
         $isNew = $object->isNew();
         $db = \OMV\Config\Database::getInstance();
         if (TRUE === $isNew) {
             // Check uniqueness - port, lport
-            $db->assertIsUnique($object, "port");
-            $db->assertIsUnique($object, "lport");
+            $db->assertIsUnique($object, 'port');
+            $db->assertIsUnique($object, 'lport');
         }
         $db->set($object);
         // Create/modify syncthing instance for user
-        $cmd = sprintf("export LANG=C; omv-mkconf syncthing %s", $context['username']);
-        if (0 !== $this->exec($cmd, $output)) {
-            throw new \OMV\Exception(implode("\n", $output));
-        }
+        $process = new OMV\System\Process('omv-mkconf', 'syncthing', $params['username']);
+        $process->execute($output);
         // Return the configuration object.
         return $object->getAssoc();
     }
@@ -157,28 +153,28 @@ class OMVRpcServiceSyncthing extends \OMV\Rpc\ServiceAbstract
     function getFolders($params, $context)
     {
         // Validate the RPC caller context.
-        $this->validateMethodContext($context, ["role" => OMV_ROLE_EVERYONE]);
+        $this->validateMethodContext($context, ['role' => OMV_ROLE_EVERYONE]);
 
         // Get the configuration object.
         $db = \OMV\Config\Database::getInstance();
-        $object = $db->getByFilter("conf.service.syncthing.user", [
-            "operator" => "stringEquals",
-            "arg0" => "username",
-            "arg1" => $context['username']
+        $object = $db->getByFilter('conf.service.syncthing.user', [
+            'operator' => 'stringEquals',
+            'arg0' => 'username',
+            'arg1' => $context['username']
         ],1);
         $result = [];
         if (!is_null($object)) {
             $port    = intval($object->get('port'));
-            $config  = file_get_contents(sprintf("http://localhost:%d/rest/system/config", $port));
+            $config  = file_get_contents(sprintf('http://localhost:%d/rest/system/config', $port));
             $configd = json_decode($config);
 
             foreach ($configd->folders as $folder) {
-                if ($folder->id == "default") {
+                if ($folder->id == 'default') {
                     continue;
                 }
                 $result[] = [
-                    "id"   => $folder->id,
-                    "path" => $folder->path
+                    'id'   => $folder->id,
+                    'path' => $folder->path
                 ];
             }
         }
