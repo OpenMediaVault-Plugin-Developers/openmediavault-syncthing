@@ -34,12 +34,12 @@ class OMVModuleSyncthing extends \OMV\Engine\Module\ServiceAbstract
             "conf.service.syncthing.user",
             ["operator" => "stringEquals", "arg0" => "enable" , arg1 => "1"]
         );
-        return array(
+        return [
             "name" => $this->getName(),
             "title" => gettext("Syncthing"),
             "enabled" => $enabled,
             "running" => $enabled
-        );
+        ];
     }
 
     public function applyConfig()
