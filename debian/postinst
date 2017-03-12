@@ -20,7 +20,9 @@ case "$1" in
 
         # set max user watches for inotify
         echo "fs.inotify.max_user_watches=204800" > /etc/sysctl.d/90openmediavault-syncthing
-        sysctl -p /etc/sysctl.d/90openmediavault-syncthing
+        if [ $(cat /proc/sys/fs/inotify/max_user_watches) -lt 204800 ]; then
+            sysctl -p /etc/sysctl.d/90openmediavault-syncthing
+        fi
 
         # Activate package triggers. These triggers are only set during the
         # package installation.
