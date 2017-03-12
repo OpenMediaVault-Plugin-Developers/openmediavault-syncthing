@@ -18,6 +18,10 @@ case "$1" in
             omv_config_add_node "${SERVICE_XPATH}" "users"
         fi
 
+        # set max user watches for inotify
+        echo "fs.inotify.max_user_watches=204800" > /etc/sysctl.d/90openmediavault-syncthing
+        sysctl -p /etc/sysctl.d/90openmediavault-syncthing
+
         # Activate package triggers. These triggers are only set during the
         # package installation.
         dpkg-trigger update-fixperms
