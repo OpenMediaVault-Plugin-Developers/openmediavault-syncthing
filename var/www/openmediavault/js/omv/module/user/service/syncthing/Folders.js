@@ -45,11 +45,13 @@ Ext.define("OMV.module.user.service.syncthing.Folders", {
     stateful          : true,
     stateId           : "1a27a76d-6804-1332-b31b-8b48c0ea6dde",
     columns           : [{
+        xtype     : "textcolumn",
         text      : _("ID"),
         sortable  : true,
         dataIndex : "id",
         stateId   : "id"
     },{
+        xtype     : "textcolumn",
         text      : _("Path"),
         sortable  : true,
         dataIndex : "path",

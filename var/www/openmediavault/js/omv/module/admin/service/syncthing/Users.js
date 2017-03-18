@@ -176,36 +176,43 @@ Ext.define("OMV.module.admin.service.syncthing.Users", {
         trueIcon  : "switch_on.png",
         falseIcon : "switch_off.png"
     },{
+        xtype     : "textcolumn",
         text      : _("User"),
         sortable  : true,
         dataIndex : "username",
         stateId   : "username"
     },{
+        xtype     : "textcolumn",
         text      : _("GUI Port"),
         sortable  : true,
         dataIndex : "port",
         stateId   : "port"
     },{
+        xtype     : "textcolumn",
         text      : _("GUI Address"),
         sortable  : true,
         dataIndex : "address",
         stateId   : "address"
     },{
+        xtype     : "textcolumn",
         text      : _("Listen Port"),
         sortable  : true,
         dataIndex : "lport",
         stateId   : "lport"
     },{
+        xtype     : "textcolumn",
         text      : _("Listen Address"),
         sortable  : true,
         dataIndex : "laddress",
         stateId   : "laddress"
     },{
+        xtype     : "textcolumn",
         text      : _("Max Send"),
         sortable  : true,
         dataIndex : "maxsend",
         stateId   : "maxsend"
     },{
+        xtype     : "textcolumn",
         text      : _("Max Receive"),
         sortable  : true,
         dataIndex : "maxrecv",
