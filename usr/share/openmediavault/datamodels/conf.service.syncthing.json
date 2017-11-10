@@ -1,6 +1,6 @@
 {
 	"type": "config",
-	"id": "conf.service.syncthing.user",
+	"id": "conf.service.syncthing",
 	"title": "Syncthing",
 	"queryinfo": {
 		"xpath": "/config/services/syncthing/users/user",
@@ -35,9 +35,6 @@
 		},
 		"maxrecv": {
 			"type": "integer"
-		},
-		"inotify": {
-			"type": "boolean"
 		}
 	}
 }

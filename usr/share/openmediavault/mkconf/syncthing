@@ -23,7 +23,6 @@ set -e
 RUN_GRP="users"
 
 SERVICE="syncthing"
-SERVICE_INOTIFY="syncthing-inotify"
 XPATH="/config/services/${SERVICE}"
 XPATH_USER="${XPATH}/users/user"
 
@@ -35,7 +34,6 @@ username=$1
 if [ "${username}" != "" ]; then
     position="[username='${username}']"
     enable=$(omv_config_get "${XPATH_USER}${position}/enable")
-    inotify=$(omv_config_get "${XPATH_USER}${position}/inotify")
 
     if [ "${enable}" != "0" ]; then
         home=$(getent passwd ${username} | awk -F: '{print $6}')
@@ -77,14 +75,6 @@ if [ "${username}" != "" ]; then
     else
         systemctl stop ${SERVICE}@${username}.service >/dev/null || true
         systemctl disable ${SERVICE}@${username}.service >/dev/null || true
-    fi
-
-    if [ "${inotify}" != "0" ]; then
-        systemctl enable ${SERVICE_INOTIFY}@${username}.service >/dev/null || true
-        systemctl restart ${SERVICE_INOTIFY}@${username}.service >/dev/null || true
-    else
-        systemctl stop ${SERVICE_INOTIFY}@${username}.service >/dev/null || true
-        systemctl disable ${SERVICE_INOTIFY}@${username}.service >/dev/null || true
     fi
 fi
 

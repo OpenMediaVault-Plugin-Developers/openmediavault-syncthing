@@ -40,10 +40,6 @@
 			"maxrecv": {
 				"type": "integer",
 				"required": true
-			},
-			"inotify": {
-				"type": "boolean",
-				"required": false
 			}
 		}
 	}

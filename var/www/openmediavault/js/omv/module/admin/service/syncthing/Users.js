@@ -134,15 +134,6 @@ Ext.define("OMV.module.admin.service.syncthing.User", {
                 ptype: "fieldinfo",
                 text: _("Limit receive speed. Value is Kb/s. 0 to disable.")
             }]
-        },{
-            xtype      : "checkbox",
-            name       : "inotify",
-            fieldLabel : _("Inotify"),
-            checked    : true,
-            plugins: [{
-                ptype: "fieldinfo",
-                text: _("Enable syncthing inotify.  Use inotify to detect changes almost instantly.")
-            }]
         }];
     }
 });
@@ -217,17 +208,6 @@ Ext.define("OMV.module.admin.service.syncthing.Users", {
         sortable  : true,
         dataIndex : "maxrecv",
         stateId   : "maxrecv"
-    },{
-        xtype     : "booleaniconcolumn",
-        text      : _("Inotify"),
-        sortable  : true,
-        dataIndex : "inotify",
-        stateId   : "inotify",
-        align     : "center",
-        width     : 80,
-        resizable : false,
-        trueIcon  : "switch_on.png",
-        falseIcon : "switch_off.png"
     }],
 
     initComponent: function() {
@@ -246,8 +226,7 @@ Ext.define("OMV.module.admin.service.syncthing.Users", {
                         { name : "lport", type: "integer" },
                         { name : "laddress", type: "string" },
                         { name : "maxsend", type: "integer" },
-                        { name : "maxrecv", type: "integer" },
-                        { name : "inotify", type: "boolean" },
+                        { name : "maxrecv", type: "integer" }
                     ]
                 }),
                 proxy    : {

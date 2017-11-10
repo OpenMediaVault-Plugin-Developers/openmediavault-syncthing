@@ -49,7 +49,7 @@ class OMVRpcServiceSyncthing extends \OMV\Rpc\ServiceAbstract
         $this->validateMethodParams($params, 'rpc.common.getlist');
         // Get configuration data.
         $db = \OMV\Config\Database::getInstance();
-        $objects = $db->getAssoc('conf.service.syncthing.user');
+        $objects = $db->getAssoc('conf.service.syncthing');
         // Filter the result.
         return $this->applyFilter($objects, $params['start'], $params['limit'],
             $params['sortfield'], $params['sortdir']);
@@ -63,7 +63,7 @@ class OMVRpcServiceSyncthing extends \OMV\Rpc\ServiceAbstract
         $this->validateMethodParams($params, 'rpc.common.objectuuid');
         // Get the configuration object.
         $db = \OMV\Config\Database::getInstance();
-        return $db->getAssoc('conf.service.syncthing.user', $params['uuid']);
+        return $db->getAssoc('conf.service.syncthing', $params['uuid']);
     }
 
     public function setUser($params, $context)
@@ -73,7 +73,7 @@ class OMVRpcServiceSyncthing extends \OMV\Rpc\ServiceAbstract
         // Validate the parameters of the RPC service method.
         $this->validateMethodParams($params, 'rpc.syncthing.setuser');
         // Prepare configuration data.
-        $object = new \OMV\Config\ConfigObject('conf.service.syncthing.user');
+        $object = new \OMV\Config\ConfigObject('conf.service.syncthing');
         $object->setAssoc($params);
         $isNew = $object->isNew();
         $db = \OMV\Config\Database::getInstance();
@@ -98,7 +98,7 @@ class OMVRpcServiceSyncthing extends \OMV\Rpc\ServiceAbstract
         $this->validateMethodParams($params, 'rpc.common.objectuuid');
         // Get the configuration object.
         $db = \OMV\Config\Database::getInstance();
-        $object = $db->get('conf.service.syncthing.user', $params['uuid']);
+        $object = $db->get('conf.service.syncthing', $params['uuid']);
         // Disable the user's service
         $service = sprintf('syncthing@%s', $object->get('username'));
         $systemCtl = new \OMV\System\SystemCtl($service);
@@ -118,7 +118,7 @@ class OMVRpcServiceSyncthing extends \OMV\Rpc\ServiceAbstract
         $this->validateMethodContext($context, ['role' => OMV_ROLE_EVERYONE]);
         // Get the configuration object.
         $db = \OMV\Config\Database::getInstance();
-        $object = $db->getByFilter('conf.service.syncthing.user', [
+        $object = $db->getByFilter('conf.service.syncthing', [
             'operator' => 'stringEquals',
             'arg0' => 'username',
             'arg1' => $context['username']
@@ -133,7 +133,7 @@ class OMVRpcServiceSyncthing extends \OMV\Rpc\ServiceAbstract
         // Validate the parameters of the RPC service method.
         $this->validateMethodParams($params, 'rpc.syncthing.setuser');
         // Prepare configuration data.
-        $object = new \OMV\Config\ConfigObject('conf.service.syncthing.user');
+        $object = new \OMV\Config\ConfigObject('conf.service.syncthing');
         $object->setAssoc($params);
         $isNew = $object->isNew();
         $db = \OMV\Config\Database::getInstance();
@@ -157,7 +157,7 @@ class OMVRpcServiceSyncthing extends \OMV\Rpc\ServiceAbstract
 
         // Get the configuration object.
         $db = \OMV\Config\Database::getInstance();
-        $object = $db->getByFilter('conf.service.syncthing.user', [
+        $object = $db->getByFilter('conf.service.syncthing', [
             'operator' => 'stringEquals',
             'arg0' => 'username',
             'arg1' => $context['username']

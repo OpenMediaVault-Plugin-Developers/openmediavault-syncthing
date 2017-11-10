@@ -6,28 +6,18 @@ set -e
 . /usr/share/openmediavault/scripts/helper-functions
 
 case "$1" in
-
     configure)
-
-        SERVICE_GROUP="users"
-        SERVICE_XPATH_NAME="syncthing"
-        SERVICE_XPATH="/config/services/${SERVICE_XPATH_NAME}"
-
-        if ! omv_config_exists "${SERVICE_XPATH}"; then
-            omv_config_add_node "/config/services" "${SERVICE_XPATH_NAME}"
-            omv_config_add_node "${SERVICE_XPATH}" "users"
-        fi
-
-        # set max user watches for inotify
-        echo "fs.inotify.max_user_watches=204800" > /etc/sysctl.d/90openmediavault-syncthing
-        if [ $(cat /proc/sys/fs/inotify/max_user_watches) -lt 204800 ]; then
-            sysctl -p /etc/sysctl.d/90openmediavault-syncthing
-        fi
-
         # Activate package triggers. These triggers are only set during the
         # package installation.
         dpkg-trigger update-fixperms
         dpkg-trigger update-locale
+        
+        # Initialize and migrate configuration database.
+        echo "Updating configuration database ..."
+        omv-confdbadm create "conf.service.syncthing"
+        if [ -n "$2" ]; then
+            omv-confdbadm migrate "conf.service.syncthing" "${2}"
+        fi        
         ;;
 
     abort-upgrade|abort-remove|abort-deconfigure)
