@@ -1,14 +1,14 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
+# This file is distributed under the same license as the openmediavault-syncthing package.
 # 
 # Translators:
 msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-syncthing\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-03-11 15:55-0600\n"
-"PO-Revision-Date: 2017-03-11 21:28+0000\n"
+"POT-Creation-Date: 2017-11-10 07:48-0600\n"
+"PO-Revision-Date: 2017-11-10 13:48+0000\n"
 "Last-Translator: Aaron Murray <aaronmurray27@gmail.com>\n"
 "Language-Team: Finnish (http://www.transifex.com/openmediavault-plugin-developers/openmediavault-syncthing/language/fi/)\n"
 "MIME-Version: 1.0\n"
@@ -24,10 +24,6 @@ msgid "Edit user"
 msgstr ""
 
 msgid "Enable"
-msgstr ""
-
-msgid ""
-"Enable syncthing inotify.  Use inotify to detect changes almost instantly."
 msgstr ""
 
 msgid "Enabled"
@@ -49,9 +45,6 @@ msgid "IP address for GUI. Use 0.0.0.0 for all host IPs."
 msgstr ""
 
 msgid "IP address to listen on. Use 0.0.0.0 for all host IPs."
-msgstr ""
-
-msgid "Inotify"
 msgstr ""
 
 msgid "Limit receive speed. Value is Kb/s. 0 to disable."

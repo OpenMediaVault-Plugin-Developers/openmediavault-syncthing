@@ -2,6 +2,7 @@ openmediavault-syncthing (3.11) stable; urgency=low
 
   * Remove inotify dependency and option since it is integrated into
     syncthing now.
+  * update locales
 
  -- OpenMediaVault Plugin Developers <plugins@omv-extras.org>  Fri, 10 Nov 2017 07:06:26 -0600
 

@@ -1,15 +1,16 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
+# This file is distributed under the same license as the openmediavault-syncthing package.
 # 
 # Translators:
 # Артур Мудрых <arturmon82@gmail.com>, 2015
+# Артур Мудрых <arturmon82@gmail.com>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-syncthing\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-03-11 15:55-0600\n"
-"PO-Revision-Date: 2017-03-11 21:28+0000\n"
+"POT-Creation-Date: 2017-11-10 07:48-0600\n"
+"PO-Revision-Date: 2017-11-10 13:48+0000\n"
 "Last-Translator: Aaron Murray <aaronmurray27@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.com/openmediavault-plugin-developers/openmediavault-syncthing/language/ru/)\n"
 "MIME-Version: 1.0\n"
@@ -26,10 +27,6 @@ msgstr "Редактировать пользователя"
 
 msgid "Enable"
 msgstr "Включить"
-
-msgid ""
-"Enable syncthing inotify.  Use inotify to detect changes almost instantly."
-msgstr ""
 
 msgid "Enabled"
 msgstr "Включено"
@@ -52,9 +49,6 @@ msgstr "IP-адрес для GUI. Используйте 0.0.0.0 принима�
 msgid "IP address to listen on. Use 0.0.0.0 for all host IPs."
 msgstr "IP-адрес для прослушивания. Используйте 0.0.0.0 принимать для всех IP."
 
-msgid "Inotify"
-msgstr ""
-
 msgid "Limit receive speed. Value is Kb/s. 0 to disable."
 msgstr "Ограничить скорость получения. 0 Кб/с. для отключения."
 
@@ -62,40 +56,40 @@ msgid "Limit send speed. Value is Kb/s. 0 to disable."
 msgstr "Ограничить скорость отдачи. 0 Кб/с. для отключения."
 
 msgid "Listen Address"
-msgstr ""
+msgstr "Прослушать адрес"
 
 msgid "Listen Port"
-msgstr ""
+msgstr "Прослушать порт"
 
 msgid "Max Receive"
-msgstr ""
+msgstr "Макс. Получение"
 
 msgid "Max Send"
-msgstr ""
+msgstr "Max Отправить"
 
 msgid "Open Web Interface"
-msgstr ""
+msgstr "Открыть веб-интерфейс"
 
 msgid "Path"
-msgstr ""
+msgstr "Путь"
 
 msgid "Port to listen on."
-msgstr ""
+msgstr "Порт для прослушивания."
 
 msgid "Services"
-msgstr ""
+msgstr "Сервисы"
 
 msgid "Settings"
-msgstr ""
+msgstr "Настройки"
 
 msgid "Syncthing"
-msgstr ""
+msgstr "Синхронизация"
 
 msgid "Syncthing Users"
-msgstr ""
+msgstr "Синхронизация пользователей"
 
 msgid "UUID"
-msgstr ""
+msgstr "UUID"
 
 msgid "User"
-msgstr ""
+msgstr "Пользователь"

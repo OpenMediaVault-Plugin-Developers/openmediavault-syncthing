@@ -1,57 +1,51 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
+# This file is distributed under the same license as the openmediavault-syncthing package.
 # 
 # Translators:
+# Cyryl Sochacki <cyrylsochacki@gmail.com>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-syncthing\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-03-11 15:55-0600\n"
-"PO-Revision-Date: 2017-03-11 21:28+0000\n"
+"POT-Creation-Date: 2017-11-10 07:48-0600\n"
+"PO-Revision-Date: 2017-11-10 13:48+0000\n"
 "Last-Translator: Aaron Murray <aaronmurray27@gmail.com>\n"
 "Language-Team: Polish (Poland) (http://www.transifex.com/openmediavault-plugin-developers/openmediavault-syncthing/language/pl_PL/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: pl_PL\n"
-"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && (n%100<12 || n%100>=14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
+"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && (n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
 
 msgid "Add user"
-msgstr ""
+msgstr "Dodaj użytkownika"
 
 msgid "Edit user"
-msgstr ""
+msgstr "Edytuj użytkownika"
 
 msgid "Enable"
-msgstr ""
-
-msgid ""
-"Enable syncthing inotify.  Use inotify to detect changes almost instantly."
-msgstr ""
+msgstr "Włącz"
 
 msgid "Enabled"
-msgstr ""
+msgstr "Włączone"
 
 msgid "Folders"
-msgstr ""
+msgstr "Foldery"
 
 msgid "GUI Address"
-msgstr ""
+msgstr "Adres GUI"
 
 msgid "GUI Port"
-msgstr ""
+msgstr "Port GUI"
 
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 msgid "IP address for GUI. Use 0.0.0.0 for all host IPs."
 msgstr ""
 
 msgid "IP address to listen on. Use 0.0.0.0 for all host IPs."
-msgstr ""
-
-msgid "Inotify"
 msgstr ""
 
 msgid "Limit receive speed. Value is Kb/s. 0 to disable."
@@ -61,40 +55,40 @@ msgid "Limit send speed. Value is Kb/s. 0 to disable."
 msgstr ""
 
 msgid "Listen Address"
-msgstr ""
+msgstr "Adres nasłuchu"
 
 msgid "Listen Port"
-msgstr ""
+msgstr "Port nasłuchu "
 
 msgid "Max Receive"
-msgstr ""
+msgstr "Maksymalne odbieranie"
 
 msgid "Max Send"
-msgstr ""
+msgstr "Maksymalne wysłanie"
 
 msgid "Open Web Interface"
-msgstr ""
+msgstr "Otwórz interfejs webowy"
 
 msgid "Path"
-msgstr ""
+msgstr "Ścieżka"
 
 msgid "Port to listen on."
-msgstr ""
+msgstr "Port do nasłuchu"
 
 msgid "Services"
-msgstr ""
+msgstr "Serwisy"
 
 msgid "Settings"
-msgstr ""
+msgstr "Ustawienia"
 
 msgid "Syncthing"
-msgstr ""
+msgstr "Synchronizowanie"
 
 msgid "Syncthing Users"
-msgstr ""
+msgstr "Użytkownik synchronizacji"
 
 msgid "UUID"
-msgstr ""
+msgstr "UUID"
 
 msgid "User"
-msgstr ""
+msgstr "Użytkownik"

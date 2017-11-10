@@ -1,15 +1,16 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
+# This file is distributed under the same license as the openmediavault-syncthing package.
 # 
 # Translators:
 # Falu <info@falu.me>, 2015
+# Gyuris Gellért <gellert.gyuris@gmail.com>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-syncthing\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-03-11 15:55-0600\n"
-"PO-Revision-Date: 2017-03-11 21:28+0000\n"
+"POT-Creation-Date: 2017-11-10 07:48-0600\n"
+"PO-Revision-Date: 2017-11-10 13:48+0000\n"
 "Last-Translator: Aaron Murray <aaronmurray27@gmail.com>\n"
 "Language-Team: Hungarian (Hungary) (http://www.transifex.com/openmediavault-plugin-developers/openmediavault-syncthing/language/hu_HU/)\n"
 "MIME-Version: 1.0\n"
@@ -19,17 +20,13 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "Add user"
-msgstr "Felhasználó hozzáadás"
+msgstr "Felhasználó hozzáadása"
 
 msgid "Edit user"
-msgstr "Felhasználó szerkesztés"
+msgstr "Felhasználó szerkesztése"
 
 msgid "Enable"
 msgstr "Engedélyez"
-
-msgid ""
-"Enable syncthing inotify.  Use inotify to detect changes almost instantly."
-msgstr ""
 
 msgid "Enabled"
 msgstr "Engedélyezve"
@@ -47,19 +44,16 @@ msgid "ID"
 msgstr "ID"
 
 msgid "IP address for GUI. Use 0.0.0.0 for all host IPs."
-msgstr "Grafikus felület IP címe. Használd a 0.0.0.0-t a kiszolgáló összes IP címéhez."
+msgstr "Grafikus felület IP címe. A 0.0.0.0 cím használható a kiszolgáló összes IP címéhez."
 
 msgid "IP address to listen on. Use 0.0.0.0 for all host IPs."
-msgstr "Figyelés ezen az IP címen. Használd a 0.0.0.0-t a kiszolgáló összes IP címéhez."
-
-msgid "Inotify"
-msgstr ""
+msgstr "Figyelés ezen az IP címen. A 0.0.0.0 cím használható a kiszolgáló összes IP címéhez."
 
 msgid "Limit receive speed. Value is Kb/s. 0 to disable."
-msgstr "Fogadás sebességének korlátozása. Érték Kb/s-ban. 0 a letiltáshoz."
+msgstr "Fogadási sebesség korlátozása. Érték Kb/s-ban. 0 a letiltáshoz."
 
 msgid "Limit send speed. Value is Kb/s. 0 to disable."
-msgstr "Küldés sebességének korlátozása. Érték Kb/s-ban. 0 a letiltáshoz."
+msgstr "Küldési sebesség korlátozása. Érték Kb/s-ban. 0 a letiltáshoz."
 
 msgid "Listen Address"
 msgstr "Figyelés cím"
@@ -68,10 +62,10 @@ msgid "Listen Port"
 msgstr "Figyelés port"
 
 msgid "Max Receive"
-msgstr "Max fogadás"
+msgstr "Max. fogadás"
 
 msgid "Max Send"
-msgstr "Max küldés"
+msgstr "Max. küldés"
 
 msgid "Open Web Interface"
 msgstr "Webes felület megnyitása"
@@ -95,7 +89,7 @@ msgid "Syncthing Users"
 msgstr "Syncthing felhasználók"
 
 msgid "UUID"
-msgstr ""
+msgstr "UUID"
 
 msgid "User"
 msgstr "Felhasználó"
