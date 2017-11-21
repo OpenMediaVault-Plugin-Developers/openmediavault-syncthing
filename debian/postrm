@@ -6,7 +6,11 @@ set -e
 . /usr/share/openmediavault/scripts/helper-functions
 
 case "$1" in
-    remove|purge)
+    purge)
+        omv_config_delete "/config/services/syncthing"
+    ;;
+
+    remove)
         if [ -f "/etc/sysctl.d/90openmediavault-syncthing" ]; then
             rm -f /etc/sysctl.d/90openmediavault-syncthing
         fi
