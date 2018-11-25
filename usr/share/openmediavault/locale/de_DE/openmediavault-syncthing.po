@@ -3,14 +3,15 @@
 # This file is distributed under the same license as the openmediavault-syncthing package.
 # 
 # Translators:
+# Micha K <pikim@web.de>, 2018
 # WastlJ, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: openmediavault-syncthing\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-11-10 07:48-0600\n"
-"PO-Revision-Date: 2017-11-10 13:48+0000\n"
-"Last-Translator: Aaron Murray <aaronmurray27@gmail.com>\n"
+"PO-Revision-Date: 2018-02-22 20:01+0000\n"
+"Last-Translator: Micha K <pikim@web.de>\n"
 "Language-Team: German (http://www.transifex.com/openmediavault-plugin-developers/openmediavault-syncthing/language/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -46,7 +47,7 @@ msgid "IP address for GUI. Use 0.0.0.0 for all host IPs."
 msgstr "IP Adresse für GUI. Benutze 0.0.0.0 für alle Host IPs."
 
 msgid "IP address to listen on. Use 0.0.0.0 for all host IPs."
-msgstr "IP Adresse, auf der gehorcht wird. Benutze 0.0.0.0 für alle Host IPs."
+msgstr "IP Adresse, auf der gelauscht wird. Benutze 0.0.0.0 für alle Host IPs."
 
 msgid "Limit receive speed. Value is Kb/s. 0 to disable."
 msgstr "Begrenze Empfangsgeschwindigkeit. Wert ist in Kb/s. 0 um dies zu deaktivieren"
@@ -55,28 +56,28 @@ msgid "Limit send speed. Value is Kb/s. 0 to disable."
 msgstr "Begrenze Sendegeschwindigkeit. Wert ist in Kb/s. 0 um dies zu deaktivieren"
 
 msgid "Listen Address"
-msgstr "IP Adresse, auf die gehorcht wird"
+msgstr "IP Adresse, auf die gelauscht wird"
 
 msgid "Listen Port"
-msgstr "Port, auf dem gehorcht wird"
+msgstr "Port, auf dem gelauscht wird"
 
 msgid "Max Receive"
-msgstr "Max. Empfang"
+msgstr "Max Empfang"
 
 msgid "Max Send"
-msgstr "Max. Senden"
+msgstr "Max Senden"
 
 msgid "Open Web Interface"
-msgstr "Öffne Web Interface"
+msgstr "Öffne Web-Interface"
 
 msgid "Path"
 msgstr "Pfad"
 
 msgid "Port to listen on."
-msgstr "Port, auf dem gehorcht wird."
+msgstr "Port, auf dem gelauscht wird."
 
 msgid "Services"
-msgstr "Services"
+msgstr "Dienste"
 
 msgid "Settings"
 msgstr "Einstellungen"
@@ -88,7 +89,7 @@ msgid "Syncthing Users"
 msgstr "Syncthing Benutzer"
 
 msgid "UUID"
-msgstr ""
+msgstr "UUID"
 
 msgid "User"
 msgstr "Benutzer"
